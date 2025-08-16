@@ -6,12 +6,16 @@ interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
   className?: string;
+  href?: string;
+  onClick?: () => void;
 }
 
 export const Logo: React.FC<LogoProps> = ({ 
   size = 'md', 
   showText = true, 
-  className = '' 
+  className = '',
+  href = '/',
+  onClick
 }) => {
   const sizes = {
     sm: { icon: 24, text: 'text-lg' },
@@ -22,8 +26,19 @@ export const Logo: React.FC<LogoProps> = ({
   const iconSize = sizes[size].icon;
   const textSize = sizes[size].text;
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else if (href) {
+      window.location.href = href;
+    }
+  };
+
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div 
+      className={`flex items-center gap-3 cursor-pointer transition-transform hover:scale-105 ${className}`}
+      onClick={handleClick}
+    >
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-sm opacity-30"></div>
         <div className="relative bg-gradient-primary p-2 rounded-2xl">
