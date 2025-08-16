@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PetInsureX Design System */
+/* PetInsureX Design System with Pet-Friendly Typography */
 
 @layer base {
   :root {
@@ -36,6 +36,139 @@
     --ring: 173 58% 39%;
 
     --radius: 0.5rem;
+  }
+
+  /* Pet-Friendly Base Typography with Professional Sizing */
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px; /* Base size for better readability */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 1, 'tnum' 0, 'onum' 1, 'lnum' 0, 'dlig' 0;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  /* Headings with balanced, professional sizing */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'dlig' 1;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: clamp(1.875rem, 4vw, 2.5rem); /* 30px-40px balanced */
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 1.875rem); /* 24px-30px balanced */
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem); /* 20px-24px balanced */
+    font-weight: 600;
+  }
+
+  /* Navigation and UI text sizing */
+  .text-nav {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .text-ui {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Button text sizing */
+  .text-button {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+
+  /* Pet-friendly button styling */
+  button {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  /* Brand elements use Comfortaa */
+  .brand-text {
+    font-family: 'Comfortaa', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Professional Typography Components */
+  .text-pet-friendly {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  .text-brand {
+    font-family: 'Comfortaa', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .text-display {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .text-body-friendly {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  /* Navigation-specific typography */
+  .text-nav-item {
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .text-nav-brand {
+    font-family: 'Comfortaa', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Button typography balanced */
+  .text-button-sm {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .text-button-md {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .text-button-lg {
+    font-size: 15px;
+    font-weight: 600;
   }
 
   /* Light mode optimized for pet insurance */
@@ -309,5 +442,29 @@
       opacity: 1; 
       transform: scale(1) translateY(0); 
     }
+  }
+
+  /* Custom scrollbar for modal content */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(6, 182, 212, 0.3) rgba(6, 182, 212, 0.1);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(6, 182, 212, 0.05);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.3);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.5);
   }
 }

@@ -109,7 +109,7 @@ const VetPortal = () => {
                   <Stethoscope size={32} className="text-white" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900">Veterinary Portal</h1>
+                  <h1 className="font-display text-2xl font-bold text-gray-900">Veterinary Portal</h1>
                   <p className="text-gray-600">Dr. Sarah Chen - Sunny Pet Clinic</p>
                   <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
                     <span className="flex items-center gap-1">
@@ -156,7 +156,7 @@ const VetPortal = () => {
           {/* Invoice Management */}
           <GlassCard className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Invoice Management</h2>
+              <h2 className="font-display text-xl font-semibold text-gray-900">Invoice Management</h2>
               <div className="flex items-center gap-3">
                 <select className="px-3 py-2 rounded-lg border border-gray-200 text-sm focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100">
                   <option>All Invoices</option>

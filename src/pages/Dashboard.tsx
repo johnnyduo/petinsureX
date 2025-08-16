@@ -88,7 +88,7 @@ const Dashboard = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">
               Welcome back, Jun! 👋
             </h1>
             <p className="text-gray-600">
@@ -122,7 +122,7 @@ const Dashboard = () => {
             <div className="lg:col-span-2 space-y-6">
               {/* Quick Actions with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <PawButton 
                     onClick={() => setShowClaimModal(true)}
@@ -147,7 +147,7 @@ const Dashboard = () => {
 
               {/* Recent Activity with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
                     <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30 border border-petinsure-teal-200/40 hover:border-petinsure-teal-300/60 transition-colors aura-teal-subtle">
@@ -181,7 +181,7 @@ const Dashboard = () => {
             <div className="space-y-6">
               {/* Pet Cards with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Pets</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Your Pets</h2>
                 <div className="space-y-4">
                   {pets.map((pet) => (
                     <div key={pet.id} className="p-4 rounded-xl bg-white/50 hover:bg-white/70 transition-colors border border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70 aura-teal-subtle">
@@ -217,7 +217,7 @@ const Dashboard = () => {
               <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
                 <div className="flex items-center gap-2 mb-4">
                   <Zap size={20} className="text-petinsure-teal-600" />
-                  <h2 className="text-xl font-semibold text-gray-900">AI Insights</h2>
+                  <h2 className="font-display text-xl font-semibold text-gray-900">AI Insights</h2>
                 </div>
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 hover:border-petinsure-teal-400/80 transition-colors aura-teal-subtle">

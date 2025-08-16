@@ -128,7 +128,7 @@ const Policies = () => {
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Insurance Policies</h1>
+                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Insurance Policies</h1>
                 <p className="text-gray-600">Manage your pet insurance coverage and benefits</p>
               </div>
               <PawButton onClick={() => setShowNewPolicyModal(true)}>
@@ -162,7 +162,7 @@ const Policies = () => {
 
           {/* Active Policies with enhanced borders and teal aura */}
           <GlassCard className="p-6 mb-8 aura-teal-prominent" borderStyle="prominent">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Active Policies</h2>
+            <h2 className="font-display text-xl font-semibold text-gray-900 mb-6">Your Active Policies</h2>
             <div className="space-y-6">
               {mockPolicies.map((policy) => {
                 const pet = mockPets.find(p => p.id === policy.petId);
@@ -177,7 +177,7 @@ const Policies = () => {
                         </div>
                         <div>
                           <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900">{policy.provider}</h3>
+                            <h3 className="font-display text-lg font-semibold text-gray-900">{policy.provider}</h3>
                             <span className={cn("px-3 py-1 rounded-full text-xs font-medium border", getStatusColor(policy.status))}>
                               {policy.status.charAt(0).toUpperCase() + policy.status.slice(1)}
                             </span>
@@ -293,7 +293,7 @@ const Policies = () => {
               )}>
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
+                    <h3 className="font-display text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
                     <p className="text-2xl font-bold text-petinsure-teal-600">{plan.price}</p>
                     <p className="text-sm text-gray-600">Coverage up to {plan.coverage}</p>
                   </div>

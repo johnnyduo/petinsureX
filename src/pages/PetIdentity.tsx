@@ -132,7 +132,7 @@ const PetIdentity = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Pet Identity & AI Analysis</h1>
+            <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Pet Identity & AI Analysis</h1>
             <p className="text-gray-600">Advanced AI-powered breed detection and unique identification scanning</p>
           </div>
 
@@ -168,7 +168,7 @@ const PetIdentity = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">{pet.name}</h3>
+                      <h3 className="font-display text-lg font-semibold text-gray-900">{pet.name}</h3>
                       <span className={cn(
                         "px-3 py-1 rounded-full text-xs font-medium",
                         pet.status === 'Verified' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
@@ -239,7 +239,7 @@ const PetIdentity = () => {
 
           {/* AI Features with enhanced borders and intense teal aura */}
           <GlassCard className="p-6 aura-teal-intense" borderStyle="prominent">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">AI-Powered Features</h2>
+            <h2 className="font-display text-xl font-semibold text-gray-900 mb-6">AI-Powered Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -395,7 +395,7 @@ const PetIdentity = () => {
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
                 <p className="text-gray-600">Our advanced AI is analyzing your pet's unique features</p>
               </div>
 
@@ -438,7 +438,7 @@ const PetIdentity = () => {
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle size={40} className="text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Scan Complete!</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">Scan Complete!</h3>
                 <p className="text-gray-600">AI analysis has identified your pet with high confidence</p>
               </div>
 

@@ -195,7 +195,7 @@ const AIAssistant = () => {
                 <Brain size={24} className="text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">AI Assistant</h1>
+                <h1 className="font-display text-2xl font-bold text-gray-900">AI Assistant</h1>
                 <p className="text-gray-600">Powered by advanced AI for intelligent pet insurance support</p>
               </div>
             </div>
@@ -382,7 +382,7 @@ const AIAssistant = () => {
             <div className="space-y-6">
               {/* Quick Actions with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   {quickActions.map((action, index) => (
                     <button
@@ -403,7 +403,7 @@ const AIAssistant = () => {
 
               {/* AI Capabilities with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
-                <h3 className="font-semibold text-gray-900 mb-4">AI Capabilities</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">AI Capabilities</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Brain size={16} className="text-petinsure-teal-600 mt-1" />
@@ -441,7 +441,7 @@ const AIAssistant = () => {
 
               {/* Recent Topics with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h3 className="font-semibold text-gray-900 mb-4">Recent Topics</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Recent Topics</h3>
                 <div className="space-y-2">
                   {[
                     'Claim processing timeline',

@@ -128,7 +128,7 @@ const Claims = () => {
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Claims</h1>
+                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Claims</h1>
                 <p className="text-gray-600">Manage your insurance claims with AI-powered processing</p>
               </div>
               <PawButton onClick={() => setShowNewClaimModal(true)}>
@@ -162,7 +162,7 @@ const Claims = () => {
 
           {/* Claims List with enhanced borders and teal aura */}
           <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent Claims</h2>
+            <h2 className="font-display text-xl font-semibold text-gray-900 mb-6">Recent Claims</h2>
             <div className="space-y-4">
               {mockClaims.map((claim) => {
                 const pet = mockPets.find(p => p.id === claim.petId);
@@ -301,7 +301,7 @@ const Claims = () => {
           {currentStep === 1 && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload Documents</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Upload Documents</h3>
                 <FileUploader
                   onFilesChange={setUploadedFiles}
                   accept="image/*,.pdf"
@@ -320,7 +320,7 @@ const Claims = () => {
                 <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Brain size={32} className="text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
                 <p className="text-gray-600 mb-6">Our AI is analyzing your documents and verifying pet identity</p>
                 
                 <div className="space-y-4 max-w-md mx-auto">
@@ -360,7 +360,7 @@ const Claims = () => {
 
           {currentStep === 3 && (
             <div className="space-y-6">
-              <h3 className="text-lg font-semibold text-gray-900">Review Your Claim</h3>
+              <h3 className="font-display text-lg font-semibold text-gray-900">Review Your Claim</h3>
               
               <div className="grid grid-cols-2 gap-6">
                 <div>

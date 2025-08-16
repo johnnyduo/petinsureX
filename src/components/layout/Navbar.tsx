@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
-import { Menu, X, User, Bell, Shield, FileText, Camera, Brain, Plus, Settings, LogOut } from 'lucide-react';
+import { Menu, X, User, Shield, FileText, Camera, Brain, Plus, Settings, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -13,7 +13,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [showQuickClaimModal, setShowQuickClaimModal] = useState(false);
 
   // Consolidated navigation - removed Vet Portal, cleaner structure
@@ -23,13 +22,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
     { name: 'Policies', href: '/policies', icon: Shield },
     { name: 'Pet ID', href: '/pet-identity', icon: Camera }, // Shortened name
     { name: 'AI Assistant', href: '/ai-chat', icon: Brain }
-  ];
-
-  // Mock notifications
-  const notifications = [
-    { id: 1, type: 'claim', message: 'Claim #CLM-001 has been approved', time: '2 min ago', unread: true },
-    { id: 2, type: 'policy', message: 'Policy renewal reminder - 7 days left', time: '1 hour ago', unread: true },
-    { id: 3, type: 'update', message: 'New AI features available', time: '2 hours ago', unread: false },
   ];
 
   if (!showNavigation) return null;
@@ -42,13 +34,13 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
             <div className="flex items-center justify-between h-16">
               <Logo size="md" />
               
-              {/* Desktop Navigation - More compact */}
-              <nav className="hidden md:flex items-center space-x-1">
+              {/* Desktop Navigation with balanced typography */}
+              <nav className="hidden md:flex items-center space-x-2">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10 font-medium transition-all duration-200 group"
+                    className="text-nav-item flex items-center gap-2 px-3 py-2 rounded-xl text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10 transition-all duration-200 group"
                   >
                     <item.icon size={16} className="group-hover:scale-110 transition-transform" />
                     {item.name}
@@ -56,20 +48,13 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                 ))}
               </nav>
 
-              {/* Right side actions - More compact */}
-              <div className="hidden md:flex items-center gap-2">
-                <button 
-                  onClick={() => setShowNotificationModal(true)}
-                  className="relative p-2 text-gray-500 hover:text-petinsure-teal-600 transition-colors rounded-full hover:bg-white/10"
-                >
-                  <Bell size={18} />
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-                </button>
-                
+              {/* Right side actions with consistent sizing */}
+              <div className="hidden md:flex items-center gap-3">
                 <PawButton 
                   variant="ghost" 
                   size="sm"
                   onClick={() => setShowProfileModal(true)}
+                  className="text-button-sm"
                 >
                   <User size={14} />
                   Profile
@@ -78,6 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                 <PawButton 
                   size="sm"
                   onClick={() => setShowQuickClaimModal(true)}
+                  className="text-button-sm"
                 >
                   <Plus size={14} />
                   Quick Claim
@@ -171,34 +157,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
               Sign Out
             </button>
           </div>
-        </div>
-      </Modal>
-
-      {/* Notification Modal - Compact size */}
-      <Modal
-        isOpen={showNotificationModal}
-        onClose={() => setShowNotificationModal(false)}
-        title="Notifications"
-        size="md"
-      >
-        <div className="space-y-3 max-h-96 overflow-y-auto">
-          {notifications.map((notification) => (
-            <div 
-              key={notification.id} 
-              className={cn(
-                "p-4 rounded-xl border transition-all duration-200 hover:bg-gray-50",
-                notification.unread ? "border-petinsure-teal-200 bg-petinsure-teal-50" : "border-gray-200"
-              )}
-            >
-              <p className="text-sm font-medium text-gray-900">{notification.message}</p>
-              <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 pt-4 border-t">
-          <button className="w-full p-2 text-center text-sm text-petinsure-teal-600 hover:text-petinsure-teal-700">
-            Mark all as read
-          </button>
         </div>
       </Modal>
 

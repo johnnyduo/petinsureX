@@ -18,9 +18,9 @@ export const Logo: React.FC<LogoProps> = ({
   onClick
 }) => {
   const sizes = {
-    sm: { icon: 24, text: 'text-lg' },
-    md: { icon: 32, text: 'text-xl' },
-    lg: { icon: 40, text: 'text-2xl' }
+    sm: { icon: 20, text: 'text-nav-brand text-sm' },
+    md: { icon: 24, text: 'text-nav-brand text-base' },
+    lg: { icon: 32, text: 'text-brand text-lg' }
   };
 
   const iconSize = sizes[size].icon;
@@ -54,10 +54,10 @@ export const Logo: React.FC<LogoProps> = ({
       </div>
       {showText && (
         <div className="flex flex-col">
-          <span className={`font-bold bg-gradient-primary bg-clip-text text-transparent ${textSize}`}>
+          <span className={`font-brand font-bold bg-gradient-primary bg-clip-text text-transparent ${textSize}`}>
             PetInsureX
           </span>
-          <span className="text-xs text-gray-500 -mt-1">
+          <span className="text-xs text-gray-500 -mt-0.5 font-display font-medium">
             AI-Powered Protection
           </span>
         </div>

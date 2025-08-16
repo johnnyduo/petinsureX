@@ -89,15 +89,15 @@ const Index = () => {
           <div className="text-center mb-16">
             <Logo size="lg" className="justify-center mb-8" />
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 AI-Powered
               </span>
               <br />
-              Pet Insurance
+              <span className="font-brand">Pet Insurance</span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-body-friendly text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Revolutionary pet insurance with computer vision identity verification, 
               fraud detection, and zero-knowledge privacy proofs. 
               Powered by SEA-LION AI for lightning-fast, accurate claims processing.
@@ -150,10 +150,10 @@ const Index = () => {
       <section className="py-20 bg-white/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="font-display text-2xl font-bold text-gray-900 mb-4">
               Revolutionary Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-body-friendly text-lg text-gray-600 max-w-2xl mx-auto">
               Cutting-edge technology meets pet care with our advanced AI-powered platform
             </p>
           </div>
@@ -164,10 +164,10 @@ const Index = () => {
                 <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <feature.icon size={28} className="text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-display text-lg font-semibold text-gray-900 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-body-friendly text-gray-600 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </GlassCard>
@@ -180,7 +180,7 @@ const Index = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="font-display text-2xl font-bold text-gray-900 mb-4">
               How It Works
             </h2>
             <p className="text-xl text-gray-600">
@@ -215,7 +215,7 @@ const Index = () => {
                   <div className="text-sm font-medium text-petinsure-teal-600 mb-2">
                     STEP {item.step}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">
                     {item.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
@@ -238,7 +238,7 @@ const Index = () => {
       <section className="py-20 bg-white/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="font-display text-2xl font-bold text-gray-900 mb-4">
               Loved by Pet Owners & Vets
             </h2>
             <p className="text-xl text-gray-600">

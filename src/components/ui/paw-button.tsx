@@ -12,7 +12,7 @@ interface PawButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const PawButton = React.forwardRef<HTMLButtonElement, PawButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading = false, disabled, children, ...props }, ref) => {
-    const baseStyles = "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+    const baseStyles = "inline-flex items-center justify-center gap-2 font-display transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
     
     const variants = {
       primary: "btn-paw-primary focus:ring-petinsure-teal-400",
@@ -22,9 +22,9 @@ const PawButton = React.forwardRef<HTMLButtonElement, PawButtonProps>(
     };
 
     const sizes = {
-      sm: "px-4 py-2 text-sm min-h-[36px]",
-      md: "px-6 py-3 text-base min-h-[44px]",
-      lg: "px-8 py-4 text-lg min-h-[52px]"
+      sm: "px-3 py-2 text-button-sm min-h-[36px] rounded-full",
+      md: "px-4 py-2.5 text-button-md min-h-[40px] rounded-full",
+      lg: "px-6 py-3 text-button-lg min-h-[44px] rounded-full"
     };
 
     return (

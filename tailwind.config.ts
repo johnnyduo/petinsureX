@@ -127,6 +127,13 @@ export default {
 				'scale-in': 'scale-in 0.2s ease-out',
 				'paw-bounce': 'paw-bounce 0.6s ease-in-out infinite',
 				'gradient-shift': 'gradient-shift 3s ease-in-out infinite'
+			},
+			fontFamily: {
+				// Pet-Friendly Font System
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'display': ['Nunito', 'system-ui', 'sans-serif'], // Warm, rounded headings
+				'brand': ['Comfortaa', 'system-ui', 'sans-serif'], // Logo and special emphasis
+				'body': ['Inter', 'system-ui', 'sans-serif'], // Clean body text
 			}
 		}
 	},
