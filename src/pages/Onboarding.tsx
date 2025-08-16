@@ -356,13 +356,13 @@ const Onboarding = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-petinsure-blue-50 via-white to-petinsure-teal-50 pt-4 pb-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               Pet Registration
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Let's get your furry friend protected with AI-powered insurance.
             </p>
           </div>
@@ -371,32 +371,32 @@ const Onboarding = () => {
             steps={steps}
             currentStep={currentStep}
             completedSteps={completedSteps}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           />
 
-          <GlassCard className="p-8">
+          <GlassCard className="p-4 sm:p-8">
             {renderStepContent()}
 
             {/* Navigation */}
-            <div className="flex justify-between items-center mt-8 pt-6 border-t border-white/20">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/20 gap-4 sm:gap-0">
               <PawButton
                 variant="ghost"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-full sm:w-auto order-2 sm:order-1"
               >
                 <ChevronLeft size={16} />
                 Previous
               </PawButton>
 
-              <div className="text-sm text-gray-500">
+              <div className="text-xs sm:text-sm text-gray-500 order-1 sm:order-2">
                 Step {currentStep + 1} of {steps.length}
               </div>
 
               <PawButton
                 onClick={handleNext}
                 disabled={currentStep === steps.length - 1}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-full sm:w-auto order-3"
               >
                 {currentStep === steps.length - 2 ? 'Complete' : 'Next'}
                 <ChevronRight size={16} />

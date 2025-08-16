@@ -333,7 +333,7 @@ const Policies = () => {
           isOpen={!!showPolicyDetails}
           onClose={() => setShowPolicyDetails(null)}
           title="Policy Details"
-          size="xl"
+          size="lg"
         >
           {(() => {
             const policy = mockPolicies.find(p => p.id === showPolicyDetails);
@@ -343,9 +343,9 @@ const Policies = () => {
 
             return (
               <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-4">Policy Information</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4 text-lg sm:text-xl">Policy Information</h3>
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Policy Number:</span>

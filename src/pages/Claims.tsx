@@ -450,7 +450,7 @@ const Claims = () => {
           isOpen={!!showClaimDetails}
           onClose={() => setShowClaimDetails(null)}
           title="Claim Details"
-          size="xl"
+          size="lg"
         >
           {(() => {
             const claim = mockClaims.find(c => c.id === showClaimDetails);
@@ -460,9 +460,9 @@ const Claims = () => {
 
             return (
               <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-4 text-xl">Basic Information</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4 text-lg sm:text-xl">Basic Information</h3>
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Claim ID:</span>
