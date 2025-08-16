@@ -106,28 +106,79 @@ const PetIdentity = () => {
   const startCamera = useCallback(async () => {
     try {
       setCameraError('');
-      const stream = await navigator.mediaDevices.getUserMedia({ 
+      setIsCameraActive(false);
+      
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setCameraError('Camera access is not supported in this browser.');
+        return;
+      }
+
+      const constraints = { 
         video: { 
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          width: { ideal: 1280, min: 640 },
+          height: { ideal: 720, min: 480 },
           facingMode: 'environment' // Use back camera on mobile
         },
         audio: scanType === 'video' // Only include audio for video
-      });
+      };
+
+      console.log('Requesting camera access with constraints:', constraints);
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      console.log('Camera stream acquired:', stream);
       
       setCameraStream(stream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current?.play();
+        
+        // Add multiple event listeners to ensure proper loading
+        const handleLoadedMetadata = () => {
+          console.log('Video metadata loaded, attempting to play...');
+          videoRef.current?.play()
+            .then(() => {
+              console.log('Video playback started successfully');
+              setIsCameraActive(true);
+            })
+            .catch((error) => {
+              console.error('Video play error:', error);
+              setCameraError('Failed to start video playback.');
+            });
+        };
+
+        const handleCanPlay = () => {
+          console.log('Video can play');
           setIsCameraActive(true);
         };
+
+        videoRef.current.onloadedmetadata = handleLoadedMetadata;
+        videoRef.current.oncanplay = handleCanPlay;
+        
+        // Force load in case the events don't fire
+        setTimeout(() => {
+          if (videoRef.current && !isCameraActive) {
+            console.log('Forcing video load...');
+            videoRef.current.load();
+          }
+        }, 1000);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Camera access error:', error);
-      setCameraError('Unable to access camera. Please check permissions and try again.');
+      let errorMessage = 'Unable to access camera. ';
+      
+      if (error.name === 'NotAllowedError') {
+        errorMessage += 'Please allow camera permissions and try again.';
+      } else if (error.name === 'NotFoundError') {
+        errorMessage += 'No camera found on this device.';
+      } else if (error.name === 'NotReadableError') {
+        errorMessage += 'Camera is already in use by another application.';
+      } else {
+        errorMessage += 'Please check permissions and try again.';
+      }
+      
+      setCameraError(errorMessage);
     }
-  }, [scanType]);
+  }, [scanType, isCameraActive]);
 
   const stopCamera = useCallback(() => {
     if (cameraStream) {
@@ -475,18 +526,42 @@ const PetIdentity = () => {
                           Upload Photos
                         </PawButton>
                       </div>
+
+                      {/* Debug info for camera issues */}
+                      <div className="text-xs text-gray-500 space-y-1">
+                        <div>Camera Support: {navigator.mediaDevices ? '✅ Available' : '❌ Not Available'}</div>
+                        <div>getUserMedia: {navigator.mediaDevices?.getUserMedia ? '✅ Supported' : '❌ Not Supported'}</div>
+                        <div>HTTPS/Localhost: {location.protocol === 'https:' || location.hostname === 'localhost' ? '✅ Secure' : '❌ Requires HTTPS'}</div>
+                      </div>
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                      <div className="relative aspect-video bg-black rounded-xl overflow-hidden border border-gray-300">
                         <video
                           ref={videoRef}
                           className="w-full h-full object-cover"
                           autoPlay
                           muted
                           playsInline
+                          style={{ transform: 'scaleX(-1)' }} // Mirror the video for selfie-like experience
                         />
-                        <div className="absolute inset-0 border-2 border-dashed border-white/50 rounded-xl pointer-events-none"></div>
+                        
+                        {/* Camera guidelines overlay */}
+                        <div className="absolute inset-4 border-2 border-dashed border-white/70 rounded-xl pointer-events-none">
+                          <div className="absolute top-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-xs">
+                            {isCameraActive ? 'Camera Active' : 'Starting Camera...'}
+                          </div>
+                        </div>
+
+                        {/* Loading spinner when camera is starting */}
+                        {!isCameraActive && (
+                          <div className="absolute inset-0 bg-gray-900/50 flex items-center justify-center">
+                            <div className="text-center text-white">
+                              <RefreshCw size={32} className="mx-auto mb-2 animate-spin" />
+                              <p className="text-sm">Starting camera...</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       
                       <div className="flex gap-3">
@@ -568,21 +643,48 @@ const PetIdentity = () => {
                         <Camera size={16} />
                         Start Camera
                       </PawButton>
+
+                      {/* Debug info for camera issues */}
+                      <div className="text-xs text-gray-500 space-y-1 mt-4">
+                        <div>Camera Support: {navigator.mediaDevices ? '✅ Available' : '❌ Not Available'}</div>
+                        <div>getUserMedia: {navigator.mediaDevices?.getUserMedia ? '✅ Supported' : '❌ Not Supported'}</div>
+                        <div>HTTPS/Localhost: {location.protocol === 'https:' || location.hostname === 'localhost' ? '✅ Secure' : '❌ Requires HTTPS'}</div>
+                      </div>
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                      <div className="relative aspect-video bg-black rounded-xl overflow-hidden border border-gray-300">
                         <video
                           ref={videoRef}
                           className="w-full h-full object-cover"
                           autoPlay
                           muted
                           playsInline
+                          style={{ transform: 'scaleX(-1)' }} // Mirror the video for selfie-like experience
                         />
+                        
+                        {/* Recording indicator */}
                         {isRecording && (
-                          <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                          <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                            <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
                             REC
+                          </div>
+                        )}
+
+                        {/* Camera guidelines overlay */}
+                        <div className="absolute inset-4 border-2 border-dashed border-white/70 rounded-xl pointer-events-none">
+                          <div className="absolute top-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-xs">
+                            {isCameraActive ? 'Camera Active' : 'Starting Camera...'}
+                          </div>
+                        </div>
+
+                        {/* Loading spinner when camera is starting */}
+                        {!isCameraActive && (
+                          <div className="absolute inset-0 bg-gray-900/50 flex items-center justify-center">
+                            <div className="text-center text-white">
+                              <RefreshCw size={32} className="mx-auto mb-2 animate-spin" />
+                              <p className="text-sm">Starting camera...</p>
+                            </div>
                           </div>
                         )}
                       </div>
