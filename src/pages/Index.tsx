@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Logo } from '@/components/common/Logo';
@@ -105,15 +104,19 @@ const Index = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <PawButton size="lg" className="group">
-                {UI_COPY.CTA}
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </PawButton>
+              <a href="/onboarding">
+                <PawButton size="lg" className="group">
+                  {UI_COPY.CTA}
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </PawButton>
+              </a>
               
-              <PawButton variant="ghost" size="lg" className="group">
-                <Play size={20} className="group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </PawButton>
+              <a href="/dashboard">
+                <PawButton variant="ghost" size="lg" className="group">
+                  <Play size={20} className="group-hover:scale-110 transition-transform" />
+                  Try Demo
+                </PawButton>
+              </a>
             </div>
 
             {/* Stats */}
