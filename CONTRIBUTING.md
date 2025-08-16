@@ -200,6 +200,5 @@ docs(readme): update installation instructions
 Don't hesitate to ask questions by:
 - Creating an issue with the `question` label
 - Joining our Discord community
-- Emailing us at dev@petinsurex.com
 
 Thank you for contributing to PetInsureX! 🐾

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heart, Shield } from 'lucide-react';
 
 interface LogoProps {
@@ -17,6 +18,8 @@ export const Logo: React.FC<LogoProps> = ({
   href = '/',
   onClick
 }) => {
+  const navigate = useNavigate();
+  
   const sizes = {
     sm: { icon: 20, text: 'text-nav-brand text-sm' },
     md: { icon: 24, text: 'text-nav-brand text-base' },
@@ -30,7 +33,7 @@ export const Logo: React.FC<LogoProps> = ({
     if (onClick) {
       onClick();
     } else if (href) {
-      window.location.href = href;
+      navigate(href);
     }
   };
 

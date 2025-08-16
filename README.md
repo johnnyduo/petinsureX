@@ -153,7 +153,6 @@ Create a `.env.local` file for local development:
 ```bash
 VITE_API_BASE_URL=http://localhost:3000/api
 VITE_ENABLE_MOCK_DATA=true
-VITE_AI_SERVICE_URL=https://api.petinsurex.com/ai
 ```
 
 ## 🚀 Deployment
@@ -223,8 +222,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Documentation**: [https://docs.petinsurex.com](https://docs.petinsurex.com)
-- **Email Support**: support@petinsurex.com
 - **Community**: [Discord](https://discord.gg/petinsurex)
 - **Issues**: [GitHub Issues](https://github.com/johnnyduo/pet-pal-guard/issues)
 

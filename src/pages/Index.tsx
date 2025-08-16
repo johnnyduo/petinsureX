@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
@@ -104,19 +105,19 @@ const Index = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <a href="/onboarding">
+              <Link to="/onboarding">
                 <PawButton size="lg" className="group">
                   {UI_COPY.CTA}
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </PawButton>
-              </a>
+              </Link>
               
-              <a href="/dashboard">
+              <Link to="/dashboard">
                 <PawButton variant="ghost" size="lg" className="group">
                   <Play size={20} className="group-hover:scale-110 transition-transform" />
                   Try Demo
                 </PawButton>
-              </a>
+              </Link>
             </div>
 
             {/* Stats */}

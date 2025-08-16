@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
@@ -60,14 +61,14 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
               {/* Desktop Navigation with balanced typography */}
               <nav className="hidden md:flex items-center space-x-2">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="text-nav-item flex items-center gap-2 px-3 py-2 rounded-xl text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10 transition-all duration-200 group"
                   >
                     <item.icon size={16} className="group-hover:scale-110 transition-transform" />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
 
@@ -154,15 +155,15 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
             <div className="md:hidden border-t border-white/20 bg-white/5 backdrop-blur-glass">
               <div className="px-4 py-4 space-y-2">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10 font-medium transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon size={16} />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
                 <div className="pt-4 border-t border-white/20 space-y-2">
                   <div className="w-full">
