@@ -2,7 +2,7 @@
 import React from 'react';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
-import { Menu, X, User, Bell, Shield, FileText, Camera, Brain, Settings } from 'lucide-react';
+import { Menu, X, User, Bell, Shield, FileText, Camera, Brain, Settings, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -16,7 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
     { name: 'Dashboard', href: '/dashboard', icon: User },
     { name: 'Claims', href: '/claims', icon: FileText },
     { name: 'Policies', href: '/policies', icon: Shield },
-    { name: 'Pet Identity', href: '/onboarding', icon: Camera },
+    { name: 'Pet Identity', href: '/pet-identity', icon: Camera },
     { name: 'AI Assistant', href: '/ai-chat', icon: Brain },
     { name: 'Vet Portal', href: '/vet', icon: Settings }
   ];
@@ -54,6 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                 Profile
               </PawButton>
               <PawButton size="sm">
+                <Plus size={16} />
                 Quick Claim
               </PawButton>
             </div>
@@ -77,6 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                   key={item.name}
                   href={item.href}
                   className="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10 font-medium transition-all duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   <item.icon size={18} />
                   {item.name}
@@ -88,6 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                   Profile
                 </PawButton>
                 <PawButton size="sm" className="w-full">
+                  <Plus size={16} />
                   Quick Claim
                 </PawButton>
               </div>
