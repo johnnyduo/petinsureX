@@ -19,7 +19,10 @@ import {
   Bot,
   Image as ImageIcon,
   Upload,
-  RefreshCw
+  RefreshCw,
+  Stethoscope,
+  Calendar,
+  Receipt
 } from 'lucide-react';
 
 interface Message {
@@ -54,18 +57,18 @@ const AIAssistant = () => {
     { icon: Shield, label: 'Check Policy Coverage', prompt: 'What does my policy cover for emergencies?' },
     { icon: FileText, label: 'Claim Status', prompt: 'What is the status of my recent claim?' },
     { icon: Heart, label: 'Pet Health Advice', prompt: 'My pet is showing unusual symptoms, what should I do?' },
-    { icon: Brain, label: 'Fraud Analysis', prompt: 'Can you analyze this invoice for potential fraud?' },
-    { icon: Zap, label: 'Policy Recommendations', prompt: 'What policy changes would you recommend for my pet?' },
-    { icon: Camera, label: 'Photo Analysis', prompt: 'Analyze this photo of my pet for health concerns' }
+    { icon: Stethoscope, label: 'Find Veterinarian', prompt: 'Help me find qualified veterinarians in my area' },
+    { icon: Calendar, label: 'Schedule Vet Visit', prompt: 'I need to schedule a veterinary appointment for my pet' },
+    { icon: Receipt, label: 'Review Invoice', prompt: 'Please analyze this vet invoice for accuracy and potential fraud' }
   ];
 
   const mockResponses = [
     "Based on your Premium policy, emergency treatments are covered up to ₿100,000 annually with a ₿500 deductible. Your current claim shows high pet identity match (94%) and low fraud risk (15%), which typically results in faster processing.",
     "Your claim #001 is currently under review. Our AI analysis shows: ✅ Pet identity verified (94% confidence) ✅ Low fraud risk (15%) ✅ Vet attestation valid. Expected processing time: 2-3 business days.",
     "If your pet is showing unusual symptoms, I recommend: 1) Monitor for 24 hours and document symptoms 2) Contact your vet if symptoms persist 3) Take photos if there are visible changes 4) Keep receipts for potential claims. Would you like me to help you find nearby emergency vets?",
-    "I've analyzed the uploaded invoice. Fraud risk assessment: ⚠️ Medium risk (45%) due to: • Amount exceeds typical treatment costs • Clinic not in verified network • Recent similar claims detected. Recommendation: Request vet attestation and provide additional documentation.",
-    "Based on your pet's age (3 years) and breed (Golden Retriever), I recommend: 1) Adding hereditary condition coverage 2) Increasing annual limit to ₿150,000 3) Consider wellness add-on for preventive care. Golden Retrievers are prone to hip dysplasia and eye conditions.",
-    "I've analyzed your pet's photo using computer vision. Health indicators: ✅ Clear, bright eyes ✅ Healthy coat condition ✅ Normal posture ⚠️ Slight asymmetry in ear position - monitor for potential ear infection. Overall assessment: Healthy with minor monitoring needed."
+    "I found 5 qualified veterinarians near you: 🏥 Bangkok Pet Hospital (4.8★, 2km away, Emergency 24/7) 🏥 Thonglor Animal Clinic (4.9★, 3km away, Specialist care) 🏥 Sukhumvit Vet Center (4.7★, 1.5km away, Preventive care). Would you like contact details or directions?",
+    "I can help you schedule a vet appointment. Based on your pet's history and symptoms, I recommend: • General checkup within 1-2 days • Bring recent medical records • Prepare a list of current symptoms • Budget estimate: ₿2,000-₿4,000. Would you like me to call Bangkok Pet Hospital for availability?",
+    "I've analyzed the veterinary invoice for accuracy: ✅ Treatment costs within normal range ✅ Clinic is verified network partner ✅ No duplicate charges detected ⚠️ Minor concern: Pre-medication fee seems high (₿800 vs typical ₿400-₿600). Fraud risk: Low (12%). Recommendation: Proceed with claim submission."
   ];
 
   // Auto-scroll to bottom with improved performance

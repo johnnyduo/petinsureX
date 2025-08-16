@@ -22,11 +22,11 @@ export const Modal: React.FC<ModalProps> = ({
   className
 }) => {
   const sizeClasses = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
-    full: 'max-w-7xl'
+    sm: 'max-w-sm',      // ~384px - notifications, confirmations
+    md: 'max-w-md',      // ~448px - forms, profiles  
+    lg: 'max-w-lg',      // ~512px - detailed forms
+    xl: 'max-w-2xl',     // ~672px - complex workflows
+    full: 'max-w-4xl'    // ~896px - dashboards, reports
   };
 
   if (!isOpen) return null;
@@ -47,7 +47,7 @@ export const Modal: React.FC<ModalProps> = ({
       {/* Modal with improved z-index and animation */}
       <div
         className={cn(
-          "relative w-full modal-content-glass",
+          "relative w-full modal-content-glass max-h-[90vh] overflow-hidden",
           sizeClasses[size],
           className
         )}
@@ -58,7 +58,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         <GlassCard 
           variant="glass"
-          className="overflow-hidden"
+          className="overflow-hidden flex flex-col max-h-[90vh]"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(24px)',
@@ -68,20 +68,23 @@ export const Modal: React.FC<ModalProps> = ({
         >
           {/* Header */}
           {title && (
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+            <div className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
+              <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200"
+                className="p-1.5 hover:bg-white/20 rounded-full transition-colors duration-200"
                 aria-label="Close modal"
               >
-                <X size={20} className="text-gray-600" />
+                <X size={16} className="text-gray-600" />
               </button>
             </div>
           )}
           
-          {/* Content */}
-          <div className="p-6">
+          {/* Content with scrollable area */}
+          <div className={cn(
+            "flex-1 overflow-y-auto",
+            title ? 'p-4' : 'p-4'
+          )}>
             {children}
           </div>
         </GlassCard>

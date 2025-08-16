@@ -275,12 +275,12 @@ const Policies = () => {
         </div>
       </div>
 
-      {/* New Policy Modal */}
+      {/* New Policy Modal - Fixed size */}
       <Modal
         isOpen={showNewPolicyModal}
         onClose={() => setShowNewPolicyModal(false)}
         title="Choose Your Coverage Plan"
-        size="xl"
+        size="lg"
       >
         <div className="space-y-6">
           <p className="text-gray-600">Select the best insurance plan for your pet's needs</p>

@@ -215,7 +215,7 @@ const Claims = () => {
         </div>
       </div>
 
-      {/* New Claim Modal */}
+      {/* New Claim Modal - Fixed size for better UX */}
       <Modal
         isOpen={showNewClaimModal}
         onClose={() => {
@@ -224,28 +224,28 @@ const Claims = () => {
           setUploadedFiles([]);
         }}
         title="Submit New Claim"
-        size="xl"
+        size="lg"
       >
-        <div className="space-y-6">
-          {/* Progress Steps */}
-          <div className="flex items-center justify-between mb-8">
+        <div className="space-y-4">
+          {/* Compact Progress Steps */}
+          <div className="flex items-center justify-between mb-6">
             {steps.map((step, index) => (
               <div key={index} className="flex items-center">
                 <div className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium",
+                  "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium",
                   index <= currentStep ? "bg-gradient-primary text-white" : "bg-gray-200 text-gray-600"
                 )}>
                   {index + 1}
                 </div>
                 <span className={cn(
-                  "ml-2 text-sm font-medium",
+                  "ml-1.5 text-xs font-medium hidden sm:block",
                   index <= currentStep ? "text-gray-900" : "text-gray-500"
                 )}>
                   {step}
                 </span>
                 {index < steps.length - 1 && (
                   <div className={cn(
-                    "w-16 h-0.5 mx-4",
+                    "w-8 sm:w-12 h-0.5 mx-2 sm:mx-3",
                     index < currentStep ? "bg-gradient-primary" : "bg-gray-200"
                   )} />
                 )}
@@ -253,24 +253,24 @@ const Claims = () => {
             ))}
           </div>
 
-          {/* Step Content */}
+          {/* Step Content - More compact */}
           {currentStep === 0 && (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-3">Select Pet</label>
-                <div className="grid grid-cols-2 gap-4">
+                <label className="block text-sm font-medium text-gray-900 mb-2">Select Pet</label>
+                <div className="grid grid-cols-1 gap-2">
                   {mockPets.map((pet) => (
                     <button
                       key={pet.id}
-                      className="p-4 rounded-xl border border-gray-200 hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50 transition-all text-left group"
+                      className="p-3 rounded-xl border border-gray-200 hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50 transition-all text-left group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
                           {pet.name.charAt(0)}
                         </div>
                         <div>
                           <p className="font-medium text-gray-900 group-hover:text-petinsure-teal-900">{pet.name}</p>
-                          <p className="text-sm text-gray-600">{pet.breed} • {Math.floor(pet.ageMonths / 12)} years</p>
+                          <p className="text-xs text-gray-600">{pet.breed} • {Math.floor(pet.ageMonths / 12)} years</p>
                         </div>
                       </div>
                     </button>
@@ -281,8 +281,8 @@ const Claims = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-2">Claim Description</label>
                 <textarea
-                  rows={4}
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  rows={3}
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-sm"
                   placeholder="Describe the condition, symptoms, and treatment received..."
                 />
               </div>

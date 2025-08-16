@@ -272,7 +272,7 @@ const PetIdentity = () => {
         </div>
       </div>
 
-      {/* AI Scan Modal */}
+      {/* AI Scan Modal - Fixed size */}
       <Modal
         isOpen={showScanModal}
         onClose={() => {
@@ -282,7 +282,7 @@ const PetIdentity = () => {
           setScanResults(null);
         }}
         title="AI Pet Identity Scan"
-        size="xl"
+        size="lg"
       >
         <div className="space-y-6">
           {!scanResults && !isScanning && (
