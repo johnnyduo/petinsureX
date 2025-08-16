@@ -60,6 +60,7 @@ const Claims = () => {
       status: 'paid',
       amount: 3500,
       description: 'Routine vaccination and health check',
+      injuryPhotos: [],
       proofs: [
         { id: 'proof-3', type: 'vet_attestation', status: 'valid', createdAt: '2024-01-10T10:00:00Z' }
       ],
