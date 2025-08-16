@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
@@ -68,17 +68,32 @@ const AIAssistant = () => {
     "I've analyzed your pet's photo using computer vision. Health indicators: ✅ Clear, bright eyes ✅ Healthy coat condition ✅ Normal posture ⚠️ Slight asymmetry in ear position - monitor for potential ear infection. Overall assessment: Healthy with minor monitoring needed."
   ];
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Auto-scroll to bottom with improved performance
+  const scrollToBottom = useCallback(() => {
+    if (messagesEndRef.current) {
+      // Use requestAnimationFrame for smoother scrolling
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'end'
+        });
+      });
+    }
+  }, []);
 
+  // Improved scroll effect with proper cleanup
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Delay scroll to ensure DOM updates are complete
+    const timeoutId = setTimeout(() => {
+      scrollToBottom();
+    }, 100);
 
-  const sendMessage = async (content?: string) => {
+    return () => clearTimeout(timeoutId);
+  }, [messages, scrollToBottom]);
+
+  const sendMessage = useCallback(async (content?: string) => {
     const messageContent = content || inputMessage.trim();
-    if (!messageContent) return;
+    if (!messageContent || isTyping) return; // Prevent sending while AI is typing
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -87,51 +102,59 @@ const AIAssistant = () => {
       timestamp: new Date()
     };
 
+    // Use functional updates to prevent race conditions
     setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsTyping(true);
 
     // Simulate AI response with streaming effect
-    setTimeout(() => {
-      const responseContent = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: 'assistant',
-        content: '',
-        timestamp: new Date(),
-        isTyping: true
-      };
+    try {
+      setTimeout(() => {
+        const responseContent = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: '',
+          timestamp: new Date(),
+          isTyping: true
+        };
 
-      setMessages(prev => [...prev, assistantMessage]);
+        setMessages(prev => [...prev, assistantMessage]);
+        setIsTyping(false);
+
+        // Simulate streaming text with better performance
+        let currentText = '';
+        let index = 0;
+        const streamInterval = setInterval(() => {
+          if (index < responseContent.length) {
+            currentText += responseContent[index];
+            // Batch updates for better performance
+            setMessages(prev => 
+              prev.map(msg => 
+                msg.id === assistantMessage.id 
+                  ? { ...msg, content: currentText }
+                  : msg
+              )
+            );
+            index++;
+          } else {
+            clearInterval(streamInterval);
+            // Final update to remove typing indicator
+            setMessages(prev => 
+              prev.map(msg => 
+                msg.id === assistantMessage.id 
+                  ? { ...msg, isTyping: false }
+                  : msg
+              )
+            );
+          }
+        }, 30); // Slightly faster for smoother effect
+      }, 800); // Slightly reduced delay
+    } catch (error) {
+      console.error('Error sending message:', error);
       setIsTyping(false);
-
-      // Simulate streaming text
-      let currentText = '';
-      let index = 0;
-      const streamInterval = setInterval(() => {
-        if (index < responseContent.length) {
-          currentText += responseContent[index];
-          setMessages(prev => 
-            prev.map(msg => 
-              msg.id === assistantMessage.id 
-                ? { ...msg, content: currentText }
-                : msg
-            )
-          );
-          index++;
-        } else {
-          clearInterval(streamInterval);
-          setMessages(prev => 
-            prev.map(msg => 
-              msg.id === assistantMessage.id 
-                ? { ...msg, isTyping: false }
-                : msg
-            )
-          );
-        }
-      }, 50);
-    }, 1000);
-  };
+    }
+  }, [inputMessage, isTyping, mockResponses]);
 
   const toggleRecording = () => {
     setIsRecording(!isRecording);
@@ -199,15 +222,18 @@ const AIAssistant = () => {
             {/* Chat Area */}
             <div className="lg:col-span-3">
               <GlassCard className="flex flex-col h-[600px]">
-                {/* Messages */}
-                <div className="flex-1 p-6 overflow-y-auto space-y-4">
-                  {messages.map((message) => (
+                {/* Messages with improved rendering */}
+                <div className="flex-1 p-6 overflow-y-auto space-y-4" style={{ scrollBehavior: 'smooth' }}>
+                  {messages.map((message, index) => (
                     <div
                       key={message.id}
                       className={cn(
-                        "flex gap-3",
+                        "flex gap-3 chat-message-enter opacity-0",
                         message.type === 'user' ? 'justify-end' : 'justify-start'
                       )}
+                      style={{
+                        animation: `message-slide-in 0.3s ease-out ${index * 0.1}s forwards`
+                      }}
                     >
                       {message.type === 'assistant' && (
                         <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
@@ -217,36 +243,40 @@ const AIAssistant = () => {
                       
                       <div
                         className={cn(
-                          "max-w-[80%] rounded-2xl px-4 py-3",
+                          "max-w-[80%] rounded-2xl px-4 py-3 break-words",
                           message.type === 'user'
-                            ? 'bg-gradient-primary text-white'
-                            : 'bg-white/50 text-gray-900 border border-white/20'
+                            ? 'bg-gradient-primary text-white shadow-paw'
+                            : 'bg-white/50 text-gray-900 border border-white/20 backdrop-blur-sm'
                         )}
+                        style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
                       >
-                        <p className="text-sm leading-relaxed">
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap">
                           {message.content}
                           {message.isTyping && (
-                            <span className="inline-block w-2 h-4 bg-current opacity-50 animate-pulse ml-1" />
+                            <span className="chat-typing-indicator inline-block w-2 h-4 bg-current opacity-50 ml-1" />
                           )}
                         </p>
                         
-                        {message.attachments && (
-                          <div className="mt-2 space-y-2">
+                        {message.attachments && message.attachments.length > 0 && (
+                          <div className="mt-3 space-y-2">
                             {message.attachments.map((attachment, index) => (
                               <div key={index} className="flex items-center gap-2 p-2 bg-black/10 rounded-lg">
                                 {attachment.type === 'image' ? (
-                                  <ImageIcon size={16} />
+                                  <ImageIcon size={16} className="text-gray-600" />
                                 ) : (
-                                  <FileText size={16} />
+                                  <FileText size={16} className="text-gray-600" />
                                 )}
-                                <span className="text-xs">{attachment.name}</span>
+                                <span className="text-xs font-medium">{attachment.name}</span>
                               </div>
                             ))}
                           </div>
                         )}
                         
-                        <p className="text-xs opacity-70 mt-2">
-                          {message.timestamp.toLocaleTimeString()}
+                        <p className="text-xs opacity-70 mt-2 font-mono">
+                          {message.timestamp.toLocaleTimeString([], { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                          })}
                         </p>
                       </div>
                       
@@ -276,37 +306,48 @@ const AIAssistant = () => {
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input Area */}
+                {/* Input Area with improved responsiveness */}
                 <div className="border-t border-white/20 p-4">
                   <div className="flex items-end gap-3">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 p-3 bg-white/50 rounded-2xl border border-white/20 focus-within:border-petinsure-teal-300 focus-within:ring-2 focus-within:ring-petinsure-teal-100">
+                      <div className="flex items-center gap-2 p-3 bg-white/50 rounded-2xl border border-white/20 focus-within:border-petinsure-teal-300 focus-within:ring-2 focus-within:ring-petinsure-teal-100 transition-all duration-200">
                         <textarea
                           value={inputMessage}
                           onChange={(e) => setInputMessage(e.target.value)}
                           onKeyPress={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
                               e.preventDefault();
-                              sendMessage();
+                              if (!isTyping && inputMessage.trim()) {
+                                sendMessage();
+                              }
                             }
                           }}
                           placeholder="Ask about claims, policies, pet health, or upload documents..."
                           rows={1}
-                          className="flex-1 bg-transparent border-none outline-none resize-none text-gray-900 placeholder-gray-500"
+                          disabled={isTyping}
+                          className="flex-1 bg-transparent border-none outline-none resize-none text-gray-900 placeholder-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                          style={{
+                            minHeight: '24px',
+                            maxHeight: '120px'
+                          }}
                         />
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => fileInputRef.current?.click()}
-                            className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                            disabled={isTyping}
+                            className="p-2 hover:bg-white/10 rounded-full transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            aria-label="Upload file"
                           >
                             <Upload size={18} className="text-gray-500" />
                           </button>
                           <button
                             onClick={toggleRecording}
+                            disabled={isTyping}
                             className={cn(
-                              "p-2 rounded-full transition-colors",
+                              "p-2 rounded-full transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
                               isRecording ? "bg-red-100 text-red-600" : "hover:bg-white/10 text-gray-500"
                             )}
+                            aria-label={isRecording ? "Stop recording" : "Start recording"}
                           >
                             {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
                           </button>
@@ -315,9 +356,9 @@ const AIAssistant = () => {
                     </div>
                     <PawButton
                       onClick={() => sendMessage()}
-                      disabled={!inputMessage.trim()}
+                      disabled={!inputMessage.trim() || isTyping}
                       size="sm"
-                      className="px-4"
+                      className="px-4 transition-all duration-200"
                     >
                       <Send size={18} />
                     </PawButton>

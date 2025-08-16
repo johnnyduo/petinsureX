@@ -176,8 +176,65 @@
     animation: shimmer 1.5s infinite;
   }
 
+  /* Chat specific styles for AI Assistant */
+  .chat-message-enter {
+    animation: message-slide-in 0.3s ease-out;
+  }
+
+  .chat-typing-indicator {
+    animation: typing-pulse 1.5s infinite;
+  }
+
+  .modal-backdrop-glass {
+    @apply backdrop-blur-glass bg-black/20;
+    transition: all 0.2s ease-out;
+  }
+
+  .modal-content-glass {
+    @apply glass-card;
+    animation: modal-scale-in 0.2s ease-out;
+  }
+
+  /* Keyframe animations */
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+
+  @keyframes paw-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes message-slide-in {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.95); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+
+  @keyframes typing-pulse {
+    0%, 60%, 100% { opacity: 0.3; }
+    30% { opacity: 1; }
+  }
+
+  @keyframes modal-scale-in {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.95) translateY(-10px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
   }
 }

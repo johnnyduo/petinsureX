@@ -22,12 +22,17 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "transition-all duration-300",
+          "transition-all duration-300 ease-out",
           variants[variant],
-          hover && variant === 'glass' && "hover:glass-card-hover hover:scale-105",
-          hover && variant !== 'glass' && "hover:shadow-lg hover:scale-105",
+          // Improved hover effects with better performance
+          hover && variant === 'glass' && "hover:glass-card-hover hover:scale-[1.02] hover:-translate-y-1",
+          hover && variant !== 'glass' && "hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1",
           className
         )}
+        style={{
+          willChange: hover ? 'transform, box-shadow, background-color' : 'auto',
+          ...props.style
+        }}
         {...props}
       >
         {children}
