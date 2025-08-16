@@ -138,7 +138,7 @@ const Policies = () => {
             </div>
           </div>
 
-          {/* Stats Cards */}
+          {/* Stats Cards with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             {[
               { label: 'Active Policies', value: '2', icon: Shield, color: 'text-blue-600' },
@@ -146,13 +146,13 @@ const Policies = () => {
               { label: 'Annual Premium', value: '₿20,500', icon: CreditCard, color: 'text-purple-600' },
               { label: 'Coverage Used', value: '18%', icon: Zap, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6">
+              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                     <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={cn("p-3 rounded-xl bg-white/50", stat.color)}>
+                  <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
                     <stat.icon size={24} />
                   </div>
                 </div>
@@ -160,8 +160,8 @@ const Policies = () => {
             ))}
           </div>
 
-          {/* Active Policies */}
-          <GlassCard className="p-6 mb-8">
+          {/* Active Policies with enhanced borders and teal aura */}
+          <GlassCard className="p-6 mb-8 aura-teal-prominent" borderStyle="prominent">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Active Policies</h2>
             <div className="space-y-6">
               {mockPolicies.map((policy) => {
@@ -169,7 +169,7 @@ const Policies = () => {
                 const usagePercentage = ((policy.coverageLimit - policy.remaining) / policy.coverageLimit) * 100;
                 
                 return (
-                  <div key={policy.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20">
+                  <div key={policy.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border-2 border-petinsure-teal-200/60 hover:border-petinsure-teal-300/80 aura-teal-subtle">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
                         <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
@@ -234,9 +234,9 @@ const Policies = () => {
             </div>
           </GlassCard>
 
-          {/* Quick Actions */}
+          {/* Quick Actions with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer">
+            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FileText size={24} className="text-blue-600" />
               </div>
@@ -248,7 +248,7 @@ const Policies = () => {
               </PawButton>
             </GlassCard>
 
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer">
+            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calendar size={24} className="text-green-600" />
               </div>
@@ -260,7 +260,7 @@ const Policies = () => {
               </PawButton>
             </GlassCard>
 
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer">
+            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CreditCard size={24} className="text-purple-600" />
               </div>

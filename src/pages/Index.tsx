@@ -122,7 +122,7 @@ const Index = () => {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {stats.map((stat, index) => (
-                <GlassCard key={index} className="p-6 text-center">
+                <GlassCard key={index} className="p-6 text-center aura-teal-subtle" borderStyle="subtle">
                   <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
@@ -134,7 +134,7 @@ const Index = () => {
 
           {/* Hero Image Placeholder */}
           <div className="relative max-w-4xl mx-auto">
-            <GlassCard className="p-8 bg-gradient-to-br from-white/80 to-white/40">
+            <GlassCard className="p-8 bg-gradient-to-br from-white/80 to-white/40 aura-teal-prominent" borderStyle="prominent">
               <div className="aspect-video bg-gradient-to-br from-petinsure-teal-100 to-blue-100 rounded-xl flex items-center justify-center">
                 <div className="text-center">
                   <div className="text-6xl mb-4">🐕🐱</div>
@@ -160,7 +160,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <GlassCard key={index} className="p-6 text-center group">
+              <GlassCard key={index} className="p-6 text-center group aura-teal-glow" borderStyle="prominent">
                 <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <feature.icon size={28} className="text-white" />
                 </div>
@@ -210,7 +210,7 @@ const Index = () => {
               }
             ].map((item, index) => (
               <div key={index} className="relative">
-                <GlassCard className="p-8 text-center h-full">
+                <GlassCard className="p-8 text-center h-full aura-teal-prominent" borderStyle="prominent">
                   <div className="text-4xl mb-4">{item.icon}</div>
                   <div className="text-sm font-medium text-petinsure-teal-600 mb-2">
                     STEP {item.step}
@@ -248,7 +248,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <GlassCard key={index} className="p-6">
+              <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="subtle">
                 <div className="flex items-center mb-4">
                   <div className="text-2xl mr-3">{testimonial.avatar}</div>
                   <div>

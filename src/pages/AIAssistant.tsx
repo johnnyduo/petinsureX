@@ -200,7 +200,7 @@ const AIAssistant = () => {
               </div>
             </div>
 
-            {/* AI Stats */}
+            {/* AI Stats with enhanced borders and teal aura */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {[
                 { label: 'Response Time', value: '<2s', icon: Zap },
@@ -208,7 +208,7 @@ const AIAssistant = () => {
                 { label: 'Languages', value: '12+', icon: Brain },
                 { label: 'Queries Today', value: '1,247', icon: Heart }
               ].map((stat, index) => (
-                <div key={index} className="flex items-center gap-3 p-4 rounded-xl bg-white/50 border border-white/20">
+                <div key={index} className="flex items-center gap-3 p-4 rounded-xl bg-white/50 border-2 border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70 transition-colors aura-teal-subtle">
                   <div className="w-10 h-10 bg-petinsure-teal-100 rounded-lg flex items-center justify-center">
                     <stat.icon size={20} className="text-petinsure-teal-600" />
                   </div>
@@ -222,9 +222,9 @@ const AIAssistant = () => {
           </div>
 
           <div className="grid lg:grid-cols-4 gap-8">
-            {/* Chat Area */}
+            {/* Chat Area with enhanced borders and intense teal aura */}
             <div className="lg:col-span-3">
-              <GlassCard className="flex flex-col h-[600px]">
+              <GlassCard className="flex flex-col h-[600px] aura-teal-intense" borderStyle="prominent">
                 {/* Messages with improved rendering */}
                 <div className="flex-1 p-6 overflow-y-auto space-y-4" style={{ scrollBehavior: 'smooth' }}>
                   {messages.map((message, index) => (
@@ -380,15 +380,15 @@ const AIAssistant = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              {/* Quick Actions */}
-              <GlassCard className="p-6">
+              {/* Quick Actions with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   {quickActions.map((action, index) => (
                     <button
                       key={index}
                       onClick={() => sendMessage(action.prompt)}
-                      className="w-full p-3 text-left rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20 hover:border-petinsure-teal-200"
+                      className="w-full p-3 text-left rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20 hover:border-petinsure-teal-200 aura-teal-subtle"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-petinsure-teal-100 rounded-lg flex items-center justify-center">
@@ -401,8 +401,8 @@ const AIAssistant = () => {
                 </div>
               </GlassCard>
 
-              {/* AI Capabilities */}
-              <GlassCard className="p-6">
+              {/* AI Capabilities with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
                 <h3 className="font-semibold text-gray-900 mb-4">AI Capabilities</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -439,8 +439,8 @@ const AIAssistant = () => {
                 </div>
               </GlassCard>
 
-              {/* Recent Topics */}
-              <GlassCard className="p-6">
+              {/* Recent Topics with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <h3 className="font-semibold text-gray-900 mb-4">Recent Topics</h3>
                 <div className="space-y-2">
                   {[

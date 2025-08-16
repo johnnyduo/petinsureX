@@ -136,7 +136,7 @@ const PetIdentity = () => {
             <p className="text-gray-600">Advanced AI-powered breed detection and unique identification scanning</p>
           </div>
 
-          {/* Stats Cards */}
+          {/* Stats Cards with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             {[
               { label: 'Verified Pets', value: '2', icon: Shield, color: 'text-green-600' },
@@ -144,13 +144,13 @@ const PetIdentity = () => {
               { label: 'Unique Markers', value: '7', icon: Star, color: 'text-yellow-600' },
               { label: 'Last Scan', value: '5 days', icon: Scan, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6">
+              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                     <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={cn("p-3 rounded-xl bg-white/50", stat.color)}>
+                  <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
                     <stat.icon size={24} />
                   </div>
                 </div>
@@ -158,10 +158,10 @@ const PetIdentity = () => {
             ))}
           </div>
 
-          {/* Pet Cards */}
+          {/* Pet Cards with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             {mockPets.map((pet) => (
-              <GlassCard key={pet.id} className="p-6">
+              <GlassCard key={pet.id} className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center text-3xl">
                     {pet.avatar}
@@ -237,8 +237,8 @@ const PetIdentity = () => {
             ))}
           </div>
 
-          {/* AI Features */}
-          <GlassCard className="p-6">
+          {/* AI Features with enhanced borders and intense teal aura */}
+          <GlassCard className="p-6 aura-teal-intense" borderStyle="prominent">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">AI-Powered Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
@@ -443,7 +443,7 @@ const PetIdentity = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <GlassCard className="p-4">
+                <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
                   <h4 className="font-semibold text-gray-900 mb-3">Breed Detection</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -459,7 +459,7 @@ const PetIdentity = () => {
                   </div>
                 </GlassCard>
 
-                <GlassCard className="p-4">
+                <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
                   <h4 className="font-semibold text-gray-900 mb-3">Uniqueness Score</h4>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-petinsure-teal-600 mb-2">
@@ -470,11 +470,11 @@ const PetIdentity = () => {
                 </GlassCard>
               </div>
 
-              <GlassCard className="p-4">
+              <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
                 <h4 className="font-semibold text-gray-900 mb-3">Unique Markers Detected</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {scanResults.breedDetection.uniqueMarkers.map((marker: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2 p-2 bg-petinsure-teal-50 rounded-lg">
+                    <div key={index} className="flex items-center gap-2 p-2 bg-petinsure-teal-50 rounded-lg border border-petinsure-teal-200/50 aura-teal-subtle">
                       <Star size={16} className="text-petinsure-teal-600" />
                       <span className="text-sm text-petinsure-teal-800">{marker}</span>
                     </div>
@@ -482,7 +482,7 @@ const PetIdentity = () => {
                 </div>
               </GlassCard>
 
-              <GlassCard className="p-4">
+              <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
                 <h4 className="font-semibold text-gray-900 mb-3">Health Assessment</h4>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>

@@ -138,7 +138,7 @@ const Claims = () => {
             </div>
           </div>
 
-          {/* Stats Cards */}
+          {/* Stats Cards with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             {[
               { label: 'Total Claims', value: '12', icon: FileText, color: 'text-blue-600' },
@@ -146,13 +146,13 @@ const Claims = () => {
               { label: 'Approved', value: '8', icon: CheckCircle, color: 'text-green-600' },
               { label: 'Total Paid', value: '₿89,500', icon: Heart, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6">
+              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                     <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={cn("p-3 rounded-xl bg-white/50", stat.color)}>
+                  <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
                     <stat.icon size={24} />
                   </div>
                 </div>
@@ -160,14 +160,14 @@ const Claims = () => {
             ))}
           </div>
 
-          {/* Claims List */}
-          <GlassCard className="p-6">
+          {/* Claims List with enhanced borders and teal aura */}
+          <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent Claims</h2>
             <div className="space-y-4">
               {mockClaims.map((claim) => {
                 const pet = mockPets.find(p => p.id === claim.petId);
                 return (
-                  <div key={claim.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20">
+                  <div key={claim.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border-2 border-petinsure-teal-200/60 hover:border-petinsure-teal-300/80 aura-teal-subtle">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold">
@@ -346,7 +346,7 @@ const Claims = () => {
                 </div>
               </div>
 
-              <GlassCard className="p-4 bg-green-50 border-green-200">
+              <GlassCard className="p-4 bg-green-50 border-2 border-green-300/60 hover:border-green-400/80 transition-colors aura-teal-glow">
                 <div className="flex items-start gap-3">
                   <CheckCircle size={20} className="text-green-600 mt-0.5" />
                   <div>

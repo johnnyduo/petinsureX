@@ -96,16 +96,20 @@ const Dashboard = () => {
             </p>
           </div>
 
-          {/* Stats Grid */}
+          {/* Stats Grid with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {stats.map((stat, index) => (
-              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform">
+              <GlassCard 
+                key={index} 
+                className="p-6 hover:scale-105 transition-transform aura-teal-subtle" 
+                borderStyle="prominent"
+              >
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                     <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={cn("p-3 rounded-xl bg-white/50", stat.color)}>
+                  <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
                     <stat.icon size={24} />
                   </div>
                 </div>
@@ -116,13 +120,13 @@ const Dashboard = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Quick Actions */}
-              <GlassCard className="p-6">
+              {/* Quick Actions with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <PawButton 
                     onClick={() => setShowClaimModal(true)}
-                    className="justify-start h-auto p-4"
+                    className="justify-start h-auto p-4 border border-petinsure-teal-300/30 aura-teal-subtle"
                   >
                     <Plus size={20} />
                     <div className="text-left">
@@ -131,7 +135,7 @@ const Dashboard = () => {
                     </div>
                   </PawButton>
                   
-                  <PawButton variant="secondary" className="justify-start h-auto p-4">
+                  <PawButton variant="secondary" className="justify-start h-auto p-4 border border-petinsure-teal-300/30 aura-teal-subtle">
                     <Camera size={20} />
                     <div className="text-left">
                       <div className="font-medium">Update Photos</div>
@@ -141,14 +145,14 @@ const Dashboard = () => {
                 </div>
               </GlassCard>
 
-              {/* Recent Activity */}
-              <GlassCard className="p-6">
+              {/* Recent Activity with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30">
+                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30 border border-petinsure-teal-200/40 hover:border-petinsure-teal-300/60 transition-colors aura-teal-subtle">
                       <div className={cn(
-                        "p-2 rounded-full",
+                        "p-2 rounded-full border border-petinsure-teal-200/30",
                         activity.status === 'completed' ? 'bg-green-100' : 'bg-yellow-100'
                       )}>
                         {activity.status === 'completed' ? (
@@ -175,12 +179,12 @@ const Dashboard = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              {/* Pet Cards */}
-              <GlassCard className="p-6">
+              {/* Pet Cards with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Pets</h2>
                 <div className="space-y-4">
                   {pets.map((pet) => (
-                    <div key={pet.id} className="p-4 rounded-xl bg-white/50 hover:bg-white/70 transition-colors">
+                    <div key={pet.id} className="p-4 rounded-xl bg-white/50 hover:bg-white/70 transition-colors border border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70 aura-teal-subtle">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="text-2xl">{pet.avatar}</div>
                         <div className="flex-1">
@@ -188,7 +192,7 @@ const Dashboard = () => {
                           <p className="text-sm text-gray-600">{pet.breed} • {pet.age}</p>
                         </div>
                         <div className={cn(
-                          "px-2 py-1 rounded-full text-xs font-medium",
+                          "px-2 py-1 rounded-full text-xs font-medium border border-petinsure-teal-200/30",
                           pet.status === 'Healthy' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                         )}>
                           {pet.status}
@@ -209,19 +213,19 @@ const Dashboard = () => {
                 </div>
               </GlassCard>
 
-              {/* AI Insights */}
-              <GlassCard className="p-6">
+              {/* AI Insights with enhanced borders and teal aura */}
+              <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
                 <div className="flex items-center gap-2 mb-4">
                   <Zap size={20} className="text-petinsure-teal-600" />
                   <h2 className="text-xl font-semibold text-gray-900">AI Insights</h2>
                 </div>
                 <div className="space-y-3">
-                  <div className="p-3 rounded-lg bg-petinsure-teal-50 border border-petinsure-teal-200">
+                  <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 hover:border-petinsure-teal-400/80 transition-colors aura-teal-subtle">
                     <p className="text-sm text-petinsure-teal-800">
                       <strong>Vaccination Reminder:</strong> Taro is due for annual vaccination in 2 weeks.
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-green-50 border border-green-200">
+                  <div className="p-3 rounded-lg bg-green-50 border-2 border-green-300/60 hover:border-green-400/80 transition-colors aura-teal-subtle">
                     <p className="text-sm text-green-800">
                       <strong>Health Tip:</strong> Mali's breed is prone to hip dysplasia. Consider regular check-ups.
                     </p>
