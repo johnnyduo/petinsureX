@@ -2,12 +2,13 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Check, Circle } from 'lucide-react';
+import { LucideProps } from 'lucide-react';
 
 interface Step {
   id: string;
   title: string;
   description?: string;
-  icon?: React.ComponentType<{ size?: number; className?: string }>;
+  icon?: React.ComponentType<LucideProps>;
 }
 
 interface ProgressStepperProps {
