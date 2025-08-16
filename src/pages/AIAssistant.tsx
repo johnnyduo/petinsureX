@@ -313,7 +313,7 @@ const AIAssistant = () => {
                 <div className="border-t border-white/20 p-4">
                   <div className="flex items-end gap-3">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 p-3 bg-white/50 rounded-2xl border border-white/20 focus-within:border-petinsure-teal-300 focus-within:ring-2 focus-within:ring-petinsure-teal-100 transition-all duration-200">
+                      <div className="flex items-center gap-2 p-3 bg-white/50 rounded-2xl border border-petinsure-teal-200 focus-within:border-petinsure-teal-400 focus-within:ring-2 focus-within:ring-petinsure-teal-100 transition-all duration-200 shadow-sm">
                         <textarea
                           value={inputMessage}
                           onChange={(e) => setInputMessage(e.target.value)}

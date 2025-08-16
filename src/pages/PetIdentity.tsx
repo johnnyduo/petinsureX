@@ -300,16 +300,16 @@ const PetIdentity = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 p-4 sm:p-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Pet Identity & AI Analysis</h1>
-            <p className="text-gray-600">Advanced AI-powered breed detection and unique identification scanning</p>
+          <div className="mb-6 sm:mb-8">
+            <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">Pet Identity & AI Analysis</h1>
+            <p className="text-sm sm:text-base text-gray-600">Advanced AI-powered breed detection and unique identification scanning</p>
           </div>
 
           {/* Stats Cards with enhanced borders and teal aura */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {[
               { label: 'Verified Pets', value: '2', icon: Shield, color: 'text-green-600' },
               { label: 'Avg Confidence', value: '85%', icon: Target, color: 'text-blue-600' },
@@ -331,7 +331,7 @@ const PetIdentity = () => {
           </div>
 
           {/* Pet Cards with enhanced borders and teal aura */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 mb-6 sm:mb-8">
             {mockPets.map((pet) => (
               <GlassCard key={pet.id} className="p-6 aura-teal-prominent" borderStyle="prominent">
                 <div className="flex items-start gap-4 mb-6">
@@ -382,7 +382,7 @@ const PetIdentity = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-3 pt-4">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
                     <PawButton
                       variant="secondary"
                       size="sm"
@@ -390,7 +390,8 @@ const PetIdentity = () => {
                       onClick={() => setSelectedPet(pet.id)}
                     >
                       <Eye size={16} />
-                      View Details
+                      <span className="hidden sm:inline">View Details</span>
+                      <span className="sm:hidden">Details</span>
                     </PawButton>
                     <PawButton
                       size="sm"
@@ -401,7 +402,8 @@ const PetIdentity = () => {
                       }}
                     >
                       <Scan size={16} />
-                      New Scan
+                      <span className="hidden sm:inline">New Scan</span>
+                      <span className="sm:hidden">Scan</span>
                     </PawButton>
                   </div>
                 </div>
@@ -410,33 +412,33 @@ const PetIdentity = () => {
           </div>
 
           {/* AI Features with enhanced borders and intense teal aura */}
-          <GlassCard className="p-6 aura-teal-intense" borderStyle="prominent">
-            <h2 className="font-display text-xl font-semibold text-gray-900 mb-6">AI-Powered Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <GlassCard className="p-4 sm:p-6 aura-teal-intense" borderStyle="prominent">
+            <h2 className="font-display text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">AI-Powered Features</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain size={24} className="text-blue-600" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Brain size={20} className="text-blue-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Breed Detection</h3>
-                <p className="text-sm text-gray-600 mb-4">Advanced AI identifies breed with 95%+ accuracy using computer vision</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Breed Detection</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Advanced AI identifies breed with 95%+ accuracy using computer vision</p>
                 <div className="text-xs text-blue-600 font-medium">Latest: GPT-4 Vision</div>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target size={24} className="text-green-600" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Target size={20} className="text-green-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Unique ID Mapping</h3>
-                <p className="text-sm text-gray-600 mb-4">Creates digital fingerprint from facial features, markings, and patterns</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Unique ID Mapping</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Creates digital fingerprint from facial features, markings, and patterns</p>
                 <div className="text-xs text-green-600 font-medium">Features: 50+ markers</div>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield size={24} className="text-purple-600" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Shield size={20} className="text-purple-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Fraud Prevention</h3>
-                <p className="text-sm text-gray-600 mb-4">Prevents identity fraud by matching pets to verified database</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Fraud Prevention</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Prevents identity fraud by matching pets to verified database</p>
                 <div className="text-xs text-purple-600 font-medium">Accuracy: 99.8%</div>
               </div>
             </div>
@@ -466,32 +468,32 @@ const PetIdentity = () => {
                 <p className="text-gray-600">Select how you'd like to capture your pet's identity</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={() => setScanType('photo')}
                   className={cn(
-                    "p-6 rounded-xl border-2 transition-all",
+                    "p-4 sm:p-6 rounded-xl border-2 transition-all",
                     scanType === 'photo' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200 hover:border-gray-300'
                   )}
                 >
                   <div className="text-center">
-                    <Camera size={32} className="mx-auto mb-3 text-petinsure-teal-600" />
-                    <h4 className="font-medium text-gray-900 mb-1">Photo Capture</h4>
-                    <p className="text-sm text-gray-600">Take photos from multiple angles</p>
+                    <Camera size={28} className="mx-auto mb-3 text-petinsure-teal-600 sm:size-8" />
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Photo Capture</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">Take photos from multiple angles</p>
                   </div>
                 </button>
 
                 <button
                   onClick={() => setScanType('video')}
                   className={cn(
-                    "p-6 rounded-xl border-2 transition-all",
+                    "p-4 sm:p-6 rounded-xl border-2 transition-all",
                     scanType === 'video' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200 hover:border-gray-300'
                   )}
                 >
                   <div className="text-center">
-                    <Video size={32} className="mx-auto mb-3 text-petinsure-teal-600" />
-                    <h4 className="font-medium text-gray-900 mb-1">Video Scan</h4>
-                    <p className="text-sm text-gray-600">360° video for complete analysis</p>
+                    <Video size={28} className="mx-auto mb-3 text-petinsure-teal-600 sm:size-8" />
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Video Scan</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">360° video for complete analysis</p>
                   </div>
                 </button>
               </div>
@@ -516,7 +518,7 @@ const PetIdentity = () => {
 
                   {!isCameraActive ? (
                     <div className="space-y-3">
-                      <div className="flex gap-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <PawButton className="flex-1" onClick={startCamera}>
                           <Camera size={16} />
                           Open Camera
@@ -564,21 +566,23 @@ const PetIdentity = () => {
                         )}
                       </div>
                       
-                      <div className="flex gap-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <PawButton onClick={capturePhoto} className="flex-1">
                           <Camera size={16} />
-                          Capture Photo ({capturedPhotos.length})
+                          <span className="hidden sm:inline">Capture Photo ({capturedPhotos.length})</span>
+                          <span className="sm:hidden">Photo ({capturedPhotos.length})</span>
                         </PawButton>
-                        <PawButton variant="secondary" onClick={stopCamera}>
+                        <PawButton variant="secondary" onClick={stopCamera} className="sm:flex-shrink-0">
                           <StopCircle size={16} />
-                          Stop Camera
+                          <span className="hidden sm:inline">Stop Camera</span>
+                          <span className="sm:hidden">Stop</span>
                         </PawButton>
                       </div>
 
                       {capturedPhotos.length > 0 && (
                         <div className="space-y-2">
                           <h5 className="font-medium text-gray-900">Captured Photos ({capturedPhotos.length})</h5>
-                          <div className="grid grid-cols-3 gap-2">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {capturedPhotos.map((photo, index) => (
                               <img
                                 key={index}
@@ -689,20 +693,23 @@ const PetIdentity = () => {
                         )}
                       </div>
                       
-                      <div className="flex gap-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
                         {!isRecording ? (
                           <PawButton onClick={startVideoRecording} className="flex-1">
                             <Video size={16} />
-                            Start Recording
+                            <span className="hidden sm:inline">Start Recording</span>
+                            <span className="sm:hidden">Record</span>
                           </PawButton>
                         ) : (
                           <PawButton onClick={stopVideoRecording} variant="secondary" className="flex-1">
                             <StopCircle size={16} />
-                            Stop Recording
+                            <span className="hidden sm:inline">Stop Recording</span>
+                            <span className="sm:hidden">Stop</span>
                           </PawButton>
                         )}
-                        <PawButton variant="ghost" onClick={stopCamera}>
-                          Close Camera
+                        <PawButton variant="ghost" onClick={stopCamera} className="sm:flex-shrink-0">
+                          <span className="hidden sm:inline">Close Camera</span>
+                          <span className="sm:hidden">Close</span>
                         </PawButton>
                       </div>
 
@@ -781,7 +788,7 @@ const PetIdentity = () => {
                 <p className="text-gray-600">AI analysis has identified your pet with high confidence</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
                   <h4 className="font-semibold text-gray-900 mb-3">Breed Detection</h4>
                   <div className="space-y-3">
@@ -811,7 +818,7 @@ const PetIdentity = () => {
 
               <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
                 <h4 className="font-semibold text-gray-900 mb-3">Unique Markers Detected</h4>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {scanResults.breedDetection.uniqueMarkers.map((marker: string, index: number) => (
                     <div key={index} className="flex items-center gap-2 p-2 bg-petinsure-teal-50 rounded-lg border border-petinsure-teal-200/50 aura-teal-subtle">
                       <Star size={16} className="text-petinsure-teal-600" />
@@ -823,18 +830,18 @@ const PetIdentity = () => {
 
               <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
                 <h4 className="font-semibold text-gray-900 mb-3">Health Assessment</h4>
-                <div className="grid grid-cols-3 gap-4 text-sm">
-                  <div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 text-sm">
+                  <div className="flex justify-between sm:flex-col">
                     <span className="text-gray-600">Eye Clarity:</span>
-                    <span className="ml-2 font-medium text-green-600">{scanResults.healthIndicators.eyeClarity}</span>
+                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.eyeClarity}</span>
                   </div>
-                  <div>
+                  <div className="flex justify-between sm:flex-col">
                     <span className="text-gray-600">Coat Condition:</span>
-                    <span className="ml-2 font-medium text-green-600">{scanResults.healthIndicators.coatCondition}</span>
+                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.coatCondition}</span>
                   </div>
-                  <div>
+                  <div className="flex justify-between sm:flex-col">
                     <span className="text-gray-600">Posture:</span>
-                    <span className="ml-2 font-medium text-green-600">{scanResults.healthIndicators.posture}</span>
+                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.posture}</span>
                   </div>
                 </div>
               </GlassCard>
@@ -845,7 +852,7 @@ const PetIdentity = () => {
                 </p>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <PawButton variant="ghost" className="flex-1" onClick={() => {
                   setShowScanModal(false);
                   setScanResults(null);
@@ -860,7 +867,8 @@ const PetIdentity = () => {
                   resetCapture();
                 }}>
                   <CheckCircle size={16} />
-                  Save to Profile
+                  <span className="hidden sm:inline">Save to Profile</span>
+                  <span className="sm:hidden">Save</span>
                 </PawButton>
               </div>
             </div>
@@ -868,7 +876,7 @@ const PetIdentity = () => {
 
           {/* Action Buttons */}
           {!isScanning && !scanResults && (
-            <div className="flex gap-3 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <PawButton 
                 variant="ghost" 
                 className="flex-1" 
@@ -886,7 +894,8 @@ const PetIdentity = () => {
                 disabled={(scanType === 'photo' && capturedPhotos.length === 0) || (scanType === 'video' && recordedChunks.length === 0)}
               >
                 <Scan size={16} />
-                Start AI Analysis
+                <span className="hidden sm:inline">Start AI Analysis</span>
+                <span className="sm:hidden">Analyze</span>
               </PawButton>
             </div>
           )}

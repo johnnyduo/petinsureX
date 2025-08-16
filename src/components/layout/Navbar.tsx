@@ -232,12 +232,12 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
         title="Quick Claim"
         size="lg"
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Pet Selection
             </label>
-            <select className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent">
+            <select className="w-full p-2 sm:p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent text-sm sm:text-base">
               <option>Select your pet</option>
               <option>Mali (Golden Retriever)</option>
               <option>Taro (British Shorthair)</option>
@@ -250,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
             </label>
             <textarea 
               placeholder="Briefly describe what happened..."
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent text-sm sm:text-base"
               rows={3}
             />
           </div>
@@ -262,16 +262,17 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
             <input 
               type="number" 
               placeholder="0.00"
-              className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
           
-          <div className="flex gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <PawButton variant="ghost" className="flex-1" onClick={() => setShowQuickClaimModal(false)}>
               Cancel
             </PawButton>
             <PawButton className="flex-1">
-              Submit Quick Claim
+              <span className="hidden sm:inline">Submit Quick Claim</span>
+              <span className="sm:hidden">Submit</span>
             </PawButton>
           </div>
         </div>

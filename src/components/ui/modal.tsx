@@ -31,6 +31,15 @@ export const Modal: React.FC<ModalProps> = ({
     full: 'max-w-6xl'    // ~1152px - dashboards, reports
   };
 
+  // Mobile-first responsive adjustments
+  const mobileClasses = {
+    sm: 'mx-4 sm:mx-auto',
+    md: 'mx-4 sm:mx-auto',
+    lg: 'mx-4 sm:mx-6 lg:mx-auto',
+    xl: 'mx-4 sm:mx-6 lg:mx-8 xl:mx-auto',
+    full: 'mx-2 sm:mx-4 lg:mx-6 xl:mx-auto'
+  };
+
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -53,7 +62,7 @@ export const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Enhanced backdrop with smooth animation */}
       <div 
         className="absolute inset-0 transition-all duration-300 ease-out"
@@ -65,41 +74,45 @@ export const Modal: React.FC<ModalProps> = ({
         onClick={onClose}
       />
       
-      {/* Modal container with smooth entrance animation */}
+      {/* Modal container with smooth entrance animation and mobile optimization */}
       <div
         className={cn(
           "relative w-full transform transition-all duration-300 ease-out",
+          "h-full sm:h-auto", // Full height on mobile, auto on larger screens
+          "flex flex-col sm:block", // Flexbox on mobile for proper sizing
           sizeClasses[size],
+          mobileClasses[size],
           className,
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
         )}
         style={{ 
           zIndex: 51,
-          maxHeight: 'calc(100vh - 2rem)'
+          maxHeight: '100vh', // Full viewport height on mobile
         }}
         onClick={e => e.stopPropagation()}
       >
         <GlassCard 
           variant="glass"
-          className="aura-teal-glow shadow-2xl border border-petinsure-teal-200/30 overflow-hidden flex flex-col"
+          className="aura-teal-glow shadow-2xl border border-petinsure-teal-200/30 overflow-hidden flex flex-col h-full sm:h-auto sm:rounded-xl rounded-none sm:m-4 m-0"
           borderStyle="subtle"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
             backdropFilter: 'blur(24px)',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-            maxHeight: 'calc(100vh - 2rem)'
+            maxHeight: '100vh', // Full height on mobile
+            borderRadius: 'env(safe-area-inset-top, 0) env(safe-area-inset-right, 0.75rem) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0.75rem)', // Respect safe areas on mobile
           }}
         >
-          {/* Header with pet-friendly styling */}
+          {/* Header with pet-friendly styling and mobile optimization */}
           {title && (
-            <div className="flex items-center justify-between p-6 border-b border-petinsure-teal-100/60 bg-gradient-to-r from-petinsure-teal-50/30 to-transparent flex-shrink-0">
-              <h2 className="font-display text-xl font-semibold text-gray-900 flex items-center gap-2">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-petinsure-teal-100/60 bg-gradient-to-r from-petinsure-teal-50/30 to-transparent flex-shrink-0">
+              <h2 className="font-display text-lg sm:text-xl font-semibold text-gray-900 flex items-center gap-2 pr-2">
                 {title}
               </h2>
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-petinsure-teal-100/50 rounded-full transition-all duration-200 hover:scale-110 group"
+                  className="p-2 hover:bg-petinsure-teal-100/50 rounded-full transition-all duration-200 hover:scale-110 group flex-shrink-0"
                   aria-label="Close modal"
                 >
                   <X size={20} className="text-gray-500 group-hover:text-gray-700 transition-colors" />
@@ -108,11 +121,11 @@ export const Modal: React.FC<ModalProps> = ({
             </div>
           )}
           
-          {/* Content with enhanced scrolling */}
+          {/* Content with enhanced scrolling and mobile optimization */}
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             <div className={cn(
-              "p-6",
-              !title && "pt-8"
+              "p-4 sm:p-6",
+              !title && "pt-6 sm:pt-8"
             )}>
               {children}
             </div>

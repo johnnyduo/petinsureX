@@ -121,13 +121,13 @@ const Index = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-12 sm:mb-16">
               {stats.map((stat, index) => (
-                <GlassCard key={index} className="p-6 text-center aura-teal-subtle" borderStyle="subtle">
-                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                <GlassCard key={index} className="p-4 sm:p-6 text-center aura-teal-subtle" borderStyle="subtle">
+                  <div className="text-2xl sm:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
                 </GlassCard>
               ))}
             </div>
@@ -135,7 +135,7 @@ const Index = () => {
 
           {/* Hero Image Placeholder */}
           <div className="relative max-w-4xl mx-auto">
-            <GlassCard className="p-8 bg-gradient-to-br from-white/80 to-white/40 aura-teal-prominent" borderStyle="prominent">
+            <GlassCard className="p-4 sm:p-8 bg-gradient-to-br from-white/80 to-white/40 aura-teal-prominent" borderStyle="prominent">
               <div className="aspect-video bg-gradient-to-br from-petinsure-teal-100 to-blue-100 rounded-xl flex items-center justify-center">
                 <div className="text-center">
                   <div className="text-6xl mb-4">🐕🐱</div>

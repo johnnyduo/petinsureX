@@ -84,40 +84,40 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50/30 p-4 sm:p-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               Welcome back, Jun! 👋
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Your pets are protected and healthy. Here's what's happening today.
             </p>
           </div>
 
           {/* Stats Grid with enhanced borders and teal aura */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {stats.map((stat, index) => (
               <GlassCard 
                 key={index} 
-                className="p-6 hover:scale-105 transition-transform aura-teal-subtle" 
+                className="p-4 sm:p-6 hover:scale-105 transition-transform aura-teal-subtle" 
                 borderStyle="prominent"
               >
                 <div className="flex items-center">
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-700 mb-1">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm text-gray-700 mb-1 truncate">{stat.label}</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
-                    <stat.icon size={24} />
+                  <div className={cn("p-2 sm:p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50 flex-shrink-0", stat.color)}>
+                    <stat.icon size={20} className="sm:size-6" />
                   </div>
                 </div>
               </GlassCard>
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
               {/* Quick Actions with enhanced borders and teal aura */}

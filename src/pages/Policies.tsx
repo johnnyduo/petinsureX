@@ -240,7 +240,7 @@ const Policies = () => {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FileText size={24} className="text-blue-600" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Policy Documents</h3>
+              <h3 className="font-semibold text-xl text-gray-900 mb-2">Policy Documents</h3>
               <p className="text-sm text-gray-600 mb-4">Download and view your policy terms</p>
               <PawButton variant="secondary" size="sm">
                 <Download size={16} />
@@ -252,7 +252,7 @@ const Policies = () => {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calendar size={24} className="text-green-600" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Renewal Reminder</h3>
+              <h3 className="font-semibold text-xl text-gray-900 mb-2">Renewal Reminder</h3>
               <p className="text-sm text-gray-600 mb-4">Set up automatic renewal notifications</p>
               <PawButton variant="secondary" size="sm">
                 <Calendar size={16} />
@@ -264,7 +264,7 @@ const Policies = () => {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CreditCard size={24} className="text-purple-600" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Payment History</h3>
+              <h3 className="font-semibold text-xl text-gray-900 mb-2">Payment History</h3>
               <p className="text-sm text-gray-600 mb-4">View your premium payment records</p>
               <PawButton variant="secondary" size="sm">
                 <Eye size={16} />
