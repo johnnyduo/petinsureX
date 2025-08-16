@@ -39,7 +39,7 @@ const Claims = () => {
       createdAt: '2024-01-15T10:30:00Z',
       updatedAt: '2024-01-16T14:20:00Z',
       status: 'review',
-      amount: 15000,
+      amount: 430,
       description: 'Emergency surgery for hip dysplasia complications',
       invoiceUrl: '/mock-invoice.pdf',
       injuryPhotos: ['/mock-injury1.jpg', '/mock-injury2.jpg'],
@@ -58,7 +58,7 @@ const Claims = () => {
       createdAt: '2024-01-10T09:15:00Z',
       updatedAt: '2024-01-12T16:45:00Z',
       status: 'paid',
-      amount: 3500,
+      amount: 100,
       description: 'Routine vaccination and health check',
       injuryPhotos: [],
       proofs: [
@@ -144,7 +144,7 @@ const Claims = () => {
               { label: 'Total Claims', value: '12', icon: FileText, color: 'text-blue-600' },
               { label: 'Pending Review', value: '1', icon: Clock, color: 'text-yellow-600' },
               { label: 'Approved', value: '8', icon: CheckCircle, color: 'text-green-600' },
-              { label: 'Total Paid', value: '₿89,500', icon: Heart, color: 'text-petinsure-teal-600' }
+              { label: 'Total Paid', value: '$2,560', icon: Heart, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
               <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
@@ -175,7 +175,7 @@ const Claims = () => {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-semibold text-gray-900">Claim #{claim.id.split('-')[1].toUpperCase()}</h3>
+                            <h3 className="font-semibold text-gray-900 text-xl">Claim #{claim.id.split('-')[1].toUpperCase()}</h3>
                             <span className={cn("px-3 py-1 rounded-full text-xs font-medium border", getStatusColor(claim.status))}>
                               {claim.status.charAt(0).toUpperCase() + claim.status.slice(1)}
                             </span>
@@ -183,7 +183,7 @@ const Claims = () => {
                           <p className="text-gray-700 mb-2">{claim.description}</p>
                           <div className="flex items-center gap-4 text-sm text-gray-600">
                             <span>Pet: {pet?.name}</span>
-                            <span>Amount: ₿{claim.amount.toLocaleString()}</span>
+                            <span>Amount: ${claim.amount.toLocaleString()}</span>
                             <span>Date: {new Date(claim.createdAt).toLocaleDateString()}</span>
                           </div>
                           {claim.petMatchConfidence && (
@@ -301,7 +301,7 @@ const Claims = () => {
           {currentStep === 1 && (
             <div className="space-y-6">
               <div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Upload Documents</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">Upload Documents</h3>
                 <FileUploader
                   onFilesChange={setUploadedFiles}
                   accept="image/*,.pdf"
@@ -320,7 +320,7 @@ const Claims = () => {
                 <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Brain size={32} className="text-white" />
                 </div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
                 <p className="text-gray-600 mb-6">Our AI is analyzing your documents and verifying pet identity</p>
                 
                 <div className="space-y-4 max-w-md mx-auto">
@@ -360,7 +360,7 @@ const Claims = () => {
 
           {currentStep === 3 && (
             <div className="space-y-6">
-              <h3 className="font-display text-lg font-semibold text-gray-900">Review Your Claim</h3>
+              <h3 className="font-display text-xl font-semibold text-gray-900">Review Your Claim</h3>
               
               <div className="grid grid-cols-2 gap-6">
                 <div>
@@ -376,7 +376,7 @@ const Claims = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Amount:</span>
-                      <span className="font-medium">₿15,000</span>
+                      <span className="font-medium">$430</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Documents:</span>
@@ -462,7 +462,7 @@ const Claims = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-4">Basic Information</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4 text-xl">Basic Information</h3>
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Claim ID:</span>
@@ -480,7 +480,7 @@ const Claims = () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Amount:</span>
-                        <span className="font-medium">₿{claim.amount.toLocaleString()}</span>
+                        <span className="font-medium">${claim.amount.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Submitted:</span>
@@ -490,7 +490,7 @@ const Claims = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-4">AI Analysis</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4 text-xl">AI Analysis</h3>
                     <div className="space-y-3">
                       {claim.petMatchConfidence && (
                         <div className="p-3 bg-green-50 rounded-lg border border-green-200">
@@ -520,14 +520,14 @@ const Claims = () => {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">Description</h3>
+                  <h3 className="font-semibold text-gray-900 mb-4 text-xl">Description</h3>
                   <p className="text-gray-700 p-4 bg-gray-50 rounded-lg">
                     {claim.description}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">Documents & Proofs</h3>
+                  <h3 className="font-semibold text-gray-900 mb-4 text-xl">Documents & Proofs</h3>
                   <div className="grid grid-cols-2 gap-4">
                     {claim.proofs.map((proof) => (
                       <div key={proof.id} className="p-3 border border-gray-200 rounded-lg">
@@ -556,7 +556,7 @@ const Claims = () => {
 
                 {claim.adminNotes && (
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-4">Admin Notes</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4 text-xl">Admin Notes</h3>
                     <p className="text-gray-700 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                       {claim.adminNotes}
                     </p>

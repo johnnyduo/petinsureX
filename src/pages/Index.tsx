@@ -164,7 +164,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <feature.icon size={28} className="text-white" />
                 </div>
-                <h3 className="text-display text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-display text-xl font-semibold text-gray-900 mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-body-friendly text-gray-600 text-sm leading-relaxed">
@@ -215,7 +215,7 @@ const Index = () => {
                   <div className="text-sm font-medium text-petinsure-teal-600 mb-2">
                     STEP {item.step}
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">
                     {item.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
@@ -327,7 +327,7 @@ const Index = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
+              <h3 className="font-semibold mb-4 text-xl">Product</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
@@ -337,7 +337,7 @@ const Index = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Support</h3>
+              <h3 className="font-semibold mb-4 text-xl">Support</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>

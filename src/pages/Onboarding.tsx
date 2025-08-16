@@ -255,7 +255,7 @@ const Onboarding = () => {
 
             <div className="space-y-4">
               <GlassCard className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Data Usage Agreement</h3>
+                <h3 className="font-semibold text-gray-900 mb-3 text-xl">Data Usage Agreement</h3>
                 <div className="space-y-3 text-sm text-gray-700">
                   <p>• Pet photos will be used for identity verification only</p>
                   <p>• Medical data is encrypted and stored securely</p>
@@ -265,7 +265,7 @@ const Onboarding = () => {
               </GlassCard>
 
               <GlassCard className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-3">AI Processing Consent</h3>
+                <h3 className="font-semibold text-gray-900 mb-3 text-xl">AI Processing Consent</h3>
                 <div className="space-y-3 text-sm text-gray-700">
                   <p>• Computer vision analysis for fraud detection</p>
                   <p>• SEA-LION AI for claim processing and explanations</p>
@@ -326,7 +326,7 @@ const Onboarding = () => {
             </p>
 
             <GlassCard className="p-6 max-w-md mx-auto">
-              <h3 className="font-semibold text-gray-900 mb-4">What's Next?</h3>
+              <h3 className="font-semibold text-gray-900 mb-4 text-xl">What's Next?</h3>
               <div className="space-y-3 text-sm text-left">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-petinsure-teal-500 rounded-full"></div>

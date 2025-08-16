@@ -30,9 +30,9 @@ const Policies = () => {
       id: 'policy-001',
       petId: 'pet-mali',
       provider: 'PetInsureX Premium',
-      coverageLimit: 100000,
-      remaining: 85000,
-      premium: 12000,
+      coverageLimit: 2850,
+      remaining: 2430,
+      premium: 345,
       start: '2024-01-01',
       end: '2024-12-31',
       status: 'active',
@@ -43,9 +43,9 @@ const Policies = () => {
       id: 'policy-002',
       petId: 'pet-taro',
       provider: 'PetInsureX Standard',
-      coverageLimit: 82000,
-      remaining: 82000,
-      premium: 8500,
+      coverageLimit: 2350,
+      remaining: 2350,
+      premium: 245,
       start: '2024-01-15',
       end: '2025-01-14',
       status: 'active',
@@ -102,20 +102,20 @@ const Policies = () => {
   const coverageTypes = [
     {
       name: 'PetInsureX Basic',
-      price: '₿5,500/year',
-      coverage: '₿50,000',
+      price: '$160/year',
+      coverage: '$1,430',
       features: ['Accidents Only', 'Emergency Care', '24/7 Support', 'Basic Vet Network']
     },
     {
       name: 'PetInsureX Standard',
-      price: '₿8,500/year',
-      coverage: '₿82,000',
+      price: '$245/year',
+      coverage: '$2,350',
       features: ['Accidents & Illness', 'Preventive Care', 'Specialist Referrals', 'Extended Vet Network', 'Prescription Coverage']
     },
     {
       name: 'PetInsureX Premium',
-      price: '₿12,000/year',
-      coverage: '₿100,000',
+      price: '$345/year',
+      coverage: '$2,850',
       features: ['Comprehensive Coverage', 'Hereditary Conditions', 'Alternative Therapies', 'Premium Vet Network', 'Wellness Programs', 'AI Health Monitoring']
     }
   ];
@@ -142,8 +142,8 @@ const Policies = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             {[
               { label: 'Active Policies', value: '2', icon: Shield, color: 'text-blue-600' },
-              { label: 'Total Coverage', value: '₿182,000', icon: Heart, color: 'text-green-600' },
-              { label: 'Annual Premium', value: '₿20,500', icon: CreditCard, color: 'text-purple-600' },
+              { label: 'Total Coverage', value: '$5,200', icon: Heart, color: 'text-green-600' },
+              { label: 'Annual Premium', value: '$590', icon: CreditCard, color: 'text-purple-600' },
               { label: 'Coverage Used', value: '18%', icon: Zap, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
               <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
@@ -204,15 +204,15 @@ const Policies = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div>
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Coverage Limit</h4>
-                        <p className="text-2xl font-bold text-gray-900">₿{policy.coverageLimit.toLocaleString()}</p>
+                        <p className="text-2xl font-bold text-gray-900">${policy.coverageLimit.toLocaleString()}</p>
                       </div>
                       <div>
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Remaining</h4>
-                        <p className="text-2xl font-bold text-green-600">₿{policy.remaining.toLocaleString()}</p>
+                        <p className="text-2xl font-bold text-green-600">${policy.remaining.toLocaleString()}</p>
                       </div>
                       <div>
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Annual Premium</h4>
-                        <p className="text-2xl font-bold text-gray-900">₿{policy.premium.toLocaleString()}</p>
+                        <p className="text-2xl font-bold text-gray-900">${policy.premium.toLocaleString()}</p>
                       </div>
                     </div>
 
@@ -381,19 +381,19 @@ const Policies = () => {
                     <div className="space-y-3 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Coverage Limit:</span>
-                        <span className="font-medium">₿{policy.coverageLimit.toLocaleString()}</span>
+                        <span className="font-medium">${policy.coverageLimit.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Remaining:</span>
-                        <span className="font-medium text-green-600">₿{policy.remaining.toLocaleString()}</span>
+                        <span className="font-medium text-green-600">${policy.remaining.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Annual Premium:</span>
-                        <span className="font-medium">₿{policy.premium.toLocaleString()}</span>
+                        <span className="font-medium">${policy.premium.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Deductible:</span>
-                        <span className="font-medium">₿500 per claim</span>
+                        <span className="font-medium">$15 per claim</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Co-pay:</span>

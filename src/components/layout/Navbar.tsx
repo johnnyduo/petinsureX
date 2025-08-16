@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
-import { Menu, X, User, Shield, FileText, Camera, Brain, Plus, Settings, LogOut } from 'lucide-react';
+import { Menu, X, Globe, Shield, FileText, Camera, Brain, Plus, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -12,8 +12,31 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showQuickClaimModal, setShowQuickClaimModal] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('EN');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const languages = [
+    { code: 'EN', name: 'English', flag: '🇺🇸' },
+    { code: 'TH', name: 'ไทย', flag: '🇹🇭' },
+    { code: 'ID', name: 'Bahasa Indonesia', flag: '🇮🇩' },
+    { code: 'VI', name: 'Tiếng Việt', flag: '🇻🇳' },
+    { code: 'MS', name: 'Bahasa Malaysia', flag: '🇲🇾' },
+    { code: 'PH', name: 'Filipino', flag: '🇵🇭' }
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowLanguageDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Consolidated navigation - removed Vet Portal, cleaner structure
   const navigation = [
@@ -50,20 +73,66 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
 
               {/* Right side actions with consistent sizing */}
               <div className="hidden md:flex items-center gap-3">
-                <PawButton 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setShowProfileModal(true)}
-                  className="text-button-sm"
-                >
-                  <User size={14} />
-                  Profile
-                </PawButton>
+                <div className="relative" ref={dropdownRef}>
+                  <PawButton 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                    className="text-button-sm border border-gray-200/50 hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50/50 text-gray-700 hover:text-petinsure-teal-700"
+                  >
+                    <Globe size={14} />
+                    <span className="text-lg">{languages.find(lang => lang.code === currentLanguage)?.flag}</span>
+                    <span className="font-medium">{currentLanguage}</span>
+                    <ChevronDown size={12} className={cn("transition-transform", showLanguageDropdown && "rotate-180")} />
+                  </PawButton>
+                  
+                  {showLanguageDropdown && (
+                    <>
+                      {/* Backdrop */}
+                      <div 
+                        className="fixed inset-0 z-40" 
+                        onClick={() => setShowLanguageDropdown(false)}
+                      />
+                      <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden backdrop-blur-sm">
+                        <div className="bg-gradient-to-b from-gray-50 to-white p-2">
+                          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 py-1 mb-1">
+                            Select Language
+                          </div>
+                          {languages.map((language) => (
+                            <button
+                              key={language.code}
+                              className={cn(
+                                "w-full text-left px-3 py-3 hover:bg-petinsure-teal-50 transition-colors flex items-center gap-3 rounded-lg",
+                                "text-gray-800 hover:text-petinsure-teal-700",
+                                currentLanguage === language.code && "bg-petinsure-teal-50 text-petinsure-teal-700 font-semibold ring-1 ring-petinsure-teal-200"
+                              )}
+                              onClick={() => {
+                                setCurrentLanguage(language.code);
+                                setShowLanguageDropdown(false);
+                              }}
+                            >
+                              <span className="text-xl">{language.flag}</span>
+                              <div className="flex flex-col flex-1">
+                                <span className="font-medium text-sm">{language.name}</span>
+                                <span className="text-xs text-gray-500 uppercase font-mono">{language.code}</span>
+                              </div>
+                              {currentLanguage === language.code && (
+                                <div className="flex items-center justify-center w-5 h-5 bg-petinsure-teal-600 rounded-full">
+                                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                                </div>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
                 
                 <PawButton 
                   size="sm"
                   onClick={() => setShowQuickClaimModal(true)}
-                  className="text-button-sm"
+                  className="text-button-sm bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg hover:shadow-xl"
                 >
                   <Plus size={14} />
                   Quick Claim
@@ -96,21 +165,50 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                   </a>
                 ))}
                 <div className="pt-4 border-t border-white/20 space-y-2">
+                  <div className="w-full">
+                    <PawButton 
+                      variant="ghost" 
+                      size="sm" 
+                      className="w-full justify-start text-gray-700 hover:text-petinsure-teal-600 hover:bg-white/10"
+                      onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                    >
+                      <Globe size={14} />
+                      <span className="text-lg">{languages.find(lang => lang.code === currentLanguage)?.flag}</span>
+                      <span>Language ({currentLanguage})</span>
+                      <ChevronDown size={12} className={cn("ml-auto transition-transform", showLanguageDropdown && "rotate-180")} />
+                    </PawButton>
+                    {showLanguageDropdown && (
+                      <div className="mt-2 bg-white/10 rounded-lg border border-white/20 overflow-hidden">
+                        {languages.map((language) => (
+                          <button
+                            key={language.code}
+                            className={cn(
+                              "w-full text-left px-6 py-3 text-sm hover:bg-white/20 transition-colors flex items-center gap-3",
+                              "text-gray-700 border-b border-white/10 last:border-b-0",
+                              currentLanguage === language.code && "bg-white/20 text-petinsure-teal-700 font-semibold"
+                            )}
+                            onClick={() => {
+                              setCurrentLanguage(language.code);
+                              setShowLanguageDropdown(false);
+                              setMobileMenuOpen(false);
+                            }}
+                          >
+                            <span className="text-lg">{language.flag}</span>
+                            <div className="flex flex-col">
+                              <span className="font-medium">{language.name}</span>
+                              <span className="text-xs text-gray-600 uppercase">{language.code}</span>
+                            </div>
+                            {currentLanguage === language.code && (
+                              <div className="ml-auto w-2 h-2 bg-petinsure-teal-600 rounded-full"></div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <PawButton 
-                    variant="ghost" 
                     size="sm" 
-                    className="w-full justify-start"
-                    onClick={() => {
-                      setShowProfileModal(true);
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    <User size={14} />
-                    Profile
-                  </PawButton>
-                  <PawButton 
-                    size="sm" 
-                    className="w-full"
+                    className="w-full bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg"
                     onClick={() => {
                       setShowQuickClaimModal(true);
                       setMobileMenuOpen(false);
@@ -125,40 +223,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
           )}
         </div>
       </header>
-
-      {/* Profile Modal - Compact size */}
-      <Modal
-        isOpen={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
-        title="Profile Settings"
-        size="md"
-      >
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center">
-              <User size={24} className="text-white" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Jun Nakamura</h3>
-              <p className="text-gray-600">jun.nakamura@email.com</p>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <button className="w-full p-3 text-left rounded-xl hover:bg-gray-50 flex items-center gap-3">
-              <Settings size={16} />
-              Account Settings
-            </button>
-            <button className="w-full p-3 text-left rounded-xl hover:bg-gray-50 flex items-center gap-3">
-              <Shield size={16} />
-              Privacy & Security
-            </button>
-            <button className="w-full p-3 text-left rounded-xl hover:bg-gray-50 flex items-center gap-3 text-red-600">
-              <LogOut size={16} />
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </Modal>
 
       {/* Quick Claim Modal - Proper size */}
       <Modal
@@ -175,7 +239,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
             <select className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-petinsure-teal-500 focus:border-transparent">
               <option>Select your pet</option>
               <option>Mali (Golden Retriever)</option>
-              <option>Taro (Shiba Inu)</option>
+              <option>Taro (British Shorthair)</option>
             </select>
           </div>
           

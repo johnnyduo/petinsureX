@@ -235,10 +235,22 @@
   /* Glass morphism components with improved borders and teal aura effects */
   .glass-container {
     @apply backdrop-blur-glass bg-gradient-glass border border-petinsure-teal-200/40 rounded-2xl shadow-glass;
+    background: linear-gradient(
+      135deg, 
+      rgba(255, 255, 255, 0.25) 0%, 
+      rgba(255, 255, 255, 0.18) 50%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
   }
 
   .glass-container:hover {
-    @apply shadow-glass-hover bg-white/15 border-petinsure-teal-300/60;
+    @apply shadow-glass-hover border-petinsure-teal-300/60;
+    background: linear-gradient(
+      135deg, 
+      rgba(255, 255, 255, 0.35) 0%, 
+      rgba(255, 255, 255, 0.28) 50%,
+      rgba(255, 255, 255, 0.25) 100%
+    );
   }
 
   /* Teal Aura/Glow Effects - Enhanced Intensity */

@@ -63,12 +63,12 @@ const AIAssistant = () => {
   ];
 
   const mockResponses = [
-    "Based on your Premium policy, emergency treatments are covered up to ₿100,000 annually with a ₿500 deductible. Your current claim shows high pet identity match (94%) and low fraud risk (15%), which typically results in faster processing.",
+    "Based on your Premium policy, emergency treatments are covered up to $2,850 annually with a $15 deductible. Your current claim shows high pet identity match (94%) and low fraud risk (15%), which typically results in faster processing.",
     "Your claim #001 is currently under review. Our AI analysis shows: ✅ Pet identity verified (94% confidence) ✅ Low fraud risk (15%) ✅ Vet attestation valid. Expected processing time: 2-3 business days.",
     "If your pet is showing unusual symptoms, I recommend: 1) Monitor for 24 hours and document symptoms 2) Contact your vet if symptoms persist 3) Take photos if there are visible changes 4) Keep receipts for potential claims. Would you like me to help you find nearby emergency vets?",
     "I found 5 qualified veterinarians near you: 🏥 Bangkok Pet Hospital (4.8★, 2km away, Emergency 24/7) 🏥 Thonglor Animal Clinic (4.9★, 3km away, Specialist care) 🏥 Sukhumvit Vet Center (4.7★, 1.5km away, Preventive care). Would you like contact details or directions?",
-    "I can help you schedule a vet appointment. Based on your pet's history and symptoms, I recommend: • General checkup within 1-2 days • Bring recent medical records • Prepare a list of current symptoms • Budget estimate: ₿2,000-₿4,000. Would you like me to call Bangkok Pet Hospital for availability?",
-    "I've analyzed the veterinary invoice for accuracy: ✅ Treatment costs within normal range ✅ Clinic is verified network partner ✅ No duplicate charges detected ⚠️ Minor concern: Pre-medication fee seems high (₿800 vs typical ₿400-₿600). Fraud risk: Low (12%). Recommendation: Proceed with claim submission."
+    "I can help you schedule a vet appointment. Based on your pet's history and symptoms, I recommend: • General checkup within 1-2 days • Bring recent medical records • Prepare a list of current symptoms • Budget estimate: $60-$115. Would you like me to call Bangkok Pet Hospital for availability?",
+    "I've analyzed the veterinary invoice for accuracy: ✅ Treatment costs within normal range ✅ Clinic is verified network partner ✅ No duplicate charges detected ⚠️ Minor concern: Pre-medication fee seems high ($25 vs typical $12-$18). Fraud risk: Low (12%). Recommendation: Proceed with claim submission."
   ];
 
   // Auto-scroll to bottom with improved performance
@@ -382,7 +382,7 @@ const AIAssistant = () => {
             <div className="space-y-6">
               {/* Quick Actions with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   {quickActions.map((action, index) => (
                     <button
@@ -403,7 +403,7 @@ const AIAssistant = () => {
 
               {/* AI Capabilities with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">AI Capabilities</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">AI Capabilities</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Brain size={16} className="text-petinsure-teal-600 mt-1" />
@@ -441,7 +441,7 @@ const AIAssistant = () => {
 
               {/* Recent Topics with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-4">Recent Topics</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">Recent Topics</h3>
                 <div className="space-y-2">
                   {[
                     'Claim processing timeline',

@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
@@ -20,7 +20,10 @@ import {
   RefreshCw,
   Star,
   Shield,
-  Target
+  Target,
+  StopCircle,
+  Download,
+  RotateCcw
 } from 'lucide-react';
 
 const PetIdentity = () => {
@@ -30,8 +33,17 @@ const PetIdentity = () => {
   const [scanProgress, setScanProgress] = useState(0);
   const [isScanning, setIsScanning] = useState(false);
   const [scanResults, setScanResults] = useState<any>(null);
+  const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
+  const [cameraError, setCameraError] = useState<string>('');
+  const [isCameraActive, setIsCameraActive] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const mockPets = [
     {
@@ -90,10 +102,130 @@ const PetIdentity = () => {
     }
   };
 
+  // Camera functions
+  const startCamera = useCallback(async () => {
+    try {
+      setCameraError('');
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { 
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: 'environment' // Use back camera on mobile
+        },
+        audio: scanType === 'video' // Only include audio for video
+      });
+      
+      setCameraStream(stream);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play();
+          setIsCameraActive(true);
+        };
+      }
+    } catch (error) {
+      console.error('Camera access error:', error);
+      setCameraError('Unable to access camera. Please check permissions and try again.');
+    }
+  }, [scanType]);
+
+  const stopCamera = useCallback(() => {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      setCameraStream(null);
+      setIsCameraActive(false);
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+  }, [cameraStream]);
+
+  const capturePhoto = useCallback(() => {
+    if (videoRef.current && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const video = videoRef.current;
+      
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(video, 0, 0);
+        const photoDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        setCapturedPhotos(prev => [...prev, photoDataUrl]);
+      }
+    }
+  }, []);
+
+  const startVideoRecording = useCallback(() => {
+    if (cameraStream) {
+      const recorder = new MediaRecorder(cameraStream);
+      const chunks: Blob[] = [];
+      
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+      
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        setRecordedChunks([blob]);
+      };
+      
+      setMediaRecorder(recorder);
+      recorder.start();
+      setIsRecording(true);
+    }
+  }, [cameraStream]);
+
+  const stopVideoRecording = useCallback(() => {
+    if (mediaRecorder && isRecording) {
+      mediaRecorder.stop();
+      setIsRecording(false);
+    }
+  }, [mediaRecorder, isRecording]);
+
+  const downloadRecording = useCallback(() => {
+    if (recordedChunks.length > 0) {
+      const blob = recordedChunks[0];
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `pet-scan-${Date.now()}.webm`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  }, [recordedChunks]);
+
+  // Cleanup camera on component unmount or modal close
+  useEffect(() => {
+    return () => {
+      stopCamera();
+    };
+  }, [stopCamera]);
+
+  const resetCapture = () => {
+    setCapturedPhotos([]);
+    setRecordedChunks([]);
+    setCameraError('');
+    setIsRecording(false);
+  };
+
   const startScan = async () => {
+    if (scanType === 'photo' && capturedPhotos.length === 0) {
+      setCameraError('Please capture at least one photo before scanning.');
+      return;
+    }
+    if (scanType === 'video' && recordedChunks.length === 0) {
+      setCameraError('Please record a video before scanning.');
+      return;
+    }
+
     setIsScanning(true);
     setScanProgress(0);
     setScanResults(null);
+    stopCamera(); // Stop camera during processing
 
     // Simulate AI scanning process
     const steps = [
@@ -113,17 +245,6 @@ const PetIdentity = () => {
 
     setScanResults(mockScanResults);
     setIsScanning(false);
-  };
-
-  const startVideoCapture = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-    }
   };
 
   return (
@@ -168,7 +289,7 @@ const PetIdentity = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="font-display text-lg font-semibold text-gray-900">{pet.name}</h3>
+                      <h3 className="font-display text-xl font-semibold text-gray-900">{pet.name}</h3>
                       <span className={cn(
                         "px-3 py-1 rounded-full text-xs font-medium",
                         pet.status === 'Verified' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
@@ -245,7 +366,7 @@ const PetIdentity = () => {
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Brain size={24} className="text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Breed Detection</h3>
+                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Breed Detection</h3>
                 <p className="text-sm text-gray-600 mb-4">Advanced AI identifies breed with 95%+ accuracy using computer vision</p>
                 <div className="text-xs text-blue-600 font-medium">Latest: GPT-4 Vision</div>
               </div>
@@ -254,7 +375,7 @@ const PetIdentity = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Target size={24} className="text-green-600" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Unique ID Mapping</h3>
+                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Unique ID Mapping</h3>
                 <p className="text-sm text-gray-600 mb-4">Creates digital fingerprint from facial features, markings, and patterns</p>
                 <div className="text-xs text-green-600 font-medium">Features: 50+ markers</div>
               </div>
@@ -263,7 +384,7 @@ const PetIdentity = () => {
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield size={24} className="text-purple-600" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Fraud Prevention</h3>
+                <h3 className="font-semibold text-gray-900 mb-2 text-xl">Fraud Prevention</h3>
                 <p className="text-sm text-gray-600 mb-4">Prevents identity fraud by matching pets to verified database</p>
                 <div className="text-xs text-purple-600 font-medium">Accuracy: 99.8%</div>
               </div>
@@ -280,6 +401,8 @@ const PetIdentity = () => {
           setIsScanning(false);
           setScanProgress(0);
           setScanResults(null);
+          stopCamera();
+          resetCapture();
         }}
         title="AI Pet Identity Scan"
         size="lg"
@@ -288,7 +411,7 @@ const PetIdentity = () => {
           {!scanResults && !isScanning && (
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Choose Scan Method</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Choose Scan Method</h3>
                 <p className="text-gray-600">Select how you'd like to capture your pet's identity</p>
               </div>
 
@@ -334,20 +457,84 @@ const PetIdentity = () => {
                     </ul>
                   </div>
 
-                  <PawButton
-                    className="w-full"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <Upload size={20} />
-                    Upload Photos
-                  </PawButton>
+                  {cameraError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                      {cameraError}
+                    </div>
+                  )}
+
+                  {!isCameraActive ? (
+                    <div className="space-y-3">
+                      <div className="flex gap-3">
+                        <PawButton className="flex-1" onClick={startCamera}>
+                          <Camera size={16} />
+                          Open Camera
+                        </PawButton>
+                        <PawButton variant="secondary" className="flex-1" onClick={() => fileInputRef.current?.click()}>
+                          <Upload size={16} />
+                          Upload Photos
+                        </PawButton>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                        <video
+                          ref={videoRef}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          playsInline
+                        />
+                        <div className="absolute inset-0 border-2 border-dashed border-white/50 rounded-xl pointer-events-none"></div>
+                      </div>
+                      
+                      <div className="flex gap-3">
+                        <PawButton onClick={capturePhoto} className="flex-1">
+                          <Camera size={16} />
+                          Capture Photo ({capturedPhotos.length})
+                        </PawButton>
+                        <PawButton variant="secondary" onClick={stopCamera}>
+                          <StopCircle size={16} />
+                          Stop Camera
+                        </PawButton>
+                      </div>
+
+                      {capturedPhotos.length > 0 && (
+                        <div className="space-y-2">
+                          <h5 className="font-medium text-gray-900">Captured Photos ({capturedPhotos.length})</h5>
+                          <div className="grid grid-cols-3 gap-2">
+                            {capturedPhotos.map((photo, index) => (
+                              <img
+                                key={index}
+                                src={photo}
+                                alt={`Captured ${index + 1}`}
+                                className="w-full aspect-square object-cover rounded-lg border border-gray-200"
+                              />
+                            ))}
+                          </div>
+                          <PawButton variant="ghost" size="sm" onClick={resetCapture}>
+                            <RotateCcw size={14} />
+                            Reset Photos
+                          </PawButton>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <input
                     ref={fileInputRef}
                     type="file"
                     multiple
                     accept="image/*"
                     className="hidden"
-                    onChange={startScan}
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        const files = Array.from(e.target.files);
+                        const photoUrls = files.map(file => URL.createObjectURL(file));
+                        setCapturedPhotos(photoUrls);
+                      }
+                    }}
                   />
                 </div>
               )}
@@ -364,25 +551,75 @@ const PetIdentity = () => {
                     </ul>
                   </div>
 
-                  <div className="aspect-video bg-gray-100 rounded-xl flex items-center justify-center">
-                    <video
-                      ref={videoRef}
-                      className="w-full h-full rounded-xl"
-                      autoPlay
-                      muted
-                    />
-                  </div>
+                  {cameraError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                      {cameraError}
+                    </div>
+                  )}
 
-                  <div className="flex gap-3">
-                    <PawButton variant="secondary" className="flex-1" onClick={startVideoCapture}>
-                      <Camera size={16} />
-                      Start Camera
-                    </PawButton>
-                    <PawButton className="flex-1" onClick={startScan}>
-                      <Video size={16} />
-                      Start Recording
-                    </PawButton>
-                  </div>
+                  {!isCameraActive ? (
+                    <div className="text-center py-8">
+                      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Video size={32} className="text-gray-400" />
+                      </div>
+                      <h5 className="font-medium text-gray-900 mb-2">Ready to Record</h5>
+                      <p className="text-sm text-gray-600 mb-4">Start your camera to begin recording</p>
+                      <PawButton onClick={startCamera}>
+                        <Camera size={16} />
+                        Start Camera
+                      </PawButton>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                        <video
+                          ref={videoRef}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          playsInline
+                        />
+                        {isRecording && (
+                          <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                            REC
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flex gap-3">
+                        {!isRecording ? (
+                          <PawButton onClick={startVideoRecording} className="flex-1">
+                            <Video size={16} />
+                            Start Recording
+                          </PawButton>
+                        ) : (
+                          <PawButton onClick={stopVideoRecording} variant="secondary" className="flex-1">
+                            <StopCircle size={16} />
+                            Stop Recording
+                          </PawButton>
+                        )}
+                        <PawButton variant="ghost" onClick={stopCamera}>
+                          Close Camera
+                        </PawButton>
+                      </div>
+
+                      {recordedChunks.length > 0 && (
+                        <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h5 className="font-medium text-green-900">Video Recorded!</h5>
+                              <p className="text-sm text-green-700">Ready for AI analysis</p>
+                            </div>
+                            <PawButton size="sm" variant="ghost" onClick={downloadRecording}>
+                              <Download size={14} />
+                              Download
+                            </PawButton>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -395,7 +632,7 @@ const PetIdentity = () => {
               </div>
               
               <div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">AI Analysis in Progress</h3>
                 <p className="text-gray-600">Our advanced AI is analyzing your pet's unique features</p>
               </div>
 
@@ -438,7 +675,7 @@ const PetIdentity = () => {
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle size={40} className="text-green-600" />
                 </div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">Scan Complete!</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">Scan Complete!</h3>
                 <p className="text-gray-600">AI analysis has identified your pet with high confidence</p>
               </div>
 
@@ -507,15 +744,53 @@ const PetIdentity = () => {
               </div>
 
               <div className="flex gap-3 pt-4">
-                <PawButton variant="ghost" className="flex-1" onClick={() => setShowScanModal(false)}>
+                <PawButton variant="ghost" className="flex-1" onClick={() => {
+                  setShowScanModal(false);
+                  setScanResults(null);
+                  resetCapture();
+                }}>
                   Close
                 </PawButton>
-                <PawButton className="flex-1">
+                <PawButton className="flex-1" onClick={() => {
+                  // Save to profile logic would go here
+                  setShowScanModal(false);
+                  setScanResults(null);
+                  resetCapture();
+                }}>
+                  <CheckCircle size={16} />
                   Save to Profile
                 </PawButton>
               </div>
             </div>
           )}
+
+          {/* Action Buttons */}
+          {!isScanning && !scanResults && (
+            <div className="flex gap-3 pt-4">
+              <PawButton 
+                variant="ghost" 
+                className="flex-1" 
+                onClick={() => {
+                  setShowScanModal(false);
+                  stopCamera();
+                  resetCapture();
+                }}
+              >
+                Cancel
+              </PawButton>
+              <PawButton 
+                className="flex-1" 
+                onClick={startScan}
+                disabled={(scanType === 'photo' && capturedPhotos.length === 0) || (scanType === 'video' && recordedChunks.length === 0)}
+              >
+                <Scan size={16} />
+                Start AI Analysis
+              </PawButton>
+            </div>
+          )}
+
+          {/* Hidden canvas for photo capture */}
+          <canvas ref={canvasRef} className="hidden" />
         </div>
       </Modal>
     </Layout>

@@ -24,7 +24,7 @@ const Dashboard = () => {
   const stats = [
     { label: 'Active Policies', value: '2', icon: Shield, color: 'text-blue-600' },
     { label: 'Pending Claims', value: '1', icon: Clock, color: 'text-yellow-600' },
-    { label: 'Total Covered', value: '₿182,000', icon: TrendingUp, color: 'text-green-600' },
+    { label: 'Total Covered', value: '$5,200', icon: TrendingUp, color: 'text-green-600' },
     { label: 'Coverage Used', value: '18%', icon: Heart, color: 'text-petinsure-teal-600' }
   ];
 
@@ -36,7 +36,7 @@ const Dashboard = () => {
       description: 'Emergency surgery claim - Under review',
       timestamp: '2 hours ago',
       status: 'pending',
-      amount: '₿15,000'
+      amount: '$430'
     },
     {
       id: 2,
@@ -45,7 +45,7 @@ const Dashboard = () => {
       description: 'Annual premium paid automatically',
       timestamp: '1 day ago',
       status: 'completed',
-      amount: '₿12,000'
+      amount: '$345'
     },
     {
       id: 3,
@@ -66,8 +66,8 @@ const Dashboard = () => {
       age: '3 years',
       avatar: '🐕',
       status: 'Healthy',
-      coverage: '₿100,000',
-      remaining: '₿85,000'
+      coverage: '$2,850',
+      remaining: '$2,430'
     },
     {
       id: 2,
@@ -77,8 +77,8 @@ const Dashboard = () => {
       age: '2 years',
       avatar: '🐱',
       status: 'Vaccinated',
-      coverage: '₿82,000',
-      remaining: '₿82,000'
+      coverage: '$2,350',
+      remaining: '$2,350'
     }
   ];
 
@@ -106,7 +106,7 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
+                    <p className="text-sm text-gray-700 mb-1">{stat.label}</p>
                     <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
                   <div className={cn("p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50", stat.color)}>
@@ -162,8 +162,8 @@ const Dashboard = () => {
                         )}
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900">{activity.title}</h3>
-                        <p className="text-sm text-gray-600">{activity.description}</p>
+                        <h3 className="font-medium text-gray-900 text-xl">{activity.title}</h3>
+                        <p className="text-sm text-gray-700">{activity.description}</p>
                         <p className="text-xs text-gray-500 mt-1">{activity.timestamp}</p>
                       </div>
                       {activity.amount && (
@@ -188,7 +188,7 @@ const Dashboard = () => {
                       <div className="flex items-center gap-3 mb-3">
                         <div className="text-2xl">{pet.avatar}</div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{pet.name}</h3>
+                          <h3 className="font-semibold text-gray-900 text-xl">{pet.name}</h3>
                           <p className="text-sm text-gray-600">{pet.breed} • {pet.age}</p>
                         </div>
                         <div className={cn(
@@ -200,11 +200,11 @@ const Dashboard = () => {
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Coverage</span>
+                          <span className="text-gray-700">Coverage</span>
                           <span className="font-medium">{pet.coverage}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Remaining</span>
+                          <span className="text-gray-700">Remaining</span>
                           <span className="font-medium text-green-600">{pet.remaining}</span>
                         </div>
                       </div>

@@ -37,14 +37,14 @@ const VetPortal = () => {
       patientName: 'Mali',
       ownerName: 'Jun Nakamura',
       date: '2024-01-15',
-      amount: 15000,
+      amount: 430,
       treatment: 'Hip dysplasia surgery',
       status: 'pending_attestation',
       items: [
-        { description: 'Pre-operative examination', amount: 2000, category: 'consultation' },
-        { description: 'Orthopedic surgery', amount: 10000, category: 'surgery' },
-        { description: 'Anesthesia', amount: 1500, category: 'medication' },
-        { description: 'Post-operative care', amount: 1500, category: 'treatment' }
+        { description: 'Pre-operative examination', amount: 60, category: 'consultation' },
+        { description: 'Orthopedic surgery', amount: 285, category: 'surgery' },
+        { description: 'Anesthesia', amount: 45, category: 'medication' },
+        { description: 'Post-operative care', amount: 40, category: 'treatment' }
       ],
       hash: null,
       signature: null
@@ -54,12 +54,12 @@ const VetPortal = () => {
       patientName: 'Taro',
       ownerName: 'Jun Nakamura',
       date: '2024-01-10',
-      amount: 3500,
+      amount: 100,
       treatment: 'Annual vaccination package',
       status: 'attested',
       items: [
-        { description: 'Health examination', amount: 1500, category: 'consultation' },
-        { description: 'Vaccination set', amount: 2000, category: 'medication' }
+        { description: 'Health examination', amount: 45, category: 'consultation' },
+        { description: 'Vaccination set', amount: 55, category: 'medication' }
       ],
       hash: '0x7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730',
       signature: '0x8b331f0a...',
@@ -71,7 +71,7 @@ const VetPortal = () => {
     { label: 'Invoices Today', value: '12', icon: FileText, color: 'text-blue-600' },
     { label: 'Pending Attestation', value: '3', icon: Clock, color: 'text-yellow-600' },
     { label: 'Attested This Month', value: '89', icon: CheckCircle, color: 'text-green-600' },
-    { label: 'Total Revenue', value: '₿245,000', icon: Shield, color: 'text-petinsure-teal-600' }
+    { label: 'Total Revenue', value: '$7,000', icon: Shield, color: 'text-petinsure-teal-600' }
   ];
 
   const getStatusColor = (status: string) => {
@@ -181,7 +181,7 @@ const VetPortal = () => {
                       </div>
                       <div>
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-semibold text-gray-900">#{invoice.id.split('-')[1].toUpperCase()}</h3>
+                          <h3 className="font-semibold text-gray-900 text-xl">#{invoice.id.split('-')[1].toUpperCase()}</h3>
                           <span className={cn("px-3 py-1 rounded-full text-xs font-medium border", getStatusColor(invoice.status))}>
                             {invoice.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                           </span>
@@ -195,7 +195,7 @@ const VetPortal = () => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-gray-900">₿{invoice.amount.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-gray-900">${invoice.amount.toLocaleString()}</p>
                       {invoice.hash && (
                         <div className="mt-2 space-y-1 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
@@ -218,7 +218,7 @@ const VetPortal = () => {
                         {invoice.items.map((item, index) => (
                           <div key={index} className="flex justify-between">
                             <span className="text-gray-600">{item.description}</span>
-                            <span className="font-medium">₿{item.amount.toLocaleString()}</span>
+                            <span className="font-medium">${item.amount.toLocaleString()}</span>
                           </div>
                         ))}
                       </div>
@@ -377,7 +377,7 @@ const VetPortal = () => {
               <div key={invoice.id} className="flex items-center justify-between p-4 bg-white/50 rounded-xl border border-white/20">
                 <div>
                   <p className="font-medium text-gray-900">#{invoice.id.split('-')[1].toUpperCase()}</p>
-                  <p className="text-sm text-gray-600">{invoice.patientName} - ₿{invoice.amount.toLocaleString()}</p>
+                  <p className="text-sm text-gray-600">{invoice.patientName} - ${invoice.amount.toLocaleString()}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock size={16} className="text-yellow-500" />
