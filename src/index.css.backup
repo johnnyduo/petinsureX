@@ -11,9 +11,28 @@
     --foreground: 220 9% 98%;
 
     --card: 220 13% 16%;
-    --card-foreground: 220 9% 98%;
+    --card-foreground: 220  .aura-teal-prominent {
+    .aura-teal-glow {
+    box-shadow: 
+      0 0 60px rgba(6, 182, 212, 0.30),
+      0 15px 60px rgba(6, 182, 212, 0.25),
+      0 0 0 1px rgba(6, 182, 212, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    --popover: 220 13% 16%;
+  /* Removed aura-teal-glow hover effects for modal optimization */
+
+  .aura-teal-intense {  0 0 40px rgba(6, 182, 212, 0.20),
+      0 8px 40px rgba(6, 182, 212, 0.15),
+      0 0 0 1px rgba(6, 182, 212, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Removed aura-teal-prominent hover effects for modal optimization */
+
+  .aura-teal-glow {over: 220 13% 16%;
     --popover-foreground: 220 9% 98%;
 
     --primary: 173 58% 39%;
@@ -243,15 +262,7 @@
     );
   }
 
-  .glass-container:hover {
-    @apply shadow-glass-hover border-petinsure-teal-300/60;
-    background: linear-gradient(
-      135deg, 
-      rgba(255, 255, 255, 0.35) 0%, 
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(255, 255, 255, 0.25) 100%
-    );
-  }
+  /* Removed glass-container hover effects for modal optimization */
 
   /* Teal Aura/Glow Effects - Enhanced Intensity */
   .aura-teal-subtle {
@@ -263,14 +274,7 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .aura-teal-subtle:hover {
-    box-shadow: 
-      0 0 35px rgba(6, 182, 212, 0.18),
-      0 8px 35px rgba(6, 182, 212, 0.12),
-      0 0 0 1px rgba(6, 182, 212, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px) scale(1.01);
-  }
+  /* Removed aura-teal-subtle hover effects for modal optimization */
 
   .aura-teal-prominent {
     box-shadow: 
@@ -281,14 +285,7 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .aura-teal-prominent:hover {
-    box-shadow: 
-      0 0 45px rgba(6, 182, 212, 0.25),
-      0 12px 45px rgba(6, 182, 212, 0.15),
-      0 0 0 1px rgba(6, 182, 212, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px) scale(1.02);
-  }
+  /* Removed aura-teal-prominent hover effects for modal optimization */
 
   .aura-teal-glow {
     box-shadow: 
@@ -299,44 +296,32 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .aura-teal-glow:hover {
-    box-shadow: 
-      0 0 60px rgba(6, 182, 212, 0.3),
-      0 15px 60px rgba(6, 182, 212, 0.18),
-      0 0 0 1px rgba(6, 182, 212, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    transform: translateY(-4px) scale(1.03);
-  }
+  /* Removed aura-teal-glow hover effects for modal optimization */
 
-  .aura-teal-intense {
+    .aura-teal-intense {
     box-shadow: 
-      0 0 50px rgba(6, 182, 212, 0.25),
-      0 12px 50px rgba(6, 182, 212, 0.15),
-      0 0 0 2px rgba(6, 182, 212, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      0 0 100px rgba(6, 182, 212, 0.45),
+      0 25px 100px rgba(6, 182, 212, 0.40),
+      0 0 0 1px rgba(6, 182, 212, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .aura-teal-intense:hover {
-    box-shadow: 
-      0 0 70px rgba(6, 182, 212, 0.35),
-      0 18px 70px rgba(6, 182, 212, 0.22),
-      0 0 0 2px rgba(6, 182, 212, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    transform: translateY(-5px) scale(1.04);
-  }
+  /* Removed aura-teal-intense hover effects for modal optimization */
 
-  /* Pet-themed buttons */
+/* Pet Insurance Card Styles */
+
+  /* Pet-themed buttons - hover effects disabled for modal usage */
   .btn-paw-primary {
-    @apply paw-button text-white font-medium px-6 py-3 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200;
+    @apply paw-button text-white font-medium px-6 py-3 flex items-center gap-2 transition-all duration-200;
   }
 
   .btn-paw-secondary {
-    @apply glass-container text-petinsure-teal-700 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 hover:glass-card-hover transition-all duration-200;
+    @apply glass-container text-petinsure-teal-700 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 transition-all duration-200;
   }
 
   .btn-paw-ghost {
-    @apply text-petinsure-teal-600 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 hover:bg-petinsure-teal-50 transition-all duration-200;
+    @apply text-petinsure-teal-600 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 transition-all duration-200;
   }
 
   /* Animation classes */
@@ -351,7 +336,7 @@
 
   /* Pet insurance specific styles */
   .pet-card {
-    @apply glass-container p-6 hover:scale-105 transition-all duration-300 cursor-pointer;
+    @apply glass-container p-6 transition-all duration-300 cursor-pointer;
   }
 
   .risk-gauge-low {
@@ -482,15 +467,9 @@
 
   /* Mobile modal overflow prevention */
   .modal-container {
+    max-width: 100vw !important;
     max-height: 100vh !important;
     overflow: hidden;
-  }
-  
-  /* Mobile only: prevent width overflow */
-  @media (max-width: 640px) {
-    .modal-container {
-      max-width: 100vw !important;
-    }
   }
   
   /* Ensure body doesn't scroll horizontally when modal is open */

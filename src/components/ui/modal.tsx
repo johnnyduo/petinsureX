@@ -24,23 +24,17 @@ export const Modal: React.FC<ModalProps> = ({
   showCloseButton = true
 }) => {
   const sizeClasses = {
-    sm: 'max-w-sm',      // ~384px - notifications, confirmations
-    md: 'max-w-md',      // ~448px - forms, profiles  
-    lg: 'max-w-2xl',     // ~672px - detailed forms
-    xl: 'max-w-3xl',     // ~768px - reduced from 896px for better mobile fit
-    full: 'max-w-4xl'    // ~896px - reduced from 1152px for better mobile fit
+    sm: 'w-full max-w-sm',      // ~384px - notifications, confirmations
+    md: 'w-full max-w-md',      // ~448px - forms, profiles  
+    lg: 'w-full max-w-lg',      // ~512px - compact forms
+    xl: 'w-full max-w-2xl',     // ~672px - detailed forms
+    full: 'w-full max-w-4xl'    // ~896px - complex workflows
   };
 
-  // Mobile-first responsive adjustments with better constraints
-  const mobileClasses = {
-    sm: 'mx-3 sm:mx-auto w-[calc(100%-1.5rem)] sm:w-full',
-    md: 'mx-3 sm:mx-auto w-[calc(100%-1.5rem)] sm:w-full',
-    lg: 'mx-3 sm:mx-6 lg:mx-auto w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] lg:w-full',
-    xl: 'mx-3 sm:mx-6 lg:mx-8 xl:mx-auto w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] xl:w-full',
-    full: 'mx-2 sm:mx-4 lg:mx-6 xl:mx-8 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] lg:w-[calc(100%-3rem)] xl:w-full'
-  };
+  // Simplified mobile constraints
+  const spacingClasses = 'mx-3 sm:mx-6 lg:mx-auto';
 
-  // Handle escape key
+  // Handle escape key and modal state tracking with enhanced body lock
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -50,58 +44,76 @@ export const Modal: React.FC<ModalProps> = ({
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
+      
+      // Enhanced body locking for mobile
+      const scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.setAttribute('data-modal-open', 'true');
+      document.body.setAttribute('data-scroll-y', scrollY.toString());
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      
+      // Restore body state
+      const scrollY = parseInt(document.body.getAttribute('data-scroll-y') || '0');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.removeAttribute('data-modal-open');
+      document.body.removeAttribute('data-scroll-y');
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Enhanced backdrop with smooth animation */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
+      {/* Enhanced backdrop with responsive opacity */}
       <div 
         className="absolute inset-0 transition-all duration-300 ease-out"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(12px)',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)', // Slightly less dark for desktop
+          backdropFilter: 'blur(8px)', // Less blur for better performance
           opacity: isOpen ? 1 : 0
         }}
         onClick={onClose}
       />
       
-      {/* Modal container with smooth entrance animation and mobile optimization */}
+      {/* Modal container with proper desktop/mobile sizing */}
       <div
         className={cn(
-          "relative transform transition-all duration-300 ease-out",
-          "h-full sm:h-auto max-h-screen", // Full height on mobile, constrained max height
-          "flex flex-col", // Always use flexbox for proper mobile sizing
+          "modal-container relative transform transition-all duration-300 ease-out",
+          "h-full sm:h-auto", // Full height on mobile, auto on desktop
+          "max-h-[calc(100vh-1rem)] sm:max-h-[calc(100vh-4rem)]", // Better spacing
+          "flex flex-col", // Consistent flexbox layout
           sizeClasses[size],
-          mobileClasses[size],
+          spacingClasses,
           className,
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
         )}
         style={{ 
           zIndex: 51,
-          maxHeight: '100vh', // Full viewport height constraint
-          minHeight: 'auto', // Allow shrinking on desktop
+          minHeight: 'auto',
         }}
         onClick={e => e.stopPropagation()}
       >
         <GlassCard 
           variant="glass"
-          className="aura-teal-glow shadow-2xl border border-petinsure-teal-200/30 overflow-hidden flex flex-col h-full rounded-none sm:rounded-xl"
+          className="aura-teal-glow shadow-2xl border border-petinsure-teal-200/30 overflow-hidden flex flex-col h-full sm:h-auto rounded-2xl"
           borderStyle="subtle"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
             backdropFilter: 'blur(24px)',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-            maxHeight: '100vh', // Full height constraint
-            height: '100%', // Take full height on mobile
+            maxHeight: '100%',
+            height: '100%', // Full height on mobile
+            minHeight: '200px',
           }}
         >
           {/* Header with pet-friendly styling and mobile optimization */}
@@ -113,10 +125,10 @@ export const Modal: React.FC<ModalProps> = ({
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="p-1.5 sm:p-2 hover:bg-petinsure-teal-100/50 rounded-full transition-all duration-200 hover:scale-110 group flex-shrink-0 ml-2"
+                  className="p-1.5 sm:p-2 rounded-full flex-shrink-0 ml-2"
                   aria-label="Close modal"
                 >
-                  <X size={18} className="sm:w-5 sm:h-5 text-gray-500 group-hover:text-gray-700 transition-colors" />
+                  <X size={18} className="sm:w-5 sm:h-5 text-gray-500" />
                 </button>
               )}
             </div>

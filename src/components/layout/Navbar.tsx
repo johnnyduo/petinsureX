@@ -225,12 +225,12 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
         </div>
       </header>
 
-      {/* Quick Claim Modal - Proper size */}
+      {/* Quick Claim Modal - Mobile optimized */}
       <Modal
         isOpen={showQuickClaimModal}
         onClose={() => setShowQuickClaimModal(false)}
         title="Quick Claim"
-        size="lg"
+        size="md"
       >
         <div className="space-y-4 sm:space-y-6">
           <div>

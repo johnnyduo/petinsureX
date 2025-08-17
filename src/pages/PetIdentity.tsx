@@ -316,7 +316,7 @@ const PetIdentity = () => {
               { label: 'Unique Markers', value: '7', icon: Star, color: 'text-yellow-600' },
               { label: 'Last Scan', value: '5 days', icon: Scan, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
+              <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
@@ -446,7 +446,7 @@ const PetIdentity = () => {
         </div>
       </div>
 
-      {/* AI Scan Modal - Fixed size */}
+      {/* AI Scan Modal - Mobile optimized */}
       <Modal
         isOpen={showScanModal}
         onClose={() => {
@@ -458,26 +458,26 @@ const PetIdentity = () => {
           resetCapture();
         }}
         title="AI Pet Identity Scan"
-        size="lg"
+        size="md"
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {!scanResults && !isScanning && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div className="text-center">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Choose Scan Method</h3>
-                <p className="text-gray-600">Select how you'd like to capture your pet's identity</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Choose Scan Method</h3>
+                <p className="text-sm sm:text-base text-gray-600">Select how you'd like to capture your pet's identity</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <button
                   onClick={() => setScanType('photo')}
                   className={cn(
-                    "p-4 sm:p-6 rounded-xl border-2 transition-all",
-                    scanType === 'photo' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200 hover:border-gray-300'
+                    "p-3 sm:p-4 lg:p-6 rounded-xl border-2 transition-all",
+                    scanType === 'photo' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200'
                   )}
                 >
                   <div className="text-center">
-                    <Camera size={28} className="mx-auto mb-3 text-petinsure-teal-600 sm:size-8" />
+                    <Camera size={24} className="mx-auto mb-2 sm:mb-3 text-petinsure-teal-600 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                     <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Photo Capture</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Take photos from multiple angles</p>
                   </div>
@@ -487,7 +487,7 @@ const PetIdentity = () => {
                   onClick={() => setScanType('video')}
                   className={cn(
                     "p-4 sm:p-6 rounded-xl border-2 transition-all",
-                    scanType === 'video' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200 hover:border-gray-300'
+                    scanType === 'video' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200'
                   )}
                 >
                   <div className="text-center">

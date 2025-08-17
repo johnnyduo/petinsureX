@@ -146,7 +146,7 @@ const Policies = () => {
               { label: 'Annual Premium', value: '$590', icon: CreditCard, color: 'text-purple-600' },
               { label: 'Coverage Used', value: '18%', icon: Zap, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
+              <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
@@ -169,7 +169,7 @@ const Policies = () => {
                 const usagePercentage = ((policy.coverageLimit - policy.remaining) / policy.coverageLimit) * 100;
                 
                 return (
-                  <div key={policy.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border-2 border-petinsure-teal-200/60 hover:border-petinsure-teal-300/80 aura-teal-subtle">
+                  <div key={policy.id} className="p-6 rounded-xl bg-white/30 border-2 border-petinsure-teal-200/60 aura-teal-subtle">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
                         <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
@@ -236,7 +236,7 @@ const Policies = () => {
 
           {/* Quick Actions with enhanced borders and teal aura */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
+            <GlassCard className="p-6 text-center cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FileText size={24} className="text-blue-600" />
               </div>
@@ -248,7 +248,7 @@ const Policies = () => {
               </PawButton>
             </GlassCard>
 
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
+            <GlassCard className="p-6 text-center cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calendar size={24} className="text-green-600" />
               </div>
@@ -260,7 +260,7 @@ const Policies = () => {
               </PawButton>
             </GlassCard>
 
-            <GlassCard className="p-6 text-center hover:scale-105 transition-transform cursor-pointer aura-teal-glow" borderStyle="prominent">
+            <GlassCard className="p-6 text-center cursor-pointer aura-teal-glow" borderStyle="prominent">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CreditCard size={24} className="text-purple-600" />
               </div>
@@ -275,53 +275,107 @@ const Policies = () => {
         </div>
       </div>
 
-      {/* New Policy Modal - Fixed size */}
+      {/* New Policy Modal - Professional desktop design */}
       <Modal
         isOpen={showNewPolicyModal}
         onClose={() => setShowNewPolicyModal(false)}
         title="Choose Your Coverage Plan"
-        size="lg"
+        size="full"
       >
         <div className="space-y-6">
-          <p className="text-gray-600">Select the best insurance plan for your pet's needs</p>
+          <p className="text-gray-600 text-center">Select the best insurance plan for your pet's needs</p>
           
-          <div className="grid gap-6">
+          {/* Desktop: 3-column grid, Mobile: Single column */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {coverageTypes.map((plan, index) => (
               <div key={index} className={cn(
-                "p-6 rounded-xl border-2 transition-all cursor-pointer hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50",
-                index === 1 ? "border-petinsure-teal-300 bg-petinsure-teal-50" : "border-gray-200"
+                "relative bg-white rounded-2xl border-2 cursor-pointer transition-all duration-200 overflow-hidden",
+                "flex flex-col min-h-[420px]", // Fixed height to prevent overflow
+                index === 1 
+                  ? "border-petinsure-teal-400 shadow-xl ring-4 ring-petinsure-teal-100 transform scale-105 mt-6" 
+                  : "border-gray-200 shadow-lg hover:shadow-xl hover:border-gray-300 mt-6"
               )}>
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-display text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
-                    <p className="text-2xl font-bold text-petinsure-teal-600">{plan.price}</p>
+                {/* Popular badge - fixed positioning */}
+                {index === 1 && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white px-4 py-1.5 rounded-full shadow-lg">
+                      <span className="text-xs font-semibold tracking-wide">Most Popular</span>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Card header - adjusted padding for badge */}
+                <div className={cn(
+                  "text-center bg-gradient-to-b from-gray-50 to-white border-b border-gray-100",
+                  index === 1 ? "pt-8 pb-6 px-6" : "p-6"
+                )}>
+                  <h3 className="font-display text-xl font-bold text-gray-900 mb-3 truncate">{plan.name}</h3>
+                  <div className="space-y-1">
+                    <p className="text-3xl font-bold text-petinsure-teal-600">{plan.price}</p>
                     <p className="text-sm text-gray-600">Coverage up to {plan.coverage}</p>
                   </div>
-                  {index === 1 && (
-                    <span className="px-3 py-1 bg-petinsure-teal-100 text-petinsure-teal-700 text-xs font-medium rounded-full">
-                      Most Popular
-                    </span>
-                  )}
                 </div>
                 
-                <div className="space-y-2">
-                  {plan.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center gap-2">
-                      <CheckCircle size={16} className="text-green-500" />
-                      <span className="text-sm text-gray-700">{feature}</span>
+                {/* Features section - scrollable if needed */}
+                <div className="flex-1 p-6 overflow-y-auto">
+                  <div className="space-y-3">
+                    {/* Mobile: Show limited features */}
+                    <div className="lg:hidden">
+                      {plan.features.slice(0, 4).map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-start gap-3">
+                          <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
+                        </div>
+                      ))}
+                      {plan.features.length > 4 && (
+                        <div className="text-sm text-gray-500 text-center pt-2 font-medium">
+                          +{plan.features.length - 4} more benefits
+                        </div>
+                      )}
                     </div>
-                  ))}
+                    
+                    {/* Desktop: Show all features with proper spacing */}
+                    <div className="hidden lg:block space-y-3">
+                      {plan.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-start gap-3">
+                          <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-gray-700 leading-relaxed break-words">{feature}</span>
+                        </div>
+                      ))}
+                      {/* Add padding if fewer features to maintain consistent card height */}
+                      {plan.features.length < 6 && (
+                        <div className="h-4"></div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Action button - fixed at bottom */}
+                <div className="p-6 pt-0">
+                  <button className={cn(
+                    "w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 text-sm",
+                    index === 1 
+                      ? "bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5" 
+                      : "bg-gray-50 text-gray-700 border-2 border-gray-200 hover:bg-gray-100 hover:border-gray-300"
+                  )}>
+                    {index === 1 ? "Select This Plan" : "Choose This Plan"}
+                  </button>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="flex gap-3 pt-6 border-t border-gray-200">
-            <PawButton variant="ghost" className="flex-1" onClick={() => setShowNewPolicyModal(false)}>
-              Cancel
-            </PawButton>
-            <PawButton className="flex-1">
+          {/* Action buttons - professional styling */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+            <PawButton className="w-full sm:flex-1 py-3 text-base font-semibold">
               Continue to Application
+            </PawButton>
+            <PawButton 
+              variant="ghost" 
+              className="w-full sm:flex-1 py-3 text-base border-2 border-gray-200 hover:border-gray-300" 
+              onClick={() => setShowNewPolicyModal(false)}
+            >
+              Cancel
             </PawButton>
           </div>
         </div>

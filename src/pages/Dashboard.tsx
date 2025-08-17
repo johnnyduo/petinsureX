@@ -101,7 +101,7 @@ const Dashboard = () => {
             {stats.map((stat, index) => (
               <GlassCard 
                 key={index} 
-                className="p-4 sm:p-6 hover:scale-105 transition-transform aura-teal-subtle" 
+                className="p-4 sm:p-6 aura-teal-subtle" 
                 borderStyle="prominent"
               >
                 <div className="flex items-center">
@@ -150,7 +150,7 @@ const Dashboard = () => {
                 <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30 border border-petinsure-teal-200/40 hover:border-petinsure-teal-300/60 transition-colors aura-teal-subtle">
+                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30 border border-petinsure-teal-200/40 aura-teal-subtle">
                       <div className={cn(
                         "p-2 rounded-full border border-petinsure-teal-200/30",
                         activity.status === 'completed' ? 'bg-green-100' : 'bg-yellow-100'
@@ -184,7 +184,7 @@ const Dashboard = () => {
                 <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Your Pets</h2>
                 <div className="space-y-4">
                   {pets.map((pet) => (
-                    <div key={pet.id} className="p-4 rounded-xl bg-white/50 hover:bg-white/70 transition-colors border border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70 aura-teal-subtle">
+                    <div key={pet.id} className="p-4 rounded-xl bg-white/50 border border-petinsure-teal-200/50 aura-teal-subtle">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="text-2xl">{pet.avatar}</div>
                         <div className="flex-1">
@@ -220,12 +220,12 @@ const Dashboard = () => {
                   <h2 className="font-display text-xl font-semibold text-gray-900">AI Insights</h2>
                 </div>
                 <div className="space-y-3">
-                  <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 hover:border-petinsure-teal-400/80 transition-colors aura-teal-subtle">
+                  <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 aura-teal-subtle">
                     <p className="text-sm text-petinsure-teal-800">
                       <strong>Vaccination Reminder:</strong> Taro is due for annual vaccination in 2 weeks.
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-green-50 border-2 border-green-300/60 hover:border-green-400/80 transition-colors aura-teal-subtle">
+                  <div className="p-3 rounded-lg bg-green-50 border-2 border-green-300/60 aura-teal-subtle">
                     <p className="text-sm text-green-800">
                       <strong>Health Tip:</strong> Mali's breed is prone to hip dysplasia. Consider regular check-ups.
                     </p>
@@ -237,28 +237,28 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Quick Claim Modal */}
+      {/* Quick Claim Modal - Mobile optimized */}
       <Modal
         isOpen={showClaimModal}
         onClose={() => setShowClaimModal(false)}
         title="Submit New Claim"
-        size="lg"
+        size="md"
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
               Select Pet
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-2 sm:gap-3">
               {pets.map((pet) => (
                 <button
                   key={pet.id}
-                  className="p-3 rounded-xl border border-gray-200 hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50 transition-all text-left"
+                  className="p-3 rounded-xl border border-gray-200 text-left"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{pet.avatar}</span>
+                    <span className="text-base sm:text-lg">{pet.avatar}</span>
                     <div>
-                      <p className="font-medium text-gray-900">{pet.name}</p>
+                      <p className="font-medium text-gray-900 text-sm sm:text-base">{pet.name}</p>
                       <p className="text-xs text-gray-600">{pet.breed}</p>
                     </div>
                   </div>
@@ -271,7 +271,7 @@ const Dashboard = () => {
             <label className="block text-sm font-medium text-gray-900 mb-2">
               Claim Type
             </label>
-            <select className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100">
+            <select className="w-full p-2 sm:p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-sm sm:text-base">
               <option>Emergency Treatment</option>
               <option>Routine Check-up</option>
               <option>Vaccination</option>
@@ -280,15 +280,15 @@ const Dashboard = () => {
             </select>
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <PawButton 
               variant="ghost" 
-              className="flex-1"
+              className="flex-1 order-2 sm:order-1"
               onClick={() => setShowClaimModal(false)}
             >
               Cancel
             </PawButton>
-            <PawButton className="flex-1">
+            <PawButton className="flex-1 order-1 sm:order-2">
               Continue to Upload
             </PawButton>
           </div>

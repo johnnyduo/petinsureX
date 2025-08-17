@@ -173,7 +173,7 @@ const VetPortal = () => {
 
             <div className="space-y-4">
               {mockInvoices.map((invoice) => (
-                <div key={invoice.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20">
+                <div key={invoice.id} className="p-6 rounded-xl bg-white/30 border border-white/20">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -278,14 +278,14 @@ const VetPortal = () => {
         </div>
       </div>
 
-      {/* Upload Invoice Modal */}
+      {/* Upload Invoice Modal - Mobile optimized */}
       <Modal
         isOpen={showInvoiceModal}
         onClose={() => setShowInvoiceModal(false)}
         title="Upload New Invoice"
-        size="lg"
+        size="md"
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-2">Patient Name</label>
@@ -344,28 +344,28 @@ const VetPortal = () => {
             />
           </div>
 
-          <div className="flex gap-3 pt-6 border-t border-gray-200">
-            <PawButton variant="ghost" className="flex-1" onClick={() => setShowInvoiceModal(false)}>
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 sm:pt-6 border-t border-gray-200">
+            <PawButton variant="ghost" className="flex-1 order-2 sm:order-1" onClick={() => setShowInvoiceModal(false)}>
               Cancel
             </PawButton>
-            <PawButton className="flex-1">
+            <PawButton className="flex-1 order-1 sm:order-2">
               Upload & Generate Hash
             </PawButton>
           </div>
         </div>
       </Modal>
 
-      {/* Bulk Attestation Modal */}
+      {/* Bulk Attestation Modal - Mobile optimized */}
       <Modal
         isOpen={showAttestationModal}
         onClose={() => setShowAttestationModal(false)}
         title="Bulk Digital Attestation"
-        size="lg"
+        size="md"
       >
-        <div className="space-y-6">
-          <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
-            <h4 className="font-medium text-blue-900 mb-2">Digital Signature Process</h4>
-            <p className="text-sm text-blue-800">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-200">
+            <h4 className="font-medium text-blue-900 mb-2 text-sm sm:text-base">Digital Signature Process</h4>
+            <p className="text-xs sm:text-sm text-blue-800">
               This will create cryptographic hashes for all pending invoices and sign them with your KMS private key.
               Each signature provides legal attestation of the invoice authenticity.
             </p>
@@ -387,23 +387,24 @@ const VetPortal = () => {
             ))}
           </div>
 
-          <div className="p-4 bg-green-50 rounded-xl border border-green-200">
+          <div className="p-3 sm:p-4 bg-green-50 rounded-xl border border-green-200">
             <div className="flex items-center gap-2 mb-2">
-              <Key size={16} className="text-green-600" />
-              <span className="font-medium text-green-900">KMS Security</span>
+              <Key size={14} className="text-green-600 sm:w-4 sm:h-4" />
+              <span className="font-medium text-green-900 text-sm sm:text-base">KMS Security</span>
             </div>
-            <p className="text-sm text-green-800">
+            <p className="text-xs sm:text-sm text-green-800">
               Your private key is securely stored in AWS KMS and will be used to generate tamper-proof digital signatures.
             </p>
           </div>
 
-          <div className="flex gap-3 pt-6 border-t border-gray-200">
-            <PawButton variant="ghost" className="flex-1" onClick={() => setShowAttestationModal(false)}>
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 sm:pt-6 border-t border-gray-200">
+            <PawButton variant="ghost" className="flex-1 order-2 sm:order-1" onClick={() => setShowAttestationModal(false)}>
               Cancel
             </PawButton>
-            <PawButton className="flex-1">
-              <Signature size={16} />
-              Sign All Invoices
+            <PawButton className="flex-1 order-1 sm:order-2">
+              <Signature size={14} className="sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Sign All Invoices</span>
+              <span className="sm:hidden">Sign All</span>
             </PawButton>
           </div>
         </div>

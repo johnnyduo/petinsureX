@@ -146,7 +146,7 @@ const Claims = () => {
               { label: 'Approved', value: '8', icon: CheckCircle, color: 'text-green-600' },
               { label: 'Total Paid', value: '$2,560', icon: Heart, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
-              <GlassCard key={index} className="p-6 hover:scale-105 transition-transform aura-teal-subtle" borderStyle="prominent">
+              <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
                   <div className="flex-1">
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
@@ -167,7 +167,7 @@ const Claims = () => {
               {mockClaims.map((claim) => {
                 const pet = mockPets.find(p => p.id === claim.petId);
                 return (
-                  <div key={claim.id} className="p-6 rounded-xl bg-white/30 hover:bg-white/50 transition-all border-2 border-petinsure-teal-200/60 hover:border-petinsure-teal-300/80 aura-teal-subtle">
+                  <div key={claim.id} className="p-6 rounded-xl bg-white/30 border-2 border-petinsure-teal-200/60 aura-teal-subtle">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold">
@@ -215,7 +215,7 @@ const Claims = () => {
         </div>
       </div>
 
-      {/* New Claim Modal - Fixed size for better UX */}
+      {/* New Claim Modal - Mobile optimized */}
       <Modal
         isOpen={showNewClaimModal}
         onClose={() => {
@@ -224,28 +224,28 @@ const Claims = () => {
           setUploadedFiles([]);
         }}
         title="Submit New Claim"
-        size="lg"
+        size="md"
       >
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {/* Compact Progress Steps */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             {steps.map((step, index) => (
               <div key={index} className="flex items-center">
                 <div className={cn(
-                  "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium",
+                  "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-medium",
                   index <= currentStep ? "bg-gradient-primary text-white" : "bg-gray-200 text-gray-600"
                 )}>
                   {index + 1}
                 </div>
                 <span className={cn(
-                  "ml-1.5 text-xs font-medium hidden sm:block",
+                  "ml-1 sm:ml-1.5 text-xs font-medium hidden sm:block",
                   index <= currentStep ? "text-gray-900" : "text-gray-500"
                 )}>
                   {step}
                 </span>
                 {index < steps.length - 1 && (
                   <div className={cn(
-                    "w-8 sm:w-12 h-0.5 mx-2 sm:mx-3",
+                    "w-6 sm:w-8 lg:w-12 h-0.5 mx-1 sm:mx-2 lg:mx-3",
                     index < currentStep ? "bg-gradient-primary" : "bg-gray-200"
                   )} />
                 )}
@@ -253,23 +253,23 @@ const Claims = () => {
             ))}
           </div>
 
-          {/* Step Content - More compact */}
+          {/* Step Content - Mobile optimized */}
           {currentStep === 0 && (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-2">Select Pet</label>
                 <div className="grid grid-cols-1 gap-2">
                   {mockPets.map((pet) => (
                     <button
                       key={pet.id}
-                      className="p-3 rounded-xl border border-gray-200 hover:border-petinsure-teal-300 hover:bg-petinsure-teal-50 transition-all text-left group"
+                      className="p-3 rounded-xl border border-gray-200 text-left"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
                           {pet.name.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900 group-hover:text-petinsure-teal-900">{pet.name}</p>
+                          <p className="font-medium text-gray-900">{pet.name}</p>
                           <p className="text-xs text-gray-600">{pet.breed} • {Math.floor(pet.ageMonths / 12)} years</p>
                         </div>
                       </div>
@@ -346,7 +346,7 @@ const Claims = () => {
                 </div>
               </div>
 
-              <GlassCard className="p-4 bg-green-50 border-2 border-green-300/60 hover:border-green-400/80 transition-colors aura-teal-glow">
+              <GlassCard className="p-4 bg-green-50 border-2 border-green-300/60 aura-teal-glow">
                 <div className="flex items-start gap-3">
                   <CheckCircle size={20} className="text-green-600 mt-0.5" />
                   <div>
@@ -412,11 +412,11 @@ const Claims = () => {
             </div>
           )}
 
-          {/* Modal Actions */}
-          <div className="flex gap-3 pt-6 border-t border-gray-200">
+          {/* Modal Actions - Mobile optimized */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 sm:pt-6 border-t border-gray-200">
             <PawButton
               variant="ghost"
-              className="flex-1"
+              className="flex-1 order-2 sm:order-1"
               onClick={() => {
                 if (currentStep > 0) {
                   setCurrentStep(currentStep - 1);
@@ -428,7 +428,7 @@ const Claims = () => {
               {currentStep > 0 ? 'Previous' : 'Cancel'}
             </PawButton>
             <PawButton
-              className="flex-1"
+              className="flex-1 order-1 sm:order-2"
               onClick={() => {
                 if (currentStep < steps.length - 1) {
                   setCurrentStep(currentStep + 1);
