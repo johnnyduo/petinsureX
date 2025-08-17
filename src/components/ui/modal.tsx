@@ -28,7 +28,7 @@ export const Modal: React.FC<ModalProps> = ({
     md: 'w-full max-w-md',      // ~448px - forms, profiles  
     lg: 'w-full max-w-lg',      // ~512px - compact forms
     xl: 'w-full max-w-2xl',     // ~672px - detailed forms
-    full: 'w-full max-w-4xl'    // ~896px - complex workflows
+    full: 'w-full max-w-7xl'    // ~1280px - policy modals, large workflows
   };
 
   // Simplified mobile constraints
@@ -73,7 +73,10 @@ export const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
+    <div className={cn(
+      "fixed inset-0 z-50 flex items-center justify-center overflow-hidden",
+      size === 'full' ? 'p-4 sm:p-6 lg:p-8' : 'p-4 sm:p-6 lg:p-8'
+    )}>
       {/* Enhanced backdrop with responsive opacity */}
       <div 
         className="absolute inset-0 transition-all duration-300 ease-out"
@@ -89,11 +92,12 @@ export const Modal: React.FC<ModalProps> = ({
       <div
         className={cn(
           "modal-container relative transform transition-all duration-300 ease-out",
-          "h-full sm:h-auto", // Full height on mobile, auto on desktop
-          "max-h-[calc(100vh-1rem)] sm:max-h-[calc(100vh-4rem)]", // Better spacing
+          size === 'full' 
+            ? "w-full h-full max-h-[calc(100vh-4rem)] my-8" // Perfect spacing for full size
+            : "h-full sm:h-auto max-h-[calc(100vh-2rem)]", // Smaller modals
           "flex flex-col", // Consistent flexbox layout
           sizeClasses[size],
-          spacingClasses,
+          size !== 'full' && spacingClasses,
           className,
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
         )}

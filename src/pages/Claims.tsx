@@ -28,8 +28,16 @@ import { Claim, Pet } from '@/types';
 const Claims = () => {
   const [showNewClaimModal, setShowNewClaimModal] = useState(false);
   const [showClaimDetails, setShowClaimDetails] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [uploadedFiles, setUploadedFiles] = useState<any[]>([]);
+  
+  // New claim form state
+  const [newClaimForm, setNewClaimForm] = useState({
+    selectedPetId: '',
+    description: '',
+    estimatedAmount: ''
+  });
 
   const mockClaims: Claim[] = [
     {
@@ -115,6 +123,52 @@ const Claims = () => {
       case 'paid': return 'bg-green-100 text-green-700 border-green-200';
       case 'rejected': return 'bg-red-100 text-red-700 border-red-200';
       default: return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
+  // Form handlers
+  const handlePetSelection = (petId: string) => {
+    setNewClaimForm({...newClaimForm, selectedPetId: petId});
+  };
+
+  const handleFormReset = () => {
+    setNewClaimForm({
+      selectedPetId: '',
+      description: '',
+      estimatedAmount: ''
+    });
+    setCurrentStep(0);
+    setUploadedFiles([]);
+    setShowNewClaimModal(false);
+  };
+
+  const isStepValid = (step: number) => {
+    switch (step) {
+      case 0:
+        return newClaimForm.selectedPetId && newClaimForm.description && newClaimForm.estimatedAmount;
+      case 1:
+        return uploadedFiles.length > 0;
+      case 2:
+        return true; // AI analysis step
+      case 3:
+        return true; // Review step
+      default:
+        return false;
+    }
+  };
+
+  const handleNextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      // Submit claim logic here
+      console.log('Submitting claim:', newClaimForm, uploadedFiles);
+      setShowNewClaimModal(false);
+      setShowSuccessModal(true);
+      // Reset form after a delay so user doesn't see the reset
+      setTimeout(() => {
+        handleFormReset();
+      }, 100);
     }
   };
 
@@ -215,101 +269,310 @@ const Claims = () => {
         </div>
       </div>
 
-      {/* New Claim Modal - Mobile optimized */}
+      {/* New Claim Modal - Optimized UX */}
       <Modal
         isOpen={showNewClaimModal}
-        onClose={() => {
-          setShowNewClaimModal(false);
-          setCurrentStep(0);
-          setUploadedFiles([]);
-        }}
+        onClose={handleFormReset}
         title="Submit New Claim"
-        size="md"
+        size="lg"
       >
         <div className="space-y-3 sm:space-y-4">
-          {/* Compact Progress Steps */}
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            {steps.map((step, index) => (
-              <div key={index} className="flex items-center">
-                <div className={cn(
-                  "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-medium",
-                  index <= currentStep ? "bg-gradient-primary text-white" : "bg-gray-200 text-gray-600"
-                )}>
-                  {index + 1}
-                </div>
-                <span className={cn(
-                  "ml-1 sm:ml-1.5 text-xs font-medium hidden sm:block",
-                  index <= currentStep ? "text-gray-900" : "text-gray-500"
-                )}>
-                  {step}
-                </span>
-                {index < steps.length - 1 && (
-                  <div className={cn(
-                    "w-6 sm:w-8 lg:w-12 h-0.5 mx-1 sm:mx-2 lg:mx-3",
-                    index < currentStep ? "bg-gradient-primary" : "bg-gray-200"
-                  )} />
-                )}
+          {/* Progress Summary */}
+          <div className="mb-3 p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-900">
+                  Step {currentStep + 1} of {steps.length}: {steps[currentStep]}
+                </p>
+                <p className="text-xs text-gray-600">
+                  {currentStep === 0 && "Fill in your pet and claim details"}
+                  {currentStep === 1 && "Upload required documents"}
+                  {currentStep === 2 && "AI is analyzing your submission"}
+                  {currentStep === 3 && "Review and submit your claim"}
+                </p>
               </div>
-            ))}
+              <div className="text-xs text-teal-600 font-medium">
+                {Math.round(((currentStep + (isStepValid(currentStep) ? 1 : 0)) / steps.length) * 100)}% Complete
+              </div>
+            </div>
           </div>
 
-          {/* Step Content - Mobile optimized */}
+          {/* Compact Progress Steps - Mobile Responsive */}
+          <div className="mb-3">
+            {/* Mobile: Vertical step layout */}
+            <div className="block sm:hidden space-y-2">
+              {steps.map((step, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <div className={cn(
+                    "w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-200 flex-shrink-0",
+                    index < currentStep ? "bg-green-500 text-white" :
+                    index === currentStep ? "bg-gradient-primary text-white" : 
+                    "bg-gray-200 text-gray-600"
+                  )}>
+                    {index < currentStep ? (
+                      <CheckCircle size={12} className="text-white" />
+                    ) : (
+                      <span className="text-xs">{index + 1}</span>
+                    )}
+                  </div>
+                  <span className={cn(
+                    "text-xs font-medium transition-colors flex-1",
+                    index <= currentStep ? "text-gray-900" : "text-gray-500"
+                  )}>
+                    {step}
+                  </span>
+                  {index === currentStep && (
+                    <span className="text-xs text-teal-600 font-medium bg-teal-50 px-2 py-1 rounded-full">
+                      Current
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: Horizontal step layout */}
+            <div className="hidden sm:flex items-center justify-between">
+              {steps.map((step, index) => (
+                <div key={index} className="flex items-center">
+                  <div className={cn(
+                    "w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-200",
+                    index < currentStep ? "bg-green-500 text-white" :
+                    index === currentStep ? "bg-gradient-primary text-white" : 
+                    "bg-gray-200 text-gray-600"
+                  )}>
+                    {index < currentStep ? (
+                      <CheckCircle size={12} className="text-white" />
+                    ) : (
+                      <span className="text-xs">{index + 1}</span>
+                    )}
+                  </div>
+                  <span className={cn(
+                    "ml-1.5 text-xs font-medium transition-colors",
+                    index <= currentStep ? "text-gray-900" : "text-gray-500"
+                  )}>
+                    {step}
+                  </span>
+                  {index < steps.length - 1 && (
+                    <div className={cn(
+                      "w-6 lg:w-8 h-0.5 mx-2 transition-colors",
+                      index < currentStep ? "bg-green-500" : 
+                      index === currentStep - 1 ? "bg-gradient-primary" :
+                      "bg-gray-200"
+                    )} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Step Content - Mobile Responsive Layout */}
           {currentStep === 0 && (
-            <div className="space-y-3 sm:space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Select Pet</label>
-                <div className="grid grid-cols-1 gap-2">
-                  {mockPets.map((pet) => (
-                    <button
-                      key={pet.id}
-                      className="p-3 rounded-xl border border-gray-200 text-left"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {pet.name.charAt(0)}
+            <div className="space-y-6">
+              {/* Mobile: Single column, Desktop: Two columns */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Pet Selection Section */}
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Select Pet <span className="text-red-500">*</span>
+                  </label>
+                  <div 
+                    className="grid grid-cols-1 gap-2"
+                    role="radiogroup"
+                    aria-label="Select your pet for this claim"
+                  >
+                    {mockPets.map((pet) => (
+                      <button
+                        key={pet.id}
+                        onClick={() => handlePetSelection(pet.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handlePetSelection(pet.id);
+                          }
+                        }}
+                        role="radio"
+                        aria-checked={newClaimForm.selectedPetId === pet.id}
+                        tabIndex={0}
+                        aria-label={`Select ${pet.name}, ${pet.breed}, ${Math.floor(pet.ageMonths / 12)} years old`}
+                        className={cn(
+                          "p-3 rounded-lg border-2 text-left transition-all duration-200 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500",
+                          newClaimForm.selectedPetId === pet.id
+                            ? "border-teal-500 bg-teal-50 shadow-sm"
+                            : "border-gray-200 hover:border-teal-200"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={cn(
+                            "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0",
+                            newClaimForm.selectedPetId === pet.id ? "bg-teal-600" : "bg-gradient-primary"
+                          )}>
+                            {pet.name.charAt(0)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={cn(
+                              "font-medium text-sm",
+                              newClaimForm.selectedPetId === pet.id ? "text-teal-900" : "text-gray-900"
+                            )}>
+                              {pet.name}
+                            </p>
+                            <p className={cn(
+                              "text-xs",
+                              newClaimForm.selectedPetId === pet.id ? "text-teal-600" : "text-gray-600"
+                            )}>
+                              {pet.breed} • {Math.floor(pet.ageMonths / 12)}y
+                            </p>
+                          </div>
+                          {newClaimForm.selectedPetId === pet.id && (
+                            <CheckCircle size={16} className="text-teal-600 flex-shrink-0" />
+                          )}
                         </div>
-                        <div>
-                          <p className="font-medium text-gray-900">{pet.name}</p>
-                          <p className="text-xs text-gray-600">{pet.breed} • {Math.floor(pet.ageMonths / 12)} years</p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {/* Pet selection confirmation */}
+                  {newClaimForm.selectedPetId && (
+                    <div className="flex items-center gap-2 text-xs text-teal-700 bg-teal-50 p-2 rounded">
+                      <CheckCircle size={12} />
+                      <span>Pet selected</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Claim Details Section */}
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
+                      Claim Description <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={newClaimForm.description}
+                      onChange={(e) => setNewClaimForm({...newClaimForm, description: e.target.value})}
+                      className={cn(
+                        "w-full p-3 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 text-sm transition-colors resize-none",
+                        newClaimForm.description 
+                          ? "border-teal-300 focus:border-teal-500" 
+                          : "border-gray-300 focus:border-teal-300"
+                      )}
+                      placeholder="Describe the condition, symptoms, and treatment received..."
+                    />
+                    {newClaimForm.description && (
+                      <p className="text-xs text-teal-600 mt-1">
+                        {newClaimForm.description.length}/500 characters
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
+                      Estimated Amount <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500 text-sm font-medium">$</span>
+                      <input
+                        type="number"
+                        value={newClaimForm.estimatedAmount}
+                        onChange={(e) => setNewClaimForm({...newClaimForm, estimatedAmount: e.target.value})}
+                        className={cn(
+                          "w-full p-3 pl-8 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 transition-colors",
+                          newClaimForm.estimatedAmount 
+                            ? "border-teal-300 focus:border-teal-500" 
+                            : "border-gray-300 focus:border-teal-300"
+                        )}
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                      />
+                    </div>
+                    {newClaimForm.estimatedAmount && (
+                      <p className="text-xs text-teal-600 mt-1">
+                        Estimated claim amount
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Claim Description</label>
-                <textarea
-                  rows={3}
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-sm"
-                  placeholder="Describe the condition, symptoms, and treatment received..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Estimated Amount</label>
-                <input
-                  type="number"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
-                  placeholder="Amount in THB"
-                />
+              
+              {/* Progress Status - Full width on mobile */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <p className="text-sm font-medium text-blue-900 mb-2">Progress:</p>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className={cn("flex items-center gap-1 px-2 py-1 rounded-full border", 
+                    newClaimForm.selectedPetId 
+                      ? "bg-green-100 border-green-300 text-green-700" 
+                      : "bg-gray-100 border-gray-300 text-gray-600"
+                  )}>
+                    {newClaimForm.selectedPetId ? <CheckCircle size={10} /> : <div className="w-2.5 h-2.5 border border-current rounded-full" />}
+                    Pet
+                  </span>
+                  <span className={cn("flex items-center gap-1 px-2 py-1 rounded-full border",
+                    newClaimForm.description 
+                      ? "bg-green-100 border-green-300 text-green-700" 
+                      : "bg-gray-100 border-gray-300 text-gray-600"
+                  )}>
+                    {newClaimForm.description ? <CheckCircle size={10} /> : <div className="w-2.5 h-2.5 border border-current rounded-full" />}
+                    Description
+                  </span>
+                  <span className={cn("flex items-center gap-1 px-2 py-1 rounded-full border",
+                    newClaimForm.estimatedAmount 
+                      ? "bg-green-100 border-green-300 text-green-700" 
+                      : "bg-gray-100 border-gray-300 text-gray-600"
+                  )}>
+                    {newClaimForm.estimatedAmount ? <CheckCircle size={10} /> : <div className="w-2.5 h-2.5 border border-current rounded-full" />}
+                    Amount
+                  </span>
+                </div>
               </div>
             </div>
           )}
 
           {currentStep === 1 && (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
-                <h3 className="font-display text-xl font-semibold text-gray-900 mb-4">Upload Documents</h3>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">Upload Documents</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Upload vet invoices, receipts, and photos related to your claim
+                </p>
                 <FileUploader
                   onFilesChange={setUploadedFiles}
                   accept="image/*,.pdf"
                   multiple={true}
                   maxFiles={10}
                   title="Upload Veterinary Invoice & Photos"
-                  description="Include vet invoice, injury photos, and any supporting documents"
+                  description="Include vet invoice, injury photos, and any supporting documents (PDF, JPG, PNG)"
                 />
+                
+                {/* File upload feedback */}
+                {uploadedFiles.length > 0 && (
+                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <CheckCircle size={16} className="text-green-600" />
+                      <span className="text-sm font-medium text-green-900">
+                        {uploadedFiles.length} file{uploadedFiles.length > 1 ? 's' : ''} uploaded successfully
+                      </span>
+                    </div>
+                    <p className="text-xs text-green-700">
+                      Your documents will be processed by AI for verification
+                    </p>
+                  </div>
+                )}
+                
+                {uploadedFiles.length === 0 && (
+                  <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <Upload size={16} className="text-blue-600 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium text-blue-900">Required Documents</p>
+                        <ul className="text-xs text-blue-700 mt-1 space-y-1">
+                          <li>• Veterinary invoice or receipt</li>
+                          <li>• Photos of your pet (for AI verification)</li>
+                          <li>• Medical reports (if applicable)</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -359,54 +622,63 @@ const Claims = () => {
           )}
 
           {currentStep === 3 && (
-            <div className="space-y-6">
-              <h3 className="font-display text-xl font-semibold text-gray-900">Review Your Claim</h3>
+            <div className="space-y-4">
+              <h3 className="font-display text-lg font-semibold text-gray-900">Review Your Claim</h3>
               
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-medium text-gray-900 mb-3">Claim Summary</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-3 text-sm">Claim Summary</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Pet:</span>
-                      <span className="font-medium">Mali</span>
+                      <span className="font-medium">
+                        {newClaimForm.selectedPetId ? 
+                          mockPets.find(p => p.id === newClaimForm.selectedPetId)?.name || 'Unknown' 
+                          : 'Not selected'
+                        }
+                      </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Treatment:</span>
-                      <span className="font-medium">Emergency Surgery</span>
+                      <span className="text-gray-600">Description:</span>
+                      <span className="font-medium max-w-24 truncate" title={newClaimForm.description}>
+                        {newClaimForm.description || 'Not provided'}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Amount:</span>
-                      <span className="font-medium">$430</span>
+                      <span className="font-medium text-teal-600">
+                        ${newClaimForm.estimatedAmount ? Number(newClaimForm.estimatedAmount).toFixed(2) : '0.00'}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Documents:</span>
-                      <span className="font-medium">3 files</span>
+                      <span className="font-medium">{uploadedFiles.length} files</span>
                     </div>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="font-medium text-gray-900 mb-3">AI Analysis Results</h4>
-                  <div className="space-y-3">
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-3 text-sm">AI Analysis Results</h4>
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle size={16} className="text-green-500" />
-                      <span>Pet identity verified (94%)</span>
+                      <CheckCircle size={14} className="text-green-600" />
+                      <span className="text-green-700">Pet identity verified (94%)</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle size={16} className="text-green-500" />
-                      <span>Low fraud risk (15%)</span>
+                      <CheckCircle size={14} className="text-green-600" />
+                      <span className="text-green-700">Low fraud risk (15%)</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <Shield size={16} className="text-blue-500" />
-                      <span>Vet attestation verified</span>
+                      <Shield size={14} className="text-blue-600" />
+                      <span className="text-blue-700">Vet attestation verified</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                 <p className="text-sm text-blue-800">
-                  <strong>Estimated Processing Time:</strong> 2-3 business days. You'll receive updates via email and in your dashboard.
+                  <strong>Processing Time:</strong> 2-3 business days. You'll receive updates via email.
                 </p>
               </div>
             </div>
@@ -421,26 +693,41 @@ const Claims = () => {
                 if (currentStep > 0) {
                   setCurrentStep(currentStep - 1);
                 } else {
-                  setShowNewClaimModal(false);
+                  handleFormReset();
                 }
               }}
             >
               {currentStep > 0 ? 'Previous' : 'Cancel'}
             </PawButton>
             <PawButton
-              className="flex-1 order-1 sm:order-2"
-              onClick={() => {
-                if (currentStep < steps.length - 1) {
-                  setCurrentStep(currentStep + 1);
-                } else {
-                  setShowNewClaimModal(false);
-                  // Submit claim logic here
-                }
-              }}
+              className={cn(
+                "flex-1 order-1 sm:order-2",
+                !isStepValid(currentStep) 
+                  ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed" 
+                  : "bg-teal-600 hover:bg-teal-700"
+              )}
+              disabled={!isStepValid(currentStep)}
+              onClick={handleNextStep}
             >
               {currentStep < steps.length - 1 ? 'Next' : 'Submit Claim'}
             </PawButton>
           </div>
+          
+          {/* Step validation info */}
+          {currentStep === 0 && !isStepValid(0) && (
+            <div className="mt-2 text-center">
+              <p className="text-xs text-gray-500">
+                Please fill in all required fields to continue
+              </p>
+            </div>
+          )}
+          {currentStep === 1 && !isStepValid(1) && (
+            <div className="mt-2 text-center">
+              <p className="text-xs text-gray-500">
+                Please upload at least one document to continue
+              </p>
+            </div>
+          )}
         </div>
       </Modal>
 
@@ -567,6 +854,67 @@ const Claims = () => {
           })()}
         </Modal>
       )}
+
+      {/* Success Modal */}
+      <Modal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title=""
+        size="md"
+        showCloseButton={false}
+      >
+        <div className="text-center py-6">
+          <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+            <CheckCircle className="w-8 h-8 text-green-600" />
+          </div>
+          
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            Claim Submitted Successfully!
+          </h3>
+          
+          <p className="text-gray-600 mb-6">
+            Your claim has been received and is now being processed by our AI system. 
+            You'll receive updates via email and can track progress in your dashboard.
+          </p>
+          
+          {/* Success details */}
+          <div className="bg-green-50 rounded-lg p-4 mb-6 text-left">
+            <div className="flex items-start gap-3">
+              <Shield size={20} className="text-green-600 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="font-medium text-green-900 mb-1">What's Next?</h4>
+                <ul className="text-sm text-green-800 space-y-1">
+                  <li>• AI analysis will complete within 24 hours</li>
+                  <li>• You'll receive an email confirmation shortly</li>
+                  <li>• Processing typically takes 2-3 business days</li>
+                  <li>• Check your Claims dashboard for real-time updates</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          {/* Action buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <PawButton
+              variant="ghost"
+              className="flex-1"
+              onClick={() => setShowSuccessModal(false)}
+            >
+              Close
+            </PawButton>
+            <PawButton
+              className="flex-1 bg-teal-600 hover:bg-teal-700"
+              onClick={() => {
+                setShowSuccessModal(false);
+                // Could navigate to claims list or dashboard
+                window.location.reload(); // Simple refresh for demo
+              }}
+            >
+              View All Claims
+            </PawButton>
+          </div>
+        </div>
+      </Modal>
     </Layout>
   );
 };

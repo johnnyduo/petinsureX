@@ -17,13 +17,102 @@ import {
   Heart,
   Zap,
   FileText,
-  Clock
+  Clock,
+  X,
+  Check
 } from 'lucide-react';
 import { Policy, Pet } from '@/types';
+
+interface PlanFeature {
+  text: string;
+  included: boolean;
+}
+
+interface CoveragePlan {
+  id: string;
+  name: string;
+  price: number;
+  coverage: number;
+  features: PlanFeature[];
+  popular?: boolean;
+  description?: string;
+}
 
 const Policies = () => {
   const [showPolicyDetails, setShowPolicyDetails] = useState<string | null>(null);
   const [showNewPolicyModal, setShowNewPolicyModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string>('standard'); // Default to Standard plan
+  const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
+
+  // Handle keyboard navigation for plan selection
+  const handleKeyPress = (e: React.KeyboardEvent, planType: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSelectedPlan(planType);
+    }
+  };
+
+  const coveragePlans: CoveragePlan[] = [
+    {
+      id: 'basic',
+      name: 'PetInsureX Basic',
+      price: 160,
+      coverage: 1430,
+      description: 'Essential coverage for accidents',
+      features: [
+        { text: 'Accidents Only', included: true },
+        { text: 'Emergency Care', included: true },
+        { text: '24/7 Support', included: true },
+        { text: 'Basic Vet Network', included: true }
+      ]
+    },
+    {
+      id: 'standard',
+      name: 'PetInsureX Standard',
+      price: 245,
+      coverage: 2350,
+      description: 'Comprehensive care for most needs',
+      popular: true,
+      features: [
+        { text: 'Accidents & Illness', included: true },
+        { text: 'Preventive Care', included: true },
+        { text: 'Specialist Referrals', included: true },
+        { text: 'Extended Vet Network', included: true },
+        { text: 'Prescription Coverage', included: true }
+      ]
+    },
+    {
+      id: 'premium',
+      name: 'PetInsureX Premium',
+      price: 345,
+      coverage: 2850,
+      description: 'Complete protection with extras',
+      features: [
+        { text: 'Comprehensive Coverage', included: true },
+        { text: 'Hereditary Conditions', included: true },
+        { text: 'Alternative Therapies', included: true },
+        { text: 'Premium Vet Network', included: true },
+        { text: 'Wellness Programs', included: true },
+        { text: 'AI Health Monitoring', included: true }
+      ]
+    }
+  ];
+
+  const handlePlanSelect = (planId: string) => {
+    setSelectedPlan(planId);
+    // Optional: Close modal after selection or show confirmation
+    // setShowNewPolicyModal(false);
+  };
+
+  const handleProceedWithPlan = () => {
+    if (selectedPlan) {
+      // Here you would typically handle the policy creation/purchase
+      console.log('Proceeding with plan:', selectedPlan);
+      // For demo purposes, we'll just close the modal
+      setShowNewPolicyModal(false);
+      // You could also show a success message or redirect to payment
+    }
+  };
 
   const mockPolicies: Policy[] = [
     {
@@ -275,108 +364,291 @@ const Policies = () => {
         </div>
       </div>
 
-      {/* New Policy Modal - Professional desktop design */}
-      <Modal
-        isOpen={showNewPolicyModal}
+      {/* New Policy Modal - Improved Design */}
+      <Modal 
+        isOpen={showNewPolicyModal} 
         onClose={() => setShowNewPolicyModal(false)}
-        title="Choose Your Coverage Plan"
         size="full"
       >
-        <div className="space-y-6">
-          <p className="text-gray-600 text-center">Select the best insurance plan for your pet's needs</p>
-          
-          {/* Desktop: 3-column grid, Mobile: Single column */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {coverageTypes.map((plan, index) => (
-              <div key={index} className={cn(
-                "relative bg-white rounded-2xl border-2 cursor-pointer overflow-hidden",
-                "flex flex-col min-h-[420px]", // Fixed height to prevent overflow
-                index === 1 
-                  ? "border-petinsure-teal-400 shadow-xl ring-4 ring-petinsure-teal-100 transform scale-105 mt-6" 
-                  : "border-gray-200 shadow-lg mt-6"
-              )}>
-                {/* Popular badge - fixed positioning */}
-                {index === 1 && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white px-4 py-1.5 rounded-full shadow-lg">
-                      <span className="text-xs font-semibold tracking-wide">Most Popular</span>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Card header - adjusted padding for badge */}
-                <div className={cn(
-                  "text-center bg-gradient-to-b from-gray-50 to-white border-b border-gray-100",
-                  index === 1 ? "pt-8 pb-6 px-6" : "p-6"
-                )}>
-                  <h3 className="font-display text-xl font-bold text-gray-900 mb-3 truncate">{plan.name}</h3>
-                  <div className="space-y-1">
-                    <p className="text-3xl font-bold text-petinsure-teal-600">{plan.price}</p>
-                    <p className="text-sm text-gray-600">Coverage up to {plan.coverage}</p>
-                  </div>
-                </div>
-                
-                {/* Features section - scrollable if needed */}
-                <div className="flex-1 p-6 overflow-y-auto">
-                  <div className="space-y-3">
-                    {/* Mobile: Show limited features */}
-                    <div className="lg:hidden">
-                      {plan.features.slice(0, 4).map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-start gap-3">
-                          <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
-                        </div>
-                      ))}
-                      {plan.features.length > 4 && (
-                        <div className="text-sm text-gray-500 text-center pt-2 font-medium">
-                          +{plan.features.length - 4} more benefits
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Desktop: Show all features with proper spacing */}
-                    <div className="hidden lg:block space-y-3">
-                      {plan.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-start gap-3">
-                          <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-gray-700 leading-relaxed break-words">{feature}</span>
-                        </div>
-                      ))}
-                      {/* Add padding if fewer features to maintain consistent card height */}
-                      {plan.features.length < 6 && (
-                        <div className="h-4"></div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Action button - fixed at bottom */}
-                <div className="p-6 pt-0">
-                  <button className={cn(
-                    "w-full py-3 px-4 rounded-xl font-semibold text-sm",
-                    index === 1 
-                      ? "bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white shadow-lg" 
-                      : "bg-gray-50 text-gray-700 border-2 border-gray-200"
-                  )}>
-                    {index === 1 ? "Select This Plan" : "Choose This Plan"}
-                  </button>
-                </div>
+        {/* Desktop Layout */}
+        <div className="hidden md:flex flex-col max-h-[90vh]">
+          {/* Header */}
+          <div className="flex-shrink-0 px-8 py-6 border-b border-gray-200">
+            <div className="flex items-center justify-between max-w-6xl mx-auto">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Choose Your Coverage Plan
+                </h2>
+                <p className="text-lg text-gray-600">
+                  Select the best insurance plan for your pet's needs
+                </p>
               </div>
-            ))}
+              <button
+                onClick={() => setShowNewPolicyModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={24} className="text-gray-500" />
+              </button>
+            </div>
           </div>
 
-          {/* Action buttons - professional styling */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
-            <PawButton className="w-full sm:flex-1 py-3 text-base font-semibold">
-              Continue to Application
-            </PawButton>
-            <PawButton 
-              variant="ghost" 
-              className="w-full sm:flex-1 py-3 text-base border-2 border-gray-200" 
-              onClick={() => setShowNewPolicyModal(false)}
+          {/* Content - Desktop Grid */}
+          <div className="flex-1 overflow-y-auto px-8 py-8">
+            <div 
+              className="grid grid-cols-3 gap-8 max-w-6xl mx-auto"
+              role="radiogroup" 
+              aria-label="Choose your coverage plan"
             >
-              Cancel
-            </PawButton>
+              {coveragePlans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={cn(
+                    "relative rounded-xl border-2 p-6 bg-white transition-all duration-200 cursor-pointer min-h-[460px] flex flex-col",
+                    selectedPlan === plan.id 
+                      ? "border-teal-500 shadow-lg" 
+                      : plan.popular
+                      ? "border-teal-300 shadow-md"
+                      : "border-gray-200 hover:border-teal-200 hover:shadow-md"
+                  )}
+                  onClick={() => handlePlanSelect(plan.id)}
+                  onKeyDown={(e) => handleKeyPress(e, plan.id)}
+                  role="radio"
+                  aria-checked={selectedPlan === plan.id}
+                  tabIndex={0}
+                  aria-label={`${plan.name} - ${plan.description} - $${plan.price} per year`}
+                >
+                  {/* Popular Badge */}
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-teal-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Plan Header */}
+                  <div className="text-center mb-6 flex-shrink-0">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+                      {plan.name}
+                    </h3>
+                    <div className="text-4xl font-bold text-teal-600 mb-2">
+                      ${plan.price}/year
+                    </div>
+                    <p className="text-sm text-gray-500 mb-2">
+                      Coverage up to ${plan.coverage.toLocaleString()}
+                    </p>
+                    {plan.description && (
+                      <p className="text-sm text-gray-600">
+                        {plan.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Features */}
+                  <div className="flex-1 mb-4">
+                    <div className="space-y-3">
+                      {plan.features.map((feature, index) => (
+                        <div key={index} className="flex items-center">
+                          <div className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center mr-3 flex-shrink-0">
+                            <Check size={12} className="text-teal-600" />
+                          </div>
+                          <span className="text-sm text-gray-700">
+                            {feature.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Select Button */}
+                  <div className="flex-shrink-0">
+                    <PawButton
+                      className={cn(
+                        "w-full py-3",
+                        selectedPlan === plan.id
+                          ? "bg-teal-600 hover:bg-teal-700"
+                          : plan.popular
+                          ? "bg-teal-500 hover:bg-teal-600"
+                          : "bg-gray-600 hover:bg-gray-700"
+                      )}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePlanSelect(plan.id);
+                      }}
+                    >
+                      {selectedPlan === plan.id ? '✓ Selected' : 'Choose This Plan'}
+                    </PawButton>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Desktop Footer */}
+          <div className="flex-shrink-0 px-8 py-6 border-t border-gray-200 bg-gray-50/50">
+            <div className="flex items-center justify-between max-w-6xl mx-auto">
+              <div className="text-sm text-gray-600">
+                {selectedPlan ? `Selected: ${coveragePlans.find(p => p.id === selectedPlan)?.name}` : 'No plan selected'}
+              </div>
+              <div className="flex gap-3">
+                <PawButton variant="ghost" onClick={() => setShowNewPolicyModal(false)}>
+                  Cancel
+                </PawButton>
+                <PawButton 
+                  onClick={handleProceedWithPlan}
+                  disabled={!selectedPlan}
+                  className={cn(
+                    selectedPlan ? "bg-teal-600 hover:bg-teal-700" : "bg-gray-400 cursor-not-allowed"
+                  )}
+                >
+                  {selectedPlan ? 'Continue with Selected Plan' : 'Select a Plan to Continue'}
+                </PawButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Layout - Modal Sheet */}
+        <div className="md:hidden flex flex-col h-[90vh]">
+          {/* Header */}
+          <div className="flex-shrink-0 px-4 py-4 border-b border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xl font-bold text-gray-900">
+                Choose Your Coverage Plan
+              </h2>
+              <button
+                onClick={() => setShowNewPolicyModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={20} className="text-gray-500" />
+              </button>
+            </div>
+            <p className="text-sm text-gray-600">
+              Select the best insurance plan for your pet's needs
+            </p>
+          </div>
+
+          {/* Content - Mobile Stack */}
+          <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div 
+              className="space-y-4"
+              role="radiogroup" 
+              aria-label="Choose your coverage plan"
+            >
+              {coveragePlans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={cn(
+                    "relative rounded-lg border-2 p-4 bg-white transition-all duration-200 cursor-pointer",
+                    selectedPlan === plan.id 
+                      ? "border-teal-500 shadow-md" 
+                      : plan.popular
+                      ? "border-teal-300"
+                      : "border-gray-200"
+                  )}
+                  onClick={() => handlePlanSelect(plan.id)}
+                  onKeyDown={(e) => handleKeyPress(e, plan.id)}
+                  role="radio"
+                  aria-checked={selectedPlan === plan.id}
+                  tabIndex={0}
+                  aria-label={`${plan.name} - ${plan.description} - $${plan.price} per year`}
+                >
+                  {/* Popular Badge */}
+                  {plan.popular && (
+                    <div className="absolute -top-2 right-4">
+                      <span className="bg-teal-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Plan Header */}
+                  <div className="mb-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {plan.name}
+                        </h3>
+                        <div className="text-2xl font-bold text-teal-600">
+                          ${plan.price}/year
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-500">Coverage up to</p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          ${plan.coverage.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    {plan.description && (
+                      <p className="text-sm text-gray-600">
+                        {plan.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Features */}
+                  <div className="grid grid-cols-1 gap-2 mb-4">
+                    {plan.features.slice(0, 4).map((feature, index) => (
+                      <div key={index} className="flex items-center">
+                        <div className="w-4 h-4 rounded-full bg-teal-100 flex items-center justify-center mr-2 flex-shrink-0">
+                          <Check size={10} className="text-teal-600" />
+                        </div>
+                        <span className="text-sm text-gray-700">
+                          {feature.text}
+                        </span>
+                      </div>
+                    ))}
+                    {plan.features.length > 4 && (
+                      <p className="text-xs text-gray-500 ml-6">
+                        +{plan.features.length - 4} more features
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Select Button */}
+                  <PawButton
+                    className={cn(
+                      "w-full",
+                      selectedPlan === plan.id
+                        ? "bg-teal-600 hover:bg-teal-700"
+                        : plan.popular
+                        ? "bg-teal-500 hover:bg-teal-600"
+                        : "bg-gray-600 hover:bg-gray-700"
+                    )}
+                    onClick={() => handlePlanSelect(plan.id)}
+                  >
+                    {selectedPlan === plan.id ? '✓ Selected' : 'Choose This Plan'}
+                  </PawButton>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile Footer */}
+          <div className="flex-shrink-0 px-4 py-4 border-t border-gray-200 bg-gray-50/50">
+            <div className="mb-2">
+              <p className="text-sm text-gray-600 text-center">
+                {selectedPlan ? `Selected: ${coveragePlans.find(p => p.id === selectedPlan)?.name}` : 'No plan selected'}
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <PawButton variant="ghost" className="flex-1" onClick={() => setShowNewPolicyModal(false)}>
+                Cancel
+              </PawButton>
+              <PawButton 
+                className={cn(
+                  "flex-1",
+                  selectedPlan ? "bg-teal-600 hover:bg-teal-700" : "bg-gray-400 cursor-not-allowed"
+                )}
+                onClick={handleProceedWithPlan}
+                disabled={!selectedPlan}
+              >
+                {selectedPlan ? 'Continue' : 'Select Plan'}
+              </PawButton>
+            </div>
           </div>
         </div>
       </Modal>

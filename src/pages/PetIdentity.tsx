@@ -421,7 +421,7 @@ const PetIdentity = () => {
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Breed Detection</h3>
                 <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Advanced AI identifies breed with 95%+ accuracy using computer vision</p>
-                <div className="text-xs text-blue-600 font-medium">Latest: GPT-4 Vision</div>
+                <div className="text-xs text-blue-600 font-medium">Latest: SEA-LION.AI</div>
               </div>
 
               <div className="text-center">
