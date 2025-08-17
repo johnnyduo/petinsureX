@@ -243,16 +243,6 @@
     );
   }
 
-  .glass-container:hover {
-    @apply shadow-glass-hover border-petinsure-teal-300/60;
-    background: linear-gradient(
-      135deg, 
-      rgba(255, 255, 255, 0.35) 0%, 
-      rgba(255, 255, 255, 0.28) 50%,
-      rgba(255, 255, 255, 0.25) 100%
-    );
-  }
-
   /* Teal Aura/Glow Effects - Enhanced Intensity */
   .aura-teal-subtle {
     box-shadow: 
@@ -328,15 +318,15 @@
 
   /* Pet-themed buttons */
   .btn-paw-primary {
-    @apply paw-button text-white font-medium px-6 py-3 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200;
+    @apply paw-button text-white font-medium px-6 py-3 flex items-center gap-2;
   }
 
   .btn-paw-secondary {
-    @apply glass-container text-petinsure-teal-700 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 hover:glass-card-hover transition-all duration-200;
+    @apply glass-container text-petinsure-teal-700 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2;
   }
 
   .btn-paw-ghost {
-    @apply text-petinsure-teal-600 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2 hover:bg-petinsure-teal-50 transition-all duration-200;
+    @apply text-petinsure-teal-600 font-medium px-6 py-3 min-h-[44px] rounded-full flex items-center gap-2;
   }
 
   /* Animation classes */
@@ -351,7 +341,7 @@
 
   /* Pet insurance specific styles */
   .pet-card {
-    @apply glass-container p-6 hover:scale-105 transition-all duration-300 cursor-pointer;
+    @apply glass-container p-6 cursor-pointer;
   }
 
   .risk-gauge-low {
@@ -500,12 +490,46 @@
     width: 100% !important;
   }
 
-  /* Modal rounded corners enhancement */
+  /* Modal rounded corners enhancement - PERFECT ROUNDED EDGES */
   .modal-container .glass-card {
     border-radius: 1rem !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
                 0 0 0 1px rgba(255, 255, 255, 0.05),
                 0 0 30px rgba(6, 182, 212, 0.1) !important;
+  }
+
+  /* Ensure all modal buttons maintain rounded corners */
+  .modal-container button {
+    border-radius: 0.75rem !important;
+  }
+
+  /* Ensure all modal cards maintain perfect rounded corners */
+  .modal-container .glass-container {
+    border-radius: 1rem !important;
+  }
+
+  /* Ensure all modal inputs maintain rounded corners */
+  .modal-container input,
+  .modal-container textarea,
+  .modal-container select {
+    border-radius: 0.75rem !important;
+  }
+
+  /* FORCE REMOVE ALL HOVER EFFECTS ON MODAL CONTENT WHILE PRESERVING ROUNDED EDGES */
+  .modal-container *:hover {
+    transform: none !important;
+    scale: none !important;
+    transition: none !important;
+  }
+
+  .modal-container .glass-card:hover {
+    transform: none !important;
+    scale: 1 !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 0 30px rgba(6, 182, 212, 0.1) !important;
+    border-color: rgba(6, 182, 212, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
   }
 
   /* Ensure Quick Claim button is properly layered */

@@ -289,11 +289,11 @@ const Policies = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {coverageTypes.map((plan, index) => (
               <div key={index} className={cn(
-                "relative bg-white rounded-2xl border-2 cursor-pointer transition-all duration-200 overflow-hidden",
+                "relative bg-white rounded-2xl border-2 cursor-pointer overflow-hidden",
                 "flex flex-col min-h-[420px]", // Fixed height to prevent overflow
                 index === 1 
                   ? "border-petinsure-teal-400 shadow-xl ring-4 ring-petinsure-teal-100 transform scale-105 mt-6" 
-                  : "border-gray-200 shadow-lg hover:shadow-xl hover:border-gray-300 mt-6"
+                  : "border-gray-200 shadow-lg mt-6"
               )}>
                 {/* Popular badge - fixed positioning */}
                 {index === 1 && (
@@ -353,10 +353,10 @@ const Policies = () => {
                 {/* Action button - fixed at bottom */}
                 <div className="p-6 pt-0">
                   <button className={cn(
-                    "w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 text-sm",
+                    "w-full py-3 px-4 rounded-xl font-semibold text-sm",
                     index === 1 
-                      ? "bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5" 
-                      : "bg-gray-50 text-gray-700 border-2 border-gray-200 hover:bg-gray-100 hover:border-gray-300"
+                      ? "bg-gradient-to-r from-petinsure-teal-600 to-petinsure-teal-700 text-white shadow-lg" 
+                      : "bg-gray-50 text-gray-700 border-2 border-gray-200"
                   )}>
                     {index === 1 ? "Select This Plan" : "Choose This Plan"}
                   </button>
@@ -372,7 +372,7 @@ const Policies = () => {
             </PawButton>
             <PawButton 
               variant="ghost" 
-              className="w-full sm:flex-1 py-3 text-base border-2 border-gray-200 hover:border-gray-300" 
+              className="w-full sm:flex-1 py-3 text-base border-2 border-gray-200" 
               onClick={() => setShowNewPolicyModal(false)}
             >
               Cancel

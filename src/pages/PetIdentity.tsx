@@ -472,7 +472,7 @@ const PetIdentity = () => {
                 <button
                   onClick={() => setScanType('photo')}
                   className={cn(
-                    "p-3 sm:p-4 lg:p-6 rounded-xl border-2 transition-all",
+                    "p-3 sm:p-4 lg:p-6 rounded-xl border-2",
                     scanType === 'photo' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200'
                   )}
                 >
@@ -486,7 +486,7 @@ const PetIdentity = () => {
                 <button
                   onClick={() => setScanType('video')}
                   className={cn(
-                    "p-4 sm:p-6 rounded-xl border-2 transition-all",
+                    "p-4 sm:p-6 rounded-xl border-2",
                     scanType === 'video' ? 'border-petinsure-teal-300 bg-petinsure-teal-50' : 'border-gray-200'
                   )}
                 >

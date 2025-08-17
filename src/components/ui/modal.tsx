@@ -105,6 +105,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         <GlassCard 
           variant="glass"
+          hover={false}
           className="aura-teal-glow shadow-2xl border border-petinsure-teal-200/30 overflow-hidden flex flex-col h-full sm:h-auto rounded-2xl"
           borderStyle="subtle"
           style={{
