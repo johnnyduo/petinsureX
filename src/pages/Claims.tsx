@@ -185,7 +185,7 @@ const Claims = () => {
                 <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Claims</h1>
                 <p className="text-gray-600">Manage your insurance claims with AI-powered processing</p>
               </div>
-              <PawButton onClick={() => setShowNewClaimModal(true)}>
+              <PawButton type="button" onClick={() => setShowNewClaimModal(true)}>
                 <Plus size={20} />
                 New Claim
               </PawButton>
@@ -255,6 +255,7 @@ const Claims = () => {
                         <PawButton
                           variant="ghost"
                           size="sm"
+                          type="button"
                           onClick={() => setShowClaimDetails(claim.id)}
                         >
                           View Details
@@ -450,7 +451,7 @@ const Claims = () => {
                       value={newClaimForm.description}
                       onChange={(e) => setNewClaimForm({...newClaimForm, description: e.target.value})}
                       className={cn(
-                        "w-full p-3 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 text-sm transition-colors resize-none",
+                        "w-full p-3 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 text-sm transition-colors resize-none text-gray-900 placeholder-gray-500 bg-white",
                         newClaimForm.description 
                           ? "border-teal-300 focus:border-teal-500" 
                           : "border-gray-300 focus:border-teal-300"
@@ -475,7 +476,7 @@ const Claims = () => {
                         value={newClaimForm.estimatedAmount}
                         onChange={(e) => setNewClaimForm({...newClaimForm, estimatedAmount: e.target.value})}
                         className={cn(
-                          "w-full p-3 pl-8 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 transition-colors",
+                          "w-full p-3 pl-8 rounded-lg border-2 focus:ring-2 focus:ring-teal-100 transition-colors text-gray-900 placeholder-gray-500 bg-white",
                           newClaimForm.estimatedAmount 
                             ? "border-teal-300 focus:border-teal-500" 
                             : "border-gray-300 focus:border-teal-300"
@@ -688,6 +689,7 @@ const Claims = () => {
           <div className="flex flex-col sm:flex-row gap-3 pt-4 sm:pt-6 border-t border-gray-200">
             <PawButton
               variant="ghost"
+              type="button"
               className="flex-1 order-2 sm:order-1"
               onClick={() => {
                 if (currentStep > 0) {
@@ -706,6 +708,7 @@ const Claims = () => {
                   ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed" 
                   : "bg-teal-600 hover:bg-teal-700"
               )}
+              type="button"
               disabled={!isStepValid(currentStep)}
               onClick={handleNextStep}
             >

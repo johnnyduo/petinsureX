@@ -291,7 +291,7 @@ const VetPortal = () => {
               <label className="block text-sm font-medium text-gray-900 mb-2">Patient Name</label>
               <input
                 type="text"
-                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 placeholder="Pet's name"
               />
             </div>
@@ -299,7 +299,7 @@ const VetPortal = () => {
               <label className="block text-sm font-medium text-gray-900 mb-2">Owner Name</label>
               <input
                 type="text"
-                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 placeholder="Owner's name"
               />
             </div>
@@ -309,7 +309,7 @@ const VetPortal = () => {
             <label className="block text-sm font-medium text-gray-900 mb-2">Treatment Description</label>
             <textarea
               rows={3}
-              className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+              className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white resize-none"
               placeholder="Describe the treatment provided..."
             />
           </div>
@@ -319,14 +319,14 @@ const VetPortal = () => {
               <label className="block text-sm font-medium text-gray-900 mb-2">Treatment Date</label>
               <input
                 type="date"
-                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 bg-white"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-2">Total Amount</label>
               <input
                 type="number"
-                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 placeholder="Amount in THB"
               />
             </div>

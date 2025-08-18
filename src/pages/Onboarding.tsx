@@ -100,7 +100,7 @@ const Onboarding = () => {
                   value={formData.petName}
                   onChange={(e) => handleInputChange('petName', e.target.value)}
                   placeholder="e.g., Mali"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 />
               </div>
 
@@ -111,7 +111,7 @@ const Onboarding = () => {
                 <select
                   value={formData.species}
                   onChange={(e) => handleInputChange('species', e.target.value)}
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 bg-white"
                 >
                   <option value="">Select species</option>
                   <option value="dog">Dog 🐕</option>
@@ -128,7 +128,7 @@ const Onboarding = () => {
                   value={formData.breed}
                   onChange={(e) => handleInputChange('breed', e.target.value)}
                   placeholder="e.g., Golden Retriever"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 />
               </div>
 
@@ -141,7 +141,7 @@ const Onboarding = () => {
                   value={formData.age}
                   onChange={(e) => handleInputChange('age', e.target.value)}
                   placeholder="e.g., 3"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 />
               </div>
 
@@ -154,7 +154,7 @@ const Onboarding = () => {
                   value={formData.weight}
                   onChange={(e) => handleInputChange('weight', e.target.value)}
                   placeholder="e.g., 25"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white"
                 />
               </div>
 
@@ -182,7 +182,7 @@ const Onboarding = () => {
                 onChange={(e) => handleInputChange('previousConditions', e.target.value)}
                 placeholder="Describe any existing conditions or past treatments..."
                 rows={4}
-                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 text-gray-900 placeholder-gray-500 bg-white resize-none"
               />
             </div>
           </div>
@@ -330,15 +330,15 @@ const Onboarding = () => {
               <div className="space-y-3 text-sm text-left">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-petinsure-teal-500 rounded-full"></div>
-                  <span>Policy documents sent to your email</span>
+                  <span className="text-gray-700 font-medium">Policy documents sent to your email</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-petinsure-teal-500 rounded-full"></div>
-                  <span>Download the mobile app for quick claims</span>
+                  <span className="text-gray-700 font-medium">Download the mobile app for quick claims</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-petinsure-teal-500 rounded-full"></div>
-                  <span>Schedule a free vet consultation</span>
+                  <span className="text-gray-700 font-medium">Schedule a free vet consultation</span>
                 </div>
               </div>
             </GlassCard>
@@ -383,6 +383,7 @@ const Onboarding = () => {
                 variant="ghost"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
+                type="button"
                 className="flex items-center gap-2 w-full sm:w-auto order-2 sm:order-1"
               >
                 <ChevronLeft size={16} />
@@ -396,6 +397,7 @@ const Onboarding = () => {
               <PawButton
                 onClick={handleNext}
                 disabled={currentStep === steps.length - 1}
+                type="button"
                 className="flex items-center gap-2 w-full sm:w-auto order-3"
               >
                 {currentStep === steps.length - 2 ? 'Complete' : 'Next'}
