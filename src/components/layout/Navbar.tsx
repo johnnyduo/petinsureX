@@ -1,10 +1,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Logo } from '@/components/common/Logo';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
-import { Menu, X, Globe, Shield, FileText, Camera, Brain, Plus, ChevronDown } from 'lucide-react';
+import { Menu, X, Globe, Shield, FileText, Camera, Brain, Plus, ChevronDown, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -12,17 +12,10 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
-  const [showQuickClaimModal, setShowQuickClaimModal] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('EN');
-  
-  // Quick Claim form state
-  const [quickClaimForm, setQuickClaimForm] = useState({
-    petId: '',
-    description: '',
-    estimatedCost: ''
-  });
   
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -49,40 +42,10 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
     };
   }, []);
 
-  const handleQuickClaimSubmit = () => {
-    // Validate form
-    if (!quickClaimForm.petId || !quickClaimForm.description || !quickClaimForm.estimatedCost) {
-      alert('Please fill in all fields');
-      return;
-    }
-    
-    // Here you would typically submit to your API
-    console.log('Quick Claim submitted:', quickClaimForm);
-    
-    // Reset form and close modal
-    setQuickClaimForm({
-      petId: '',
-      description: '',
-      estimatedCost: ''
-    });
-    setShowQuickClaimModal(false);
-    
-    // Show success message
-    alert('Quick claim submitted successfully!');
-  };
-
-  const handleFormReset = () => {
-    setQuickClaimForm({
-      petId: '',
-      description: '',
-      estimatedCost: ''
-    });
-    setShowQuickClaimModal(false);
-  };
-
   // Consolidated navigation - removed Vet Portal, cleaner structure
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Shield },
+    { name: 'Add New Pet', href: '/onboarding', icon: Heart },
     { name: 'Claims', href: '/claims', icon: FileText },
     { name: 'Policies', href: '/policies', icon: Shield },
     { name: 'Pet ID', href: '/pet-identity', icon: Camera }, // Shortened name
@@ -173,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                 
                 <PawButton 
                   size="sm"
-                  onClick={() => setShowQuickClaimModal(true)}
+                  onClick={() => navigate('/dashboard')}
                   className="text-button-sm bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg hover:shadow-xl"
                 >
                   <Plus size={14} />
@@ -252,7 +215,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                     size="sm" 
                     className="w-full bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg"
                     onClick={() => {
-                      setShowQuickClaimModal(true);
+                      navigate('/dashboard');
                       setMobileMenuOpen(false);
                     }}
                   >
@@ -265,95 +228,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
           )}
         </div>
       </header>
-
-      {/* Quick Claim Modal - Mobile optimized */}
-      <Modal
-        isOpen={showQuickClaimModal}
-        onClose={() => setShowQuickClaimModal(false)}
-        title="Quick Claim"
-        size="md"
-      >
-        <div className="space-y-4 sm:space-y-6">
-          <div className="mb-4">
-            <p className="text-sm text-gray-600">Fill out the form below to submit a quick claim for your pet's recent incident.</p>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Pet Selection <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <select 
-                value={quickClaimForm.petId}
-                onChange={(e) => setQuickClaimForm({...quickClaimForm, petId: e.target.value})}
-                className={cn(
-                  "w-full p-3 pr-10 rounded-lg bg-white focus:ring-1 focus:ring-teal-500 focus:border-teal-500 text-gray-900 appearance-none cursor-pointer transition-colors hover:border-teal-400",
-                  !quickClaimForm.petId ? "border-gray-300" : "border-teal-300"
-                )}
-              >
-                <option value="">Select your pet</option>
-                <option value="mali">Mali (Golden Retriever)</option>
-                <option value="taro">Taro (British Shorthair)</option>
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-teal-500 pointer-events-none" />
-            </div>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Incident Description <span className="text-red-500">*</span>
-            </label>
-            <textarea 
-              value={quickClaimForm.description}
-              onChange={(e) => setQuickClaimForm({...quickClaimForm, description: e.target.value})}
-              placeholder="Briefly describe what happened..."
-              className={cn(
-                "w-full p-3 rounded-lg bg-white focus:ring-1 focus:ring-teal-500 focus:border-teal-500 text-gray-900 placeholder-gray-500 resize-none transition-colors hover:border-teal-400",
-                !quickClaimForm.description ? "border-gray-300" : "border-teal-300"
-              )}
-              rows={4}
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Estimated Cost <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500 text-sm font-medium">$</span>
-              <input 
-                type="number" 
-                value={quickClaimForm.estimatedCost}
-                onChange={(e) => setQuickClaimForm({...quickClaimForm, estimatedCost: e.target.value})}
-                placeholder="0.00"
-                className={cn(
-                  "w-full p-3 pl-8 rounded-lg bg-white focus:ring-1 focus:ring-teal-500 focus:border-teal-500 text-gray-900 placeholder-gray-500 transition-colors hover:border-teal-400",
-                  !quickClaimForm.estimatedCost ? "border-gray-300" : "border-teal-300"
-                )}
-              />
-            </div>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
-            <PawButton variant="ghost" className="flex-1" onClick={handleFormReset}>
-              Cancel
-            </PawButton>
-            <PawButton 
-              className={cn(
-                "flex-1",
-                (!quickClaimForm.petId || !quickClaimForm.description || !quickClaimForm.estimatedCost) 
-                  ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed" 
-                  : "bg-teal-600 hover:bg-teal-700"
-              )}
-              onClick={handleQuickClaimSubmit}
-              disabled={!quickClaimForm.petId || !quickClaimForm.description || !quickClaimForm.estimatedCost}
-            >
-              <span className="hidden sm:inline">Submit Quick Claim</span>
-              <span className="sm:hidden">Submit</span>
-            </PawButton>
-          </div>
-        </div>
-      </Modal>
     </>
   );
 };

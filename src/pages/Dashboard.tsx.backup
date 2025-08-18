@@ -391,54 +391,55 @@ const Dashboard = () => {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Claim Details</h3>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Claim Type *
-                </label>
-                <select 
-                  id="claim-type-select-fixed"
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
-                  value={claimData.type}
-                  onChange={(e) => setClaimData({...claimData, type: e.target.value})}
-                >
-                  <option value="">Select claim type</option>
-                  <option value="emergency">Emergency Treatment</option>
-                  <option value="illness">Illness Treatment</option>
-                  <option value="accident">Accident/Injury</option>
-                  <option value="surgery">Surgery</option>
-                  <option value="medication">Prescription Medication</option>
-                  <option value="wellness">Wellness Check-up</option>
-                  <option value="dental">Dental Care</option>
-                  <option value="vaccination">Vaccination</option>
-                </select>
-              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Claim Type *
+                  </label>
+                  <select 
+                    className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                    value={claimData.type}
+                    onChange={(e) => setClaimData({...claimData, type: e.target.value})}
+                  >
+                    <option value="">Select claim type</option>
+                    <option value="emergency">Emergency Treatment</option>
+                    <option value="illness">Illness Treatment</option>
+                    <option value="accident">Accident/Injury</option>
+                    <option value="surgery">Surgery</option>
+                    <option value="medication">Prescription Medication</option>
+                    <option value="wellness">Wellness Check-up</option>
+                    <option value="dental">Dental Care</option>
+                    <option value="vaccination">Vaccination</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Description of Issue *
-                </label>
-                <textarea
-                  rows={4}
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 resize-none"
-                  placeholder="Please describe the condition, symptoms, or reason for treatment..."
-                  value={claimData.description}
-                  onChange={(e) => setClaimData({...claimData, description: e.target.value})}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Estimated Cost
-                </label>
-                <div className="relative">
-                  <DollarSign size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="number"
-                    className="w-full p-3 pl-10 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
-                    placeholder="0.00"
-                    value={claimData.estimatedCost}
-                    onChange={(e) => setClaimData({...claimData, estimatedCost: e.target.value})}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Description of Issue *
+                  </label>
+                  <textarea
+                    rows={4}
+                    className="w-full p-3 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100 resize-none"
+                    placeholder="Please describe the condition, symptoms, or reason for treatment..."
+                    value={claimData.description}
+                    onChange={(e) => setClaimData({...claimData, description: e.target.value})}
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                    Estimated Cost
+                  </label>
+                  <div className="relative">
+                    <DollarSign size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="number"
+                      className="w-full p-3 pl-10 rounded-xl border border-gray-200 focus:border-petinsure-teal-300 focus:ring-2 focus:ring-petinsure-teal-100"
+                      placeholder="0.00"
+                      value={claimData.estimatedCost}
+                      onChange={(e) => setClaimData({...claimData, estimatedCost: e.target.value})}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

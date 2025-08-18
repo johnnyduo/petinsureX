@@ -286,20 +286,24 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PawButton 
-              variant="secondary" 
-              size="lg"
-              className="bg-white text-petinsure-teal-600 hover:bg-gray-50"
-            >
-              Start Free Trial
-            </PawButton>
-            <PawButton 
-              variant="ghost" 
-              size="lg"
-              className="text-white border border-white/30 hover:bg-white/10"
-            >
-              Schedule Demo
-            </PawButton>
+            <Link to="/onboarding">
+              <PawButton 
+                variant="secondary" 
+                size="lg"
+                className="bg-white text-petinsure-teal-600 hover:bg-gray-50"
+              >
+                Get Started Now
+              </PawButton>
+            </Link>
+            <Link to="/dashboard">
+              <PawButton 
+                variant="ghost" 
+                size="lg"
+                className="text-white border border-white/30 hover:bg-white/10"
+              >
+                Schedule Demo
+              </PawButton>
+            </Link>
           </div>
         </div>
       </section>
