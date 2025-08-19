@@ -128,6 +128,16 @@ export default {
 				'paw-bounce': 'paw-bounce 0.6s ease-in-out infinite',
 				'gradient-shift': 'gradient-shift 3s ease-in-out infinite'
 			},
+			animationDelay: {
+				'75': '75ms',
+				'100': '100ms',
+				'150': '150ms',
+				'200': '200ms',
+				'300': '300ms',
+				'500': '500ms',
+				'700': '700ms',
+				'1000': '1000ms',
+			},
 			fontFamily: {
 				// Pet-Friendly Font System
 				'sans': ['Inter', 'system-ui', 'sans-serif'],

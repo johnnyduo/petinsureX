@@ -51,26 +51,45 @@ const PetIdentity = () => {
       name: 'Mali',
       species: 'dog',
       breed: 'Golden Retriever',
-      age: '3 years',
+      age: '3 years 2 months',
       avatar: '🐕',
       status: 'Verified',
       confidence: 94,
-      lastScan: '2024-01-15',
-      uniqueMarkers: ['Left ear spot', 'Nose pattern', 'Chest marking'],
-      photos: ['/mock-mali1.jpg', '/mock-mali2.jpg', '/mock-mali3.jpg', '/mock-mali4.jpg']
+      lastScan: '2024-08-15',
+      uniqueMarkers: ['Left ear distinctive spot', 'Nose leather pattern', 'Chest white marking', 'Right paw freckles'],
+      photos: ['/mock-mali1.jpg', '/mock-mali2.jpg', '/mock-mali3.jpg', '/mock-mali4.jpg'],
+      totalScans: 8,
+      verificationLevel: 'Premium'
     },
     {
       id: 'pet-taro',
       name: 'Taro',
       species: 'cat',
       breed: 'British Shorthair',
-      age: '2 years',
+      age: '2 years 8 months',
       avatar: '🐱',
       status: 'Needs Update',
       confidence: 76,
-      lastScan: '2024-01-01',
-      uniqueMarkers: ['Whisker pattern', 'Eye color variation', 'Paw markings'],
-      photos: ['/mock-taro1.jpg', '/mock-taro2.jpg']
+      lastScan: '2024-07-20',
+      uniqueMarkers: ['Whisker pattern asymmetry', 'Left eye amber fleck', 'Pink nose triangle', 'Front paw toe markings'],
+      photos: ['/mock-taro1.jpg', '/mock-taro2.jpg'],
+      totalScans: 3,
+      verificationLevel: 'Standard'
+    },
+    {
+      id: 'pet-luna',
+      name: 'Luna',
+      species: 'cat',
+      breed: 'Ragdoll',
+      age: '1 year 6 months',
+      avatar: '🐈',
+      status: 'Recently Added',
+      confidence: 88,
+      lastScan: '2024-08-12',
+      uniqueMarkers: ['Blue eye pattern', 'Color-point markings', 'Tail ring pattern', 'Ear tufts'],
+      photos: ['/mock-luna1.jpg', '/mock-luna2.jpg', '/mock-luna3.jpg'],
+      totalScans: 2,
+      verificationLevel: 'Basic'
     }
   ];
 
@@ -80,26 +99,34 @@ const PetIdentity = () => {
       confidence: 96,
       secondaryBreeds: [
         { breed: 'Labrador Retriever', confidence: 78 },
-        { breed: 'Nova Scotia Duck Tolling Retriever', confidence: 65 }
+        { breed: 'Nova Scotia Duck Tolling Retriever', confidence: 65 },
+        { breed: 'English Setter', confidence: 43 }
       ],
       uniqueMarkers: [
-        'Distinctive nose leather pattern',
-        'Left ear freckle cluster',
-        'Chest fur swirl pattern',
-        'Right front paw white marking'
+        'Distinctive nose leather texture and pigmentation pattern',
+        'Left ear freckle cluster (5 spots in triangular formation)',
+        'Chest fur cowlick pattern (clockwise spiral)',
+        'Right front paw white marking extending to first knuckle',
+        'Tail feathering pattern with darker guard hairs',
+        'Left eyebrow whisker arrangement (asymmetrical)'
       ],
-      analysis: 'High confidence breed identification with multiple unique identifying features detected.'
+      analysis: 'Extremely high confidence breed identification with 6 unique biometric markers detected. This pet shows classic Golden Retriever characteristics with distinctive individual features suitable for reliable identification.'
     },
     uniquenessScore: 98,
     similarities: [
-      { petId: 'similar-001', similarity: 12, owner: 'Anonymous', breed: 'Golden Retriever' }
+      { petId: 'similar-001', similarity: 12, owner: 'Anonymous', breed: 'Golden Retriever', location: 'Bangkok' },
+      { petId: 'similar-002', similarity: 8, owner: 'Anonymous', breed: 'Labrador Mix', location: 'Chiang Mai' }
     ],
     healthIndicators: {
-      eyeClarity: 'Excellent',
-      coatCondition: 'Healthy',
-      posture: 'Normal',
-      alerts: []
-    }
+      eyeClarity: 'Excellent - Clear, bright eyes with no discharge',
+      coatCondition: 'Healthy - Lustrous coat with good density',
+      posture: 'Normal - Alert and balanced stance',
+      overallHealth: 'Good - No visible health concerns detected'
+    },
+    timestamp: '2024-08-19T14:30:00Z',
+    processingTime: '2.3 seconds',
+    imageQuality: 'High (96/100)',
+    lightingConditions: 'Optimal'
   };
 
   // Camera functions

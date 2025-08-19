@@ -56,44 +56,53 @@ const Policies = () => {
     {
       id: 'basic',
       name: 'PetInsureX Basic',
-      price: 160,
-      coverage: 1430,
-      description: 'Essential coverage for accidents',
+      price: 189,
+      coverage: 2500,
+      description: 'Essential coverage for accidents and basic care',
       features: [
-        { text: 'Accidents Only', included: true },
-        { text: 'Emergency Care', included: true },
-        { text: '24/7 Support', included: true },
-        { text: 'Basic Vet Network', included: true }
+        { text: 'Accident Coverage', included: true },
+        { text: 'Emergency Surgery', included: true },
+        { text: '24/7 Helpline Support', included: true },
+        { text: 'Basic Vet Network (200+ clinics)', included: true },
+        { text: 'Illness Coverage', included: false },
+        { text: 'Wellness Exams', included: false },
+        { text: 'Dental Care', included: false },
+        { text: 'Alternative Therapies', included: false }
       ]
     },
     {
       id: 'standard',
       name: 'PetInsureX Standard',
-      price: 245,
-      coverage: 2350,
-      description: 'Comprehensive care for most needs',
+      price: 234,
+      coverage: 3000,
+      description: 'Comprehensive care for most health needs',
       popular: true,
       features: [
-        { text: 'Accidents & Illness', included: true },
-        { text: 'Preventive Care', included: true },
+        { text: 'Accidents & Illness Coverage', included: true },
+        { text: 'Preventive Care & Wellness', included: true },
         { text: 'Specialist Referrals', included: true },
-        { text: 'Extended Vet Network', included: true },
-        { text: 'Prescription Coverage', included: true }
+        { text: 'Extended Vet Network (400+ clinics)', included: true },
+        { text: 'Prescription Medications', included: true },
+        { text: 'Basic Dental Care', included: true },
+        { text: 'Hereditary Conditions', included: false },
+        { text: 'Alternative Therapies', included: false }
       ]
     },
     {
       id: 'premium',
-      name: 'PetInsureX Premium',
-      price: 345,
-      coverage: 2850,
-      description: 'Complete protection with extras',
+      name: 'PetInsureX Premium Plus',
+      price: 456,
+      coverage: 4500,
+      description: 'Complete protection with advanced features',
       features: [
         { text: 'Comprehensive Coverage', included: true },
-        { text: 'Hereditary Conditions', included: true },
-        { text: 'Alternative Therapies', included: true },
-        { text: 'Premium Vet Network', included: true },
-        { text: 'Wellness Programs', included: true },
-        { text: 'AI Health Monitoring', included: true }
+        { text: 'Hereditary & Genetic Conditions', included: true },
+        { text: 'Alternative Therapies & Acupuncture', included: true },
+        { text: 'Premium Vet Network (600+ clinics)', included: true },
+        { text: 'Wellness Programs & Nutrition', included: true },
+        { text: 'AI Health Monitoring & Alerts', included: true },
+        { text: 'Advanced Dental & Orthodontics', included: true },
+        { text: 'Behavioral Therapy', included: true }
       ]
     }
   ];
@@ -118,28 +127,41 @@ const Policies = () => {
     {
       id: 'policy-001',
       petId: 'pet-mali',
-      provider: 'PetInsureX Premium',
-      coverageLimit: 2850,
-      remaining: 2430,
-      premium: 345,
-      start: '2024-01-01',
-      end: '2024-12-31',
+      provider: 'PetInsureX Premium Plus',
+      coverageLimit: 4500,
+      remaining: 3250,
+      premium: 456,
+      start: '2024-08-01',
+      end: '2025-07-31',
       status: 'active',
-      createdAt: '2024-01-01T00:00:00Z',
-      termsUrl: '/policy-terms-001.pdf'
+      createdAt: '2024-08-01T00:00:00Z',
+      termsUrl: '/policy-terms-premium-001.pdf'
     },
     {
       id: 'policy-002',
       petId: 'pet-taro',
       provider: 'PetInsureX Standard',
-      coverageLimit: 2350,
-      remaining: 2350,
-      premium: 245,
-      start: '2024-01-15',
-      end: '2025-01-14',
+      coverageLimit: 3000,
+      remaining: 2820,
+      premium: 234,
+      start: '2024-02-18',
+      end: '2025-02-17',
       status: 'active',
-      createdAt: '2024-01-15T00:00:00Z',
-      termsUrl: '/policy-terms-002.pdf'
+      createdAt: '2024-02-18T00:00:00Z',
+      termsUrl: '/policy-terms-standard-002.pdf'
+    },
+    {
+      id: 'policy-003',
+      petId: 'pet-luna',
+      provider: 'PetInsureX Basic',
+      coverageLimit: 2500,
+      remaining: 2500,
+      premium: 189,
+      start: '2024-08-12',
+      end: '2025-08-11',
+      status: 'active',
+      createdAt: '2024-08-12T00:00:00Z',
+      termsUrl: '/policy-terms-basic-003.pdf'
     }
   ];
 
@@ -150,11 +172,11 @@ const Policies = () => {
       name: 'Mali',
       species: 'dog',
       breed: 'Golden Retriever',
-      ageMonths: 36,
+      ageMonths: 38,
       vaccinated: true,
-      photos: ['/mock-mali1.jpg'],
+      photos: ['/mock-mali1.jpg', '/mock-mali2.jpg'],
       createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z'
+      updatedAt: '2024-08-19T00:00:00Z'
     },
     {
       id: 'pet-taro',
@@ -162,15 +184,25 @@ const Policies = () => {
       name: 'Taro',
       species: 'cat',
       breed: 'British Shorthair',
-      ageMonths: 24,
-      vaccinated: false,
-      photos: ['/mock-taro1.jpg'],
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z'
+      ageMonths: 32,
+      vaccinated: true,
+      photos: ['/mock-taro1.jpg', '/mock-taro2.jpg'],
+      createdAt: '2024-01-15T00:00:00Z',
+      updatedAt: '2024-08-18T00:00:00Z'
+    },
+    {
+      id: 'pet-luna',
+      ownerId: 'user-1',
+      name: 'Luna',
+      species: 'cat',
+      breed: 'Ragdoll',
+      ageMonths: 18,
+      vaccinated: true,
+      photos: ['/mock-luna1.jpg', '/mock-luna2.jpg'],
+      createdAt: '2024-08-05T00:00:00Z',
+      updatedAt: '2024-08-15T00:00:00Z'
     }
-  ];
-
-  const getStatusColor = (status: string) => {
+  ];  const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-green-100 text-green-700 border-green-200';
       case 'expired': return 'bg-gray-100 text-gray-700 border-gray-200';

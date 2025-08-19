@@ -52,63 +52,105 @@ const Dashboard = () => {
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
 
   const stats = [
-    { label: 'Active Policies', value: '2', icon: Shield, color: 'text-blue-600' },
-    { label: 'Pending Claims', value: '1', icon: Clock, color: 'text-yellow-600' },
-    { label: 'Total Covered', value: '$5,200', icon: TrendingUp, color: 'text-green-600' },
-    { label: 'Coverage Used', value: '18%', icon: Heart, color: 'text-petinsure-teal-600' }
+    { label: 'Active Policies', value: '3', icon: Shield, color: 'text-blue-600', change: '+1 this month' },
+    { label: 'Pending Claims', value: '2', icon: Clock, color: 'text-yellow-600', change: '1 under review' },
+    { label: 'Total Covered', value: '$12,500', icon: TrendingUp, color: 'text-green-600', change: '+$2,300 added' },
+    { label: 'Coverage Used', value: '24%', icon: Heart, color: 'text-petinsure-teal-600', change: '6% this year' }
   ];
 
   const recentActivity = [
     {
       id: 1,
       type: 'claim_submitted',
-      title: 'Claim submitted for Mali',
-      description: 'Emergency surgery claim - Under review',
-      timestamp: '2 hours ago',
+      title: 'Emergency claim submitted for Mali',
+      description: 'Gastric torsion surgery - Documentation uploaded and reviewed',
+      timestamp: '3 hours ago',
       status: 'pending',
-      amount: '$430'
+      amount: '$1,250',
+      details: 'Claim #CLM-2024-08-19-001'
     },
     {
       id: 2,
-      type: 'policy_renewed',
-      title: 'Policy renewed for Taro',
-      description: 'Annual premium paid automatically',
+      type: 'claim_approved',
+      title: 'Vaccination claim approved for Taro',
+      description: 'Annual vaccination and health checkup claim processed',
       timestamp: '1 day ago',
       status: 'completed',
-      amount: '$345'
+      amount: '$180',
+      details: 'Claim #CLM-2024-08-18-003'
     },
     {
       id: 3,
-      type: 'identity_verified',
-      title: 'Pet identity verified',
-      description: 'Mali\'s photos updated successfully',
+      type: 'policy_renewed',
+      title: 'Premium Plus policy renewed for Mali',
+      description: 'Annual premium automatically paid - Coverage active until Aug 2026',
       timestamp: '3 days ago',
-      status: 'completed'
+      status: 'completed',
+      amount: '$456',
+      details: 'Policy #POL-MALI-2025'
+    },
+    {
+      id: 4,
+      type: 'document_uploaded',
+      title: 'Medical records updated for Luna',
+      description: 'Pre-existing condition documentation reviewed and approved',
+      timestamp: '5 days ago',
+      status: 'completed',
+      amount: null,
+      details: 'Document verification completed'
+    },
+    {
+      id: 5,
+      type: 'policy_created',
+      title: 'New Basic coverage activated for Luna',
+      description: 'Welcome package sent - First premium payment processed',
+      timestamp: '1 week ago',
+      status: 'completed',
+      amount: '$234',
+      details: 'Policy #POL-LUNA-2025'
     }
-  ];
-
-  const pets = [
+  ];  const pets = [
     {
       id: 1,
       name: 'Mali',
       species: 'Dog',
       breed: 'Golden Retriever',
-      age: '3 years',
+      age: '3 years 2 months',
       avatar: '🐕',
       status: 'Healthy',
-      coverage: '$2,850',
-      remaining: '$2,430'
+      coverage: '$4,500',
+      remaining: '$3,250',
+      lastCheckup: '2024-07-15',
+      nextCheckup: '2025-01-15',
+      policyType: 'Premium Plus'
     },
     {
       id: 2,
       name: 'Taro',
       species: 'Cat',
       breed: 'British Shorthair',
-      age: '2 years',
+      age: '2 years 8 months',
       avatar: '🐱',
-      status: 'Vaccinated',
-      coverage: '$2,350',
-      remaining: '$2,350'
+      status: 'Recently Vaccinated',
+      coverage: '$3,000',
+      remaining: '$2,820',
+      lastCheckup: '2024-08-18',
+      nextCheckup: '2025-02-18',
+      policyType: 'Standard'
+    },
+    {
+      id: 3,
+      name: 'Luna',
+      species: 'Cat',
+      breed: 'Ragdoll',
+      age: '1 year 6 months',
+      avatar: '🐈',
+      status: 'New Policy',
+      coverage: '$2,500',
+      remaining: '$2,500',
+      lastCheckup: '2024-08-10',
+      nextCheckup: '2025-08-10',
+      policyType: 'Basic'
     }
   ];
 
@@ -184,8 +226,9 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs sm:text-sm text-gray-700 mb-1 truncate">{stat.label}</p>
-                    <p className="text-lg sm:text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-700 mb-1 truncate">{stat.label}</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                    <p className="text-xs text-gray-600 truncate">{stat.change}</p>
                   </div>
                   <div className={cn("p-2 sm:p-3 rounded-xl bg-white/50 border border-petinsure-teal-200/50 flex-shrink-0", stat.color)}>
                     <stat.icon size={20} className="sm:size-6" />
@@ -244,13 +287,17 @@ const Dashboard = () => {
                         )}
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 text-xl">{activity.title}</h3>
-                        <p className="text-sm text-gray-700">{activity.description}</p>
-                        <p className="text-xs text-gray-500 mt-1">{activity.timestamp}</p>
+                        <h3 className="font-semibold text-gray-900 text-base leading-tight">{activity.title}</h3>
+                        <p className="text-sm font-medium text-gray-700 mt-1">{activity.description}</p>
+                        <div className="flex items-center gap-3 mt-2">
+                          <p className="text-xs text-gray-600">{activity.timestamp}</p>
+                          <p className="text-xs text-gray-500 font-medium">{activity.details}</p>
+                        </div>
                       </div>
                       {activity.amount && (
                         <div className="text-right">
-                          <p className="font-semibold text-gray-900">{activity.amount}</p>
+                          <p className="font-bold text-gray-900 text-lg">{activity.amount}</p>
+                          <p className="text-xs text-gray-600">Amount</p>
                         </div>
                       )}
                     </div>
@@ -270,24 +317,41 @@ const Dashboard = () => {
                       <div className="flex items-center gap-3 mb-3">
                         <div className="text-2xl">{pet.avatar}</div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 text-xl">{pet.name}</h3>
-                          <p className="text-sm text-gray-600">{pet.breed} • {pet.age}</p>
+                          <h3 className="font-semibold text-gray-900 text-base">{pet.name}</h3>
+                          <p className="text-sm font-medium text-gray-700">{pet.breed} • {pet.age}</p>
                         </div>
                         <div className={cn(
                           "px-2 py-1 rounded-full text-xs font-medium border border-petinsure-teal-200/30",
-                          pet.status === 'Healthy' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                          pet.status.includes('Healthy') ? 'bg-green-100 text-green-700' : 
+                          pet.status.includes('New') ? 'bg-blue-100 text-blue-700' :
+                          'bg-yellow-100 text-yellow-700'
                         )}>
                           {pet.status}
                         </div>
                       </div>
+                      
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-700">Coverage</span>
-                          <span className="font-medium">{pet.coverage}</span>
+                          <span className="font-medium text-gray-700">Policy</span>
+                          <span className="font-semibold text-gray-900">{pet.policyType}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-700">Remaining</span>
-                          <span className="font-medium text-green-600">{pet.remaining}</span>
+                          <span className="font-medium text-gray-700">Coverage</span>
+                          <span className="font-semibold text-gray-900">{pet.coverage}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="font-medium text-gray-700">Remaining</span>
+                          <span className="font-semibold text-green-600">{pet.remaining}</span>
+                        </div>
+                        <div className="pt-2 mt-2 border-t border-gray-200/50">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-gray-600">Last Checkup</span>
+                            <span className="font-medium text-gray-700">{pet.lastCheckup}</span>
+                          </div>
+                          <div className="flex justify-between text-xs mt-1">
+                            <span className="text-gray-600">Next Due</span>
+                            <span className="font-medium text-gray-700">{pet.nextCheckup}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -303,14 +367,33 @@ const Dashboard = () => {
                 </div>
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 aura-teal-subtle">
-                    <p className="text-sm text-petinsure-teal-800">
-                      <strong>Vaccination Reminder:</strong> Taro is due for annual vaccination in 2 weeks.
-                    </p>
+                    <div className="flex items-start gap-2">
+                      <Calendar size={16} className="text-petinsure-teal-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-petinsure-teal-800">Vaccination Reminder</p>
+                        <p className="text-xs text-petinsure-teal-700 mt-1">Taro's annual vaccination is due in 14 days (Sep 2, 2025)</p>
+                      </div>
+                    </div>
                   </div>
+                  
                   <div className="p-3 rounded-lg bg-green-50 border-2 border-green-300/60 aura-teal-subtle">
-                    <p className="text-sm text-green-800">
-                      <strong>Health Tip:</strong> Mali's breed is prone to hip dysplasia. Consider regular check-ups.
-                    </p>
+                    <div className="flex items-start gap-2">
+                      <Heart size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-green-800">Breed Health Alert</p>
+                        <p className="text-xs text-green-700 mt-1">Golden Retrievers like Mali are prone to hip dysplasia. Schedule biannual orthopedic check-ups.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-3 rounded-lg bg-blue-50 border-2 border-blue-300/60 aura-teal-subtle">
+                    <div className="flex items-start gap-2">
+                      <Shield size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-sm font-semibold text-blue-800">Coverage Optimization</p>
+                        <p className="text-xs text-blue-700 mt-1">You've used only 24% of your annual coverage. Consider wellness visits for Luna.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </GlassCard>

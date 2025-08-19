@@ -36,34 +36,65 @@ const VetPortal = () => {
       id: 'inv-001',
       patientName: 'Mali',
       ownerName: 'Jun Nakamura',
-      date: '2024-01-15',
-      amount: 430,
-      treatment: 'Hip dysplasia surgery',
-      status: 'pending_attestation',
+      date: '2024-08-19',
+      amount: 1250,
+      treatment: 'Emergency gastric torsion surgery',
+      status: 'attested',
+      priority: 'emergency',
       items: [
-        { description: 'Pre-operative examination', amount: 60, category: 'consultation' },
-        { description: 'Orthopedic surgery', amount: 285, category: 'surgery' },
-        { description: 'Anesthesia', amount: 45, category: 'medication' },
-        { description: 'Post-operative care', amount: 40, category: 'treatment' }
+        { description: 'Emergency consultation & examination', amount: 125, category: 'consultation' },
+        { description: 'Pre-surgical bloodwork panel', amount: 185, category: 'diagnostic' },
+        { description: 'Anesthesia & continuous monitoring', amount: 220, category: 'anesthesia' },
+        { description: 'Gastric torsion surgical correction', amount: 620, category: 'surgery' },
+        { description: 'Post-operative medications & care', amount: 85, category: 'medication' },
+        { description: 'Recovery room monitoring (4 hours)', amount: 15, category: 'treatment' }
       ],
-      hash: null,
-      signature: null
+      hash: 'sha256-k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6',
+      signature: 'vet-bangkok-001-sig-20240819-001',
+      claimId: 'CLM-2024-08-19-001',
+      insuranceProvider: 'PetInsureX Premium Plus'
     },
     {
       id: 'inv-002',
       patientName: 'Taro',
       ownerName: 'Jun Nakamura',
-      date: '2024-01-10',
-      amount: 100,
-      treatment: 'Annual vaccination package',
+      date: '2024-08-18',
+      amount: 180,
+      treatment: 'Annual wellness examination with vaccinations',
       status: 'attested',
+      priority: 'routine',
       items: [
-        { description: 'Health examination', amount: 45, category: 'consultation' },
-        { description: 'Vaccination set', amount: 55, category: 'medication' }
+        { description: 'Comprehensive physical examination', amount: 65, category: 'consultation' },
+        { description: 'FVRCP vaccination booster', amount: 45, category: 'vaccination' },
+        { description: 'Rabies vaccination renewal', amount: 35, category: 'vaccination' },
+        { description: 'Dental health assessment', amount: 25, category: 'examination' },
+        { description: 'Fecal parasite screening', amount: 10, category: 'diagnostic' }
       ],
-      hash: '0x7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730',
-      signature: '0x8b331f0a...',
-      attestedAt: '2024-01-10T11:30:00Z'
+      hash: 'sha256-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
+      signature: 'vet-phuket-002-sig-20240818-003',
+      claimId: 'CLM-2024-08-18-003',
+      insuranceProvider: 'PetInsureX Standard'
+    },
+    {
+      id: 'inv-003',
+      patientName: 'Luna',
+      ownerName: 'Jun Nakamura',
+      date: '2024-08-15',
+      amount: 320,
+      treatment: 'Dental cleaning with minor extraction',
+      status: 'pending_attestation',
+      priority: 'standard',
+      items: [
+        { description: 'Pre-anesthetic examination', amount: 50, category: 'consultation' },
+        { description: 'Anesthesia for dental procedure', amount: 90, category: 'anesthesia' },
+        { description: 'Professional dental cleaning', amount: 120, category: 'dental' },
+        { description: 'Single tooth extraction', amount: 45, category: 'dental' },
+        { description: 'Post-procedure antibiotics', amount: 15, category: 'medication' }
+      ],
+      hash: null,
+      signature: null,
+      claimId: null,
+      insuranceProvider: 'PetInsureX Basic'
     }
   ];
 
@@ -233,7 +264,7 @@ const VetPortal = () => {
                             <span>Digitally Signed</span>
                           </div>
                           <div className="text-gray-600">
-                            Attested: {new Date(invoice.attestedAt!).toLocaleString()}
+                            Attested: {new Date(invoice.date).toLocaleString()}
                           </div>
                         </div>
                       ) : (

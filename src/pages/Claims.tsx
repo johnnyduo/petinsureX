@@ -21,7 +21,8 @@ import {
   Zap,
   Heart,
   X,
-  Upload
+  Upload,
+  Bell
 } from 'lucide-react';
 import { Claim, Pet } from '@/types';
 
@@ -44,51 +45,101 @@ const Claims = () => {
       id: 'claim-001',
       petId: 'pet-mali',
       policyId: 'policy-001',
-      createdAt: '2024-01-15T10:30:00Z',
-      updatedAt: '2024-01-16T14:20:00Z',
+      createdAt: '2024-08-19T10:30:00Z',
+      updatedAt: '2024-08-19T14:20:00Z',
       status: 'review',
-      amount: 430,
-      description: 'Emergency surgery for hip dysplasia complications',
-      invoiceUrl: '/mock-invoice.pdf',
-      injuryPhotos: ['/mock-injury1.jpg', '/mock-injury2.jpg'],
+      amount: 1250,
+      description: 'Emergency surgery for gastric torsion (bloat) - life-threatening condition requiring immediate surgical intervention',
+      invoiceUrl: '/mock-invoice-CLM001.pdf',
+      injuryPhotos: ['/mock-mali-xray1.jpg', '/mock-mali-surgery1.jpg'],
       proofs: [
-        { id: 'proof-1', type: 'vet_attestation', status: 'valid', createdAt: '2024-01-15T11:00:00Z' },
-        { id: 'proof-2', type: 'identity_verification', status: 'valid', createdAt: '2024-01-15T11:30:00Z' }
+        { id: 'proof-1', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-19T11:00:00Z' },
+        { id: 'proof-2', type: 'identity_verification', status: 'valid', createdAt: '2024-08-19T11:30:00Z' },
+        { id: 'proof-3', type: 'forensic_analysis', status: 'valid', createdAt: '2024-08-19T12:00:00Z' }
       ],
       fraudScore: 0.15,
       petMatchConfidence: 0.94,
-      adminNotes: 'High-value claim requiring additional review'
+      adminNotes: 'Emergency surgery claim - veterinary attestation confirms life-threatening condition',
+      vetAttestation: {
+        id: 'att-001',
+        vetId: 'vet-bangkok-001',
+        clinicName: 'Bangkok Animal Emergency Hospital',
+        licenseNumber: 'VET-TH-2024-001',
+        signature: 'sig-bangkok-001',
+        timestamp: '2024-08-19T14:00:00Z',
+        invoiceHash: 'hash-mali-emergency-001'
+      }
     },
     {
       id: 'claim-002',
       petId: 'pet-taro',
       policyId: 'policy-002',
-      createdAt: '2024-01-10T09:15:00Z',
-      updatedAt: '2024-01-12T16:45:00Z',
+      createdAt: '2024-08-18T09:15:00Z',
+      updatedAt: '2024-08-18T16:45:00Z',
       status: 'paid',
-      amount: 100,
-      description: 'Routine vaccination and health check',
+      amount: 180,
+      description: 'Annual comprehensive health examination with core vaccinations (FVRCP, Rabies)',
+      invoiceUrl: '/mock-invoice-CLM002.pdf',
       injuryPhotos: [],
       proofs: [
-        { id: 'proof-3', type: 'vet_attestation', status: 'valid', createdAt: '2024-01-10T10:00:00Z' }
+        { id: 'proof-4', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-18T10:00:00Z' },
+        { id: 'proof-5', type: 'identity_verification', status: 'valid', createdAt: '2024-08-18T10:15:00Z' }
       ],
       fraudScore: 0.05,
-      petMatchConfidence: 0.98
+      petMatchConfidence: 0.98,
+      adminNotes: 'Routine preventive care - standard processing',
+      vetAttestation: {
+        id: 'att-002',
+        vetId: 'vet-phuket-002',
+        clinicName: 'Phuket Veterinary Clinic',
+        licenseNumber: 'VET-TH-2023-087',
+        signature: 'sig-phuket-002',
+        timestamp: '2024-08-18T16:30:00Z',
+        invoiceHash: 'hash-taro-wellness-001'
+      }
+    },
+    {
+      id: 'claim-003',
+      petId: 'pet-luna',
+      policyId: 'policy-003',
+      createdAt: '2024-08-10T14:20:00Z',
+      updatedAt: '2024-08-15T10:30:00Z',
+      status: 'approved',
+      amount: 320,
+      description: 'Dental cleaning and minor tooth extraction - preventive dental care',
+      invoiceUrl: '/mock-invoice-CLM003.pdf',
+      injuryPhotos: ['/mock-luna-dental1.jpg'],
+      proofs: [
+        { id: 'proof-6', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-10T15:00:00Z' },
+        { id: 'proof-7', type: 'identity_verification', status: 'valid', createdAt: '2024-08-10T15:15:00Z' }
+      ],
+      fraudScore: 0.08,
+      petMatchConfidence: 0.96,
+      adminNotes: 'Approved for payment - dental work documented with photos',
+      vetAttestation: {
+        id: 'att-003',
+        vetId: 'vet-chiang-003',
+        clinicName: 'Chiang Mai Pet Dental Center',
+        licenseNumber: 'VET-TH-2024-045',
+        signature: 'sig-chiang-003',
+        timestamp: '2024-08-15T09:45:00Z',
+        invoiceHash: 'hash-luna-dental-001'
+      }
     }
   ];
 
-  const mockPets: Pet[] = [
+    const mockPets: Pet[] = [
     {
       id: 'pet-mali',
       ownerId: 'user-1',
       name: 'Mali',
       species: 'dog',
       breed: 'Golden Retriever',
-      ageMonths: 36,
+      ageMonths: 38,
       vaccinated: true,
       photos: ['/mock-mali1.jpg', '/mock-mali2.jpg'],
       createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z'
+      updatedAt: '2024-08-19T00:00:00Z'
     },
     {
       id: 'pet-taro',
@@ -96,11 +147,23 @@ const Claims = () => {
       name: 'Taro',
       species: 'cat',
       breed: 'British Shorthair',
-      ageMonths: 24,
-      vaccinated: false,
+      ageMonths: 32,
+      vaccinated: true,
       photos: ['/mock-taro1.jpg', '/mock-taro2.jpg'],
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z'
+      createdAt: '2024-01-15T00:00:00Z',
+      updatedAt: '2024-08-18T00:00:00Z'
+    },
+    {
+      id: 'pet-luna',
+      ownerId: 'user-1',
+      name: 'Luna',
+      species: 'cat',
+      breed: 'Ragdoll',
+      ageMonths: 18,
+      vaccinated: true,
+      photos: ['/mock-luna1.jpg', '/mock-luna2.jpg'],
+      createdAt: '2024-08-05T00:00:00Z',
+      updatedAt: '2024-08-15T00:00:00Z'
     }
   ];
 
@@ -863,60 +926,223 @@ const Claims = () => {
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
         title=""
-        size="md"
+        size="xl"
         showCloseButton={false}
       >
-        <div className="text-center py-6">
-          <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
+        <div className="relative overflow-hidden">
+          {/* Animated background elements */}
+          <div className="absolute top-0 left-0 w-32 h-32 bg-green-100 rounded-full opacity-20 -translate-x-8 -translate-y-8 animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-24 h-24 bg-blue-100 rounded-full opacity-30 translate-x-6 translate-y-6 animate-bounce"></div>
+          <div className="absolute top-1/2 right-0 w-16 h-16 bg-purple-100 rounded-full opacity-25 translate-x-4"></div>
           
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Claim Submitted Successfully!
-          </h3>
-          
-          <p className="text-gray-600 mb-6">
-            Your claim has been received and is now being processed by our AI system. 
-            You'll receive updates via email and can track progress in your dashboard.
-          </p>
-          
-          {/* Success details */}
-          <div className="bg-green-50 rounded-lg p-4 mb-6 text-left">
-            <div className="flex items-start gap-3">
-              <Shield size={20} className="text-green-600 mt-0.5" />
-              <div className="flex-1">
-                <h4 className="font-medium text-green-900 mb-1">What's Next?</h4>
-                <ul className="text-sm text-green-800 space-y-1">
-                  <li>• AI analysis will complete within 24 hours</li>
-                  <li>• You'll receive an email confirmation shortly</li>
-                  <li>• Processing typically takes 2-3 business days</li>
-                  <li>• Check your Claims dashboard for real-time updates</li>
-                </ul>
+          <div className="relative text-center py-12 px-8">
+            {/* Multi-layered animated success icon */}
+            <div className="relative mx-auto mb-8">
+              {/* Outer pulsing ring */}
+              <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-green-200 via-emerald-200 to-teal-200 opacity-30 animate-ping"></div>
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 opacity-40 animate-ping animation-delay-150"></div>
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 opacity-50 animate-ping animation-delay-300"></div>
+              
+              {/* Main success icon with gradient and shadow */}
+              <div className="relative mx-auto flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 shadow-2xl transform transition-transform duration-500 hover:scale-110">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent"></div>
+                <CheckCircle className="w-12 h-12 text-white drop-shadow-lg" />
+              </div>
+              
+              {/* Sparkle effects */}
+              <div className="absolute -top-2 -right-2 w-3 h-3 bg-yellow-400 rounded-full animate-bounce"></div>
+              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+              <div className="absolute top-1 -right-4 w-1 h-1 bg-blue-400 rounded-full animate-ping"></div>
+            </div>
+            
+            {/* Success title with gradient text */}
+            <div className="mb-6">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
+                Success!
+              </h2>
+              <h3 className="text-xl font-semibold text-gray-700">
+                Your claim has been submitted
+              </h3>
+              <div className="flex items-center justify-center gap-2 mt-2">
+                <div className="w-12 h-1 bg-gradient-to-r from-green-400 to-teal-400 rounded-full"></div>
+                <Heart className="w-4 h-4 text-pink-500 animate-pulse" />
+                <div className="w-12 h-1 bg-gradient-to-r from-teal-400 to-blue-400 rounded-full"></div>
               </div>
             </div>
+            
+            <p className="text-gray-600 mb-10 text-lg max-w-lg mx-auto leading-relaxed">
+              We're processing your claim with our advanced AI system. You'll receive real-time updates 
+              and can expect a response within 24 hours.
+            </p>
+            
+            {/* Claim reference card with glassmorphism effect */}
+            <div className="relative mb-8 p-6 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 backdrop-blur-sm rounded-2xl border border-blue-200/50 shadow-xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-2xl"></div>
+              <div className="relative">
+                <p className="text-sm font-medium text-blue-800/80 mb-2">Claim Reference</p>
+                <div className="flex items-center justify-center gap-3">
+                  <div className="px-4 py-2 bg-white/60 rounded-lg border border-blue-200/30">
+                    <p className="text-2xl font-bold text-blue-700 font-mono tracking-wider">
+                      CLM-{Date.now().toString().slice(-6)}
+                    </p>
+                  </div>
+                  <div className="p-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors cursor-pointer">
+                    <FileText className="w-4 h-4 text-white" />
+                  </div>
+                </div>
+                <p className="text-xs text-blue-600/70 mt-2">Save this reference number for tracking</p>
+              </div>
+            </div>
+
+            {/* Processing timeline with enhanced design */}
+            <div className="mb-10 p-8 bg-gradient-to-br from-green-50/80 to-emerald-50/80 backdrop-blur-sm rounded-2xl border border-green-200/50 shadow-lg text-left">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg">
+                  <Zap className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-green-900">Processing Timeline</h4>
+                  <p className="text-sm text-green-700">Here's what happens next</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4 ml-2">
+                {[
+                  { time: 'Now', status: 'active', title: 'AI Analysis Starting', desc: 'Documents uploaded and being processed', color: 'green' },
+                  { time: '1 hour', status: 'pending', title: 'Email Confirmation', desc: 'Confirmation sent to your inbox', color: 'blue' },
+                  { time: '24 hours', status: 'pending', title: 'Review Complete', desc: 'AI analysis finished, status updated', color: 'purple' },
+                  { time: '2-3 days', status: 'pending', title: 'Decision & Payout', desc: 'Final approval and payment processing', color: 'teal' }
+                ].map((step, index) => (
+                  <div key={index} className="flex items-start gap-4 relative">
+                    {/* Timeline line */}
+                    {index < 3 && (
+                      <div className="absolute left-5 top-12 w-0.5 h-8 bg-gradient-to-b from-gray-300 to-gray-200"></div>
+                    )}
+                    
+                    {/* Status indicator */}
+                    <div className={cn(
+                      "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300",
+                      step.status === 'active' 
+                        ? `bg-${step.color}-500 border-${step.color}-400 animate-pulse shadow-lg shadow-${step.color}-200` 
+                        : `bg-gray-100 border-gray-300`
+                    )}>
+                      {step.status === 'active' ? (
+                        <div className={`w-3 h-3 bg-white rounded-full animate-ping`}></div>
+                      ) : (
+                        <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                      )}
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 pb-2">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={cn(
+                          "text-xs px-2 py-1 rounded-full font-medium",
+                          step.status === 'active' ? `bg-${step.color}-100 text-${step.color}-700` : 'bg-gray-100 text-gray-600'
+                        )}>
+                          {step.time}
+                        </span>
+                        <h5 className={cn(
+                          "font-semibold",
+                          step.status === 'active' ? 'text-gray-900' : 'text-gray-600'
+                        )}>
+                          {step.title}
+                        </h5>
+                      </div>
+                      <p className={cn(
+                        "text-sm",
+                        step.status === 'active' ? 'text-gray-700' : 'text-gray-500'
+                      )}>
+                        {step.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          {/* Feature highlights with glassmorphism cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            {[
+              { icon: Bell, title: 'Real-time Updates', desc: 'SMS & Email alerts', color: 'blue', bg: 'from-blue-500/10 to-cyan-500/10' },
+              { icon: Brain, title: 'AI Processing', desc: '24/7 automated review', color: 'purple', bg: 'from-purple-500/10 to-pink-500/10' },
+              { icon: Shield, title: 'Secure & Fast', desc: 'Bank-level security', color: 'green', bg: 'from-green-500/10 to-emerald-500/10' }
+            ].map((feature, index) => (
+              <div 
+                key={index} 
+                className={cn(
+                  "group relative p-5 bg-gradient-to-br backdrop-blur-sm rounded-xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1",
+                  feature.bg
+                )}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative text-center">
+                  <div className={cn(
+                    "w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center bg-gradient-to-br shadow-md",
+                    feature.color === 'blue' ? 'from-blue-500 to-cyan-600' :
+                    feature.color === 'purple' ? 'from-purple-500 to-pink-600' :
+                    'from-green-500 to-emerald-600'
+                  )}>
+                    <feature.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-1 text-sm">{feature.title}</h4>
+                  <p className="text-xs text-gray-600">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
           
-          {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          {/* Enhanced action buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <PawButton
               variant="ghost"
-              className="flex-1"
+              className="flex-1 h-12 bg-white/50 hover:bg-white/70 border border-gray-200 backdrop-blur-sm transition-all duration-300 hover:shadow-md"
               onClick={() => setShowSuccessModal(false)}
             >
+              <X size={18} className="mr-2" />
               Close
             </PawButton>
             <PawButton
-              className="flex-1 bg-teal-600 hover:bg-teal-700"
+              className="flex-1 h-12 bg-gradient-to-r from-teal-500 via-emerald-500 to-green-500 hover:from-teal-600 hover:via-emerald-600 hover:to-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={() => {
                 setShowSuccessModal(false);
-                // Could navigate to claims list or dashboard
-                window.location.reload(); // Simple refresh for demo
+                window.location.reload();
               }}
             >
-              View All Claims
+              <Eye size={18} className="mr-2" />
+              View Claims Dashboard
             </PawButton>
           </div>
+
+          {/* Support footer with enhanced styling */}
+          <div className="relative p-6 bg-gradient-to-r from-gray-50/50 to-blue-50/50 backdrop-blur-sm rounded-2xl border border-gray-200/30">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-semibold text-gray-700">24/7 Support Available</span>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Need help with your claim? Our team is here for you!
+              </p>
+              <div className="flex items-center justify-center gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="font-medium text-teal-700">AI Assistant</span>
+                </div>
+                <div className="w-1 h-6 bg-gray-300 rounded-full"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">📞</span>
+                  </div>
+                  <span className="font-bold text-blue-700">1-800-PET-CARE</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
       </Modal>
     </Layout>
   );

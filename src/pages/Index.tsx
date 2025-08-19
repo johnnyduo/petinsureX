@@ -41,33 +41,44 @@ const Index = () => {
   ];
 
   const stats = [
-    { value: '98%', label: 'Claim Accuracy' },
-    { value: '<2min', label: 'Average Processing' },
-    { value: '10k+', label: 'Happy Pets' },
-    { value: '24/7', label: 'AI Support' }
+    { value: '94%', label: 'Pet Identity Match' },
+    { value: '2.3s', label: 'Average Processing' },
+    { value: '15k+', label: 'Protected Pets' },
+    { value: '24/7', label: 'AI Assistant' }
   ];
 
   const testimonials = [
     {
-      name: 'Sarah Chen',
-      role: 'Dog Owner',
-      content: 'Mali\'s emergency surgery claim was approved in under 2 minutes. The AI recognized her instantly!',
+      name: 'Jun Nakamura',
+      role: 'Mali\'s Owner (Golden Retriever)',
+      content: 'When Mali had gastric torsion, the emergency claim was approved instantly with 94% identity match. The $1,250 surgery was covered within hours - truly lifesaving!',
       rating: 5,
-      avatar: '🐕'
+      avatar: '🐕',
+      location: 'Bangkok'
     },
     {
-      name: 'Dr. James Wong',
-      role: 'Veterinarian',
-      content: 'The vet attestation system streamlines our workflow. KMS signatures ensure authenticity.',
+      name: 'Dr. Siriporn Tanaka',
+      role: 'Bangkok Animal Emergency Hospital',
+      content: 'The veterinary attestation system with KMS signatures has revolutionized our claims process. Direct billing works seamlessly, and fraud detection is incredibly accurate.',
       rating: 5,
-      avatar: '👨‍⚕️'
+      avatar: '�‍⚕️',
+      location: 'Bangkok'
     },
     {
-      name: 'Lisa Park',
-      role: 'Cat Owner',
-      content: 'Zero-knowledge proofs let me keep Taro\'s medical history private while still getting covered.',
+      name: 'Emma Rodriguez',
+      role: 'Taro & Luna\'s Owner (British Shorthair & Ragdoll)',
+      content: 'Zero-knowledge proofs protect my cats\' medical privacy while ensuring instant coverage. Annual wellness visits are 100% covered - amazing value!',
       rating: 5,
-      avatar: '🐱'
+      avatar: '🐱',
+      location: 'Phuket'
+    },
+    {
+      name: 'Dr. Michael Chen',
+      role: 'Chiang Mai Pet Dental Center',
+      content: 'The AI invoice analysis caught a billing error I missed. The fraud detection is so sophisticated yet explains its reasoning clearly - builds trust with clients.',
+      rating: 5,
+      avatar: '�‍⚕️',
+      location: 'Chiang Mai'
     }
   ];
 
@@ -247,14 +258,15 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
               <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="subtle">
                 <div className="flex items-center mb-4">
                   <div className="text-2xl mr-3">{testimonial.avatar}</div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
                     <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    <p className="text-xs text-gray-500">{testimonial.location}</p>
                   </div>
                 </div>
                 
@@ -264,7 +276,7 @@ const Index = () => {
                   ))}
                 </div>
                 
-                <p className="text-gray-700 italic">
+                <p className="text-gray-700 italic leading-relaxed">
                   "{testimonial.content}"
                 </p>
               </GlassCard>
