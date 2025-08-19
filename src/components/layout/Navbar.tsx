@@ -42,10 +42,9 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
     };
   }, []);
 
-  // Consolidated navigation - removed Vet Portal, cleaner structure
+  // Consolidated navigation - removed Add New Pet, cleaner structure
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Shield },
-    { name: 'Add New Pet', href: '/onboarding', icon: Heart },
     { name: 'Claims', href: '/claims', icon: FileText },
     { name: 'Policies', href: '/policies', icon: Shield },
     { name: 'Pet ID', href: '/pet-identity', icon: Camera }, // Shortened name
@@ -136,11 +135,11 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                 
                 <PawButton 
                   size="sm"
-                  onClick={() => navigate('/dashboard')}
+                  onClick={() => navigate('/onboarding')}
                   className="text-button-sm bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg hover:shadow-xl"
                 >
                   <Plus size={14} />
-                  Quick Claim
+                  Add New Pet & Get Coverage
                 </PawButton>
               </div>
 
@@ -215,12 +214,12 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                     size="sm" 
                     className="w-full bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg"
                     onClick={() => {
-                      navigate('/dashboard');
+                      navigate('/onboarding');
                       setMobileMenuOpen(false);
                     }}
                   >
                     <Plus size={14} />
-                    Quick Claim
+                    Add New Pet & Get Coverage
                   </PawButton>
                 </div>
               </div>
