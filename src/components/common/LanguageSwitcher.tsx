@@ -78,7 +78,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
             'min-w-[40px] gap-2 transition-colors',
             'bg-white/50 border border-gray-200/50',
             'text-petinsure-teal-600 font-medium',
-            'hover:bg-white/80 hover:border-petinsure-teal-300',
+            'hover:bg-white/80 hover:border-petinsure-teal-300 hover:text-petinsure-teal-700',
             'focus:ring-2 focus:ring-petinsure-teal-400 focus:ring-offset-2',
             className
           )}

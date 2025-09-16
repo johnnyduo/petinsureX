@@ -1149,6 +1149,688 @@ class TranslationService {
           id: 'Analisis Tagihan Dokter Hewan'
         }
       },
+      {
+        key: 'ai.actions.policy_recommend',
+        translations: {
+          en: 'Policy Recommendations',
+          th: 'คำแนะนำกรมธรรม์',
+          singlish: 'Policy Recommendations',
+          ms: 'Cadangan Polisi',
+          id: 'Rekomendasi Polis'
+        }
+      },
+      {
+        key: 'ai.actions.wellness_insights',
+        translations: {
+          en: 'Health Insights',
+          th: 'ข้อมูลเชิงลึกสุขภาพ',
+          singlish: 'Health Insights',
+          ms: 'Wawasan Kesihatan',
+          id: 'Wawasan Kesehatan'
+        }
+      },
+      {
+        key: 'ai.actions.claim_analysis',
+        translations: {
+          en: 'Analyze My Claims',
+          th: 'วิเคราะห์การเคลมของฉัน',
+          singlish: 'Analyze My Claims',
+          ms: 'Analisis Tuntutan Saya',
+          id: 'Analisis Klaim Saya'
+        }
+      },
+      // AI Prompts
+      {
+        key: 'ai.prompts.coverage',
+        translations: {
+          en: 'What does my Premium Plus policy cover for Mali\'s emergency surgery?',
+          th: 'กรมธรรม์ Premium Plus ของฉันครอบคลุมการผ่าตัดฉุกเฉินของมาลีอย่างไร?',
+          singlish: 'What does my Premium Plus policy cover for Mali\'s emergency surgery lah?',
+          ms: 'Apakah yang dilindungi oleh polisi Premium Plus saya untuk pembedahan kecemasan Mali?',
+          id: 'Apa yang ditanggung polis Premium Plus saya untuk operasi darurat Mali?'
+        }
+      },
+      {
+        key: 'ai.prompts.claim_status',
+        translations: {
+          en: 'What is the status of my gastric torsion claim CLM-2024-08-19-001?',
+          th: 'สถานะของการเคลม gastric torsion CLM-2024-08-19-001 ของฉันเป็นอย่างไร?',
+          singlish: 'What\'s the status of my gastric torsion claim CLM-2024-08-19-001?',
+          ms: 'Apakah status tuntutan gastric torsion saya CLM-2024-08-19-001?',
+          id: 'Bagaimana status klaim gastric torsion saya CLM-2024-08-19-001?'
+        }
+      },
+      {
+        key: 'ai.prompts.emergency',
+        translations: {
+          en: 'My Golden Retriever is showing signs of bloating and distress - what should I do immediately?',
+          th: 'โกลเด้นรีทรีฟเวอร์ของฉันมีอาการท้องอืดและเจ็บปวด - ฉันควรทำอย่างไรทันที?',
+          singlish: 'My Golden Retriever got bloating and distress - what should I do now?',
+          ms: 'Golden Retriever saya menunjukkan tanda-tanda kembung dan tertekan - apa yang perlu saya lakukan segera?',
+          id: 'Golden Retriever saya menunjukkan tanda-tanda kembung dan tertekan - apa yang harus saya lakukan segera?'
+        }
+      },
+      {
+        key: 'ai.prompts.find_vet',
+        translations: {
+          en: 'Help me find 24/7 emergency veterinarians in Bangkok that accept my insurance',
+          th: 'ช่วยหาสัตวแพทย์ฉุกเฉิน 24/7 ในกรุงเทพฯ ที่รับประกันของฉัน',
+          singlish: 'Help me find 24/7 emergency vets in Bangkok that can take my insurance',
+          ms: 'Tolong bantu saya mencari doktor haiwan kecemasan 24/7 di Bangkok yang menerima insurans saya',
+          id: 'Bantu saya menemukan dokter hewan darurat 24/7 di Bangkok yang menerima asuransi saya'
+        }
+      },
+      {
+        key: 'ai.prompts.wellness',
+        translations: {
+          en: 'Schedule annual wellness checkup for Taro - he\'s due for vaccinations',
+          th: 'นัดหมายตรวจสุขภาพประจำปีสำหรับทาโร่ - เขาถึงเวลาฉีดวัคซีนแล้ว',
+          singlish: 'Schedule annual wellness checkup for Taro - he due for vaccinations already',
+          ms: 'Jadualkan pemeriksaan kesihatan tahunan untuk Taro - dia perlu vaksinasi',
+          id: 'Jadwalkan pemeriksaan kesehatan tahunan untuk Taro - dia perlu vaksinasi'
+        }
+      },
+      {
+        key: 'ai.prompts.analyze_bill',
+        translations: {
+          en: 'Please review this $1,250 emergency surgery invoice for accuracy and fraud detection',
+          th: 'กรุณาตรวจสอบใบแจ้งหนี้การผ่าตัดฉุกเฉิน $1,250 เพื่อความถูกต้องและตรวจจับการฉ้อโกง',
+          singlish: 'Please review this $1,250 emergency surgery invoice for accuracy and fraud detection',
+          ms: 'Sila semak invois pembedahan kecemasan $1,250 ini untuk ketepatan dan pengesanan penipuan',
+          id: 'Harap tinjau tagihan operasi darurat $1,250 ini untuk akurasi dan deteksi penipuan'
+        }
+      },
+      {
+        key: 'ai.powered_by',
+        translations: {
+          en: 'Powered by advanced AI for intelligent pet insurance support',
+          th: 'ขับเคลื่อนด้วย AI ขั้นสูงเพื่อการสนับสนุนประกันสัตว์เลี้ยงอย่างชาญฉลาด',
+          singlish: 'Powered by advanced AI for smart pet insurance support',
+          ms: 'Dikuasakan oleh AI canggih untuk sokongan insurans haiwan yang pintar',
+          id: 'Didukung oleh AI canggih untuk dukungan asuransi hewan yang cerdas'
+        }
+      },
+      // Pet Identity Page
+      {
+        key: 'pet_identity.title',
+        translations: {
+          en: 'Pet Identity & AI Analysis',
+          th: 'ระบุตัวตนสัตว์เลี้ยงและการวิเคราะห์ AI',
+          singlish: 'Pet Identity & AI Analysis',
+          ms: 'Identiti Haiwan & Analisis AI',
+          id: 'Identitas Hewan & Analisis AI'
+        }
+      },
+      {
+        key: 'pet_identity.ai_features',
+        translations: {
+          en: 'AI-Powered Features',
+          th: 'คุณสมบัติที่ขับเคลื่อนด้วย AI',
+          singlish: 'AI-Powered Features',
+          ms: 'Ciri-ciri Dikuasakan AI',
+          id: 'Fitur Bertenaga AI'
+        }
+      },
+      {
+        key: 'pet_identity.breed_detection',
+        translations: {
+          en: 'Breed Detection',
+          th: 'การตรวจจับสายพันธุ์',
+          singlish: 'Breed Detection',
+          ms: 'Pengesanan Baka',
+          id: 'Deteksi Ras'
+        }
+      },
+      {
+        key: 'pet_identity.unique_id',
+        translations: {
+          en: 'Unique ID Mapping',
+          th: 'การแมป ID ที่ไม่ซ้ำ',
+          singlish: 'Unique ID Mapping',
+          ms: 'Pemetaan ID Unik',
+          id: 'Pemetaan ID Unik'
+        }
+      },
+      {
+        key: 'pet_identity.fraud_prevention',
+        translations: {
+          en: 'Fraud Prevention',
+          th: 'การป้องกันการฉ้อโกง',
+          singlish: 'Fraud Prevention',
+          ms: 'Pencegahan Penipuan',
+          id: 'Pencegahan Penipuan'
+        }
+      },
+      {
+        key: 'pet_identity.scan_title',
+        translations: {
+          en: 'AI Pet Identity Scan',
+          th: 'การสแกนระบุตัวตนสัตว์เลี้ยงด้วย AI',
+          singlish: 'AI Pet Identity Scan',
+          ms: 'Imbasan Identiti Haiwan AI',
+          id: 'Pemindaian Identitas Hewan AI'
+        }
+      },
+      {
+        key: 'pet_identity.choose_method',
+        translations: {
+          en: 'Choose Scan Method',
+          th: 'เลือกวิธีการสแกน',
+          singlish: 'Choose Scan Method',
+          ms: 'Pilih Kaedah Imbasan',
+          id: 'Pilih Metode Pemindaian'
+        }
+      },
+      {
+        key: 'pet_identity.method_description',
+        translations: {
+          en: 'Select how you\'d like to capture your pet\'s identity',
+          th: 'เลือกวิธีที่คุณต้องการบันทึกข้อมูลสัตว์เลี้ยงของคุณ',
+          singlish: 'Select how you want to capture your pet\'s identity',
+          ms: 'Pilih cara anda ingin menangkap identiti haiwan anda',
+          id: 'Pilih cara Anda ingin menangkap identitas hewan Anda'
+        }
+      },
+      {
+        key: 'pet_identity.photo_capture',
+        translations: {
+          en: 'Photo Capture',
+          th: 'การถ่ายภาพ',
+          singlish: 'Photo Capture',
+          ms: 'Tangkapan Foto',
+          id: 'Tangkapan Foto'
+        }
+      },
+      {
+        key: 'pet_identity.video_scan',
+        translations: {
+          en: 'Video Scan',
+          th: 'การสแกนวิดีโอ',
+          singlish: 'Video Scan',
+          ms: 'Imbasan Video',
+          id: 'Pemindaian Video'
+        }
+      },
+      {
+        key: 'pet_identity.unique_markers',
+        translations: {
+          en: 'Unique Markers',
+          th: 'เครื่องหมายเฉพาะ',
+          singlish: 'Unique Markers',
+          ms: 'Penanda Unik',
+          id: 'Penanda Unik'
+        }
+      },
+      {
+        key: 'pet_identity.recent_photos',
+        translations: {
+          en: 'Recent Photos',
+          th: 'ภาพถ่ายล่าสุด',
+          singlish: 'Recent Photos',
+          ms: 'Foto Terkini',
+          id: 'Foto Terbaru'
+        }
+      },
+      {
+        key: 'pet_identity.verified_pets',
+        translations: {
+          en: 'Verified Pets',
+          th: 'สัตว์เลี้ยงที่ยืนยัน',
+          singlish: 'Verified Pets',
+          ms: 'Haiwan Disahkan',
+          id: 'Hewan Terverifikasi'
+        }
+      },
+      {
+        key: 'pet_identity.avg_confidence',
+        translations: {
+          en: 'Avg Confidence',
+          th: 'ความมั่นใจเฉลี่ย',
+          singlish: 'Avg Confidence',
+          ms: 'Purata Keyakinan',
+          id: 'Rata-rata Kepercayaan'
+        }
+      },
+      {
+        key: 'pet_identity.unique_markers',
+        translations: {
+          en: 'Unique Markers',
+          th: 'เครื่องหมายเฉพาะ',
+          singlish: 'Unique Markers',
+          ms: 'Penanda Unik',
+          id: 'Penanda Unik'
+        }
+      },
+      {
+        key: 'pet_identity.last_scan',
+        translations: {
+          en: 'Last Scan',
+          th: 'สแกนล่าสุด',
+          singlish: 'Last Scan',
+          ms: 'Imbasan Terakhir',
+          id: 'Pindai Terakhir'
+        }
+      },
+      {
+        key: 'pet_identity.breed_detection_desc',
+        translations: {
+          en: 'Advanced AI identifies breed with 95%+ accuracy using computer vision',
+          th: 'AI ขั้นสูงระบุสายพันธุ์ด้วยความแม่นยำ 95%+ โดยใช้คอมพิวเตอร์วิชัน',
+          singlish: 'Advanced AI identifies breed with 95%+ accuracy using computer vision',
+          ms: 'AI canggih mengenal pasti baka dengan ketepatan 95%+ menggunakan visi komputer',
+          id: 'AI canggih mengidentifikasi ras dengan akurasi 95%+ menggunakan computer vision'
+        }
+      },
+      {
+        key: 'pet_identity.latest_sealion',
+        translations: {
+          en: 'Latest: SEA-LION.AI',
+          th: 'ล่าสุด: SEA-LION.AI',
+          singlish: 'Latest: SEA-LION.AI',
+          ms: 'Terkini: SEA-LION.AI',
+          id: 'Terbaru: SEA-LION.AI'
+        }
+      },
+      {
+        key: 'pet_identity.unique_id_desc',
+        translations: {
+          en: 'Creates digital fingerprint from facial features, markings, and patterns',
+          th: 'สร้างลายนิ้วมือดิจิทัลจากใบหน้า เครื่องหมาย และลวดลาย',
+          singlish: 'Creates digital fingerprint from facial features, markings, and patterns',
+          ms: 'Mencipta cap jari digital daripada ciri muka, tanda, dan corak',
+          id: 'Membuat sidik jari digital dari fitur wajah, tanda, dan pola'
+        }
+      },
+      {
+        key: 'pet_identity.features_markers',
+        translations: {
+          en: 'Features: 50+ markers',
+          th: 'คุณสมบัติ: เครื่องหมาย 50+ จุด',
+          singlish: 'Features: 50+ markers',
+          ms: 'Ciri: 50+ penanda',
+          id: 'Fitur: 50+ penanda'
+        }
+      },
+      {
+        key: 'pet_identity.fraud_prevention_desc',
+        translations: {
+          en: 'Prevents identity fraud by matching pets to verified database',
+          th: 'ป้องกันการฉ้อโกงข้อมูลโดยจับคู่สัตว์เลี้ยงกับฐานข้อมูลที่ยืนยันแล้ว',
+          singlish: 'Prevents identity fraud by matching pets to verified database',
+          ms: 'Mencegah penipuan identiti dengan memadankan haiwan kepada pangkalan data yang disahkan',
+          id: 'Mencegah penipuan identitas dengan mencocokkan hewan ke database yang terverifikasi'
+        }
+      },
+      {
+        key: 'pet_identity.accuracy_rate',
+        translations: {
+          en: 'Accuracy: 99.8%',
+          th: 'ความแม่นยำ: 99.8%',
+          singlish: 'Accuracy: 99.8%',
+          ms: 'Ketepatan: 99.8%',
+          id: 'Akurasi: 99.8%'
+        }
+      },
+      {
+        key: 'pet_identity.photo_capture_desc',
+        translations: {
+          en: 'Take photos from multiple angles',
+          th: 'ถ่ายภาพจากหลายมุม',
+          singlish: 'Take photos from multiple angles',
+          ms: 'Ambil foto dari pelbagai sudut',
+          id: 'Ambil foto dari berbagai sudut'
+        }
+      },
+      {
+        key: 'pet_identity.video_scan_desc',
+        translations: {
+          en: '360° video for complete analysis',
+          th: 'วิดีโอ 360° สำหรับการวิเคราะห์แบบสมบูรณ์',
+          singlish: '360° video for complete analysis',
+          ms: 'Video 360° untuk analisis lengkap',
+          id: 'Video 360° untuk analisis lengkap'
+        }
+      },
+      {
+        key: 'pet_identity.days_ago',
+        translations: {
+          en: '5 days',
+          th: '5 วัน',
+          singlish: '5 days',
+          ms: '5 hari',
+          id: '5 hari'
+        }
+      },
+      {
+        key: 'pet_identity.image_processing',
+        translations: {
+          en: 'Image Processing',
+          th: 'การประมวลผลภาพ',
+          singlish: 'Image Processing',
+          ms: 'Pemprosesan Imej',
+          id: 'Pemrosesan Gambar'
+        }
+      },
+      {
+        key: 'pet_identity.breed_analysis',
+        translations: {
+          en: 'Breed Analysis',
+          th: 'การวิเคราะห์สายพันธุ์',
+          singlish: 'Breed Analysis',
+          ms: 'Analisis Baka',
+          id: 'Analisis Ras'
+        }
+      },
+      {
+        key: 'pet_identity.feature_detection',
+        translations: {
+          en: 'Unique Feature Detection',
+          th: 'การตรวจจับคุณลักษณะเฉพาะ',
+          singlish: 'Unique Feature Detection',
+          ms: 'Pengesanan Ciri Unik',
+          id: 'Deteksi Fitur Unik'
+        }
+      },
+      {
+        key: 'pet_identity.database_comparison',
+        translations: {
+          en: 'Database Comparison',
+          th: 'การเปรียบเทียบฐานข้อมูล',
+          singlish: 'Database Comparison',
+          ms: 'Perbandingan Pangkalan Data',
+          id: 'Perbandingan Database'
+        }
+      },
+      {
+        key: 'pet_identity.health_assessment',
+        translations: {
+          en: 'Health Assessment',
+          th: 'การประเมินสุขภาพ',
+          singlish: 'Health Assessment',
+          ms: 'Penilaian Kesihatan',
+          id: 'Penilaian Kesehatan'
+        }
+      },
+      {
+        key: 'pet_identity.scan_complete',
+        translations: {
+          en: 'Scan Complete!',
+          th: 'สแกนเสร็จสิ้น!',
+          singlish: 'Scan Complete!',
+          ms: 'Imbasan Selesai!',
+          id: 'Pindai Selesai!'
+        }
+      },
+      {
+        key: 'pet_identity.scan_complete_desc',
+        translations: {
+          en: 'AI analysis has identified your pet with high confidence',
+          th: 'การวิเคราะห์ AI ได้ระบุสัตว์เลี้ยงของคุณด้วยความมั่นใจสูง',
+          singlish: 'AI analysis has identified your pet with high confidence',
+          ms: 'Analisis AI telah mengenal pasti haiwan peliharaan anda dengan keyakinan tinggi',
+          id: 'Analisis AI telah mengidentifikasi hewan peliharaan Anda dengan kepercayaan tinggi'
+        }
+      },
+      {
+        key: 'pet_identity.breed_detection_title',
+        translations: {
+          en: 'Breed Detection',
+          th: 'การตรวจจับสายพันธุ์',
+          singlish: 'Breed Detection',
+          ms: 'Pengesanan Baka',
+          id: 'Deteksi Ras'
+        }
+      },
+      {
+        key: 'pet_identity.uniqueness_score',
+        translations: {
+          en: 'Uniqueness Score',
+          th: 'คะแนนความเป็นเอกลักษณ์',
+          singlish: 'Uniqueness Score',
+          ms: 'Skor Keunikan',
+          id: 'Skor Keunikan'
+        }
+      },
+      {
+        key: 'pet_identity.highly_unique',
+        translations: {
+          en: 'Highly unique pet with distinctive features',
+          th: 'สัตว์เลี้ยงที่มีเอกลักษณ์สูงพร้อมคุณลักษณะเฉพาะ',
+          singlish: 'Highly unique pet with distinctive features',
+          ms: 'Haiwan peliharaan yang sangat unik dengan ciri yang tersendiri',
+          id: 'Hewan peliharaan yang sangat unik dengan fitur yang khas'
+        }
+      },
+      {
+        key: 'pet_identity.unique_markers_detected',
+        translations: {
+          en: 'Unique Markers Detected',
+          th: 'ตรวจพบเครื่องหมายเฉพาะ',
+          singlish: 'Unique Markers Detected',
+          ms: 'Penanda Unik Dikesan',
+          id: 'Penanda Unik Terdeteksi'
+        }
+      },
+      {
+        key: 'pet_identity.close_camera',
+        translations: {
+          en: 'Close Camera',
+          th: 'ปิดกล้อง',
+          singlish: 'Close Camera',
+          ms: 'Tutup Kamera',
+          id: 'Tutup Kamera'
+        }
+      },
+      {
+        key: 'pet_identity.close',
+        translations: {
+          en: 'Close',
+          th: 'ปิด',
+          singlish: 'Close',
+          ms: 'Tutup',
+          id: 'Tutup'
+        }
+      },
+      {
+        key: 'pet_identity.view_details',
+        translations: {
+          en: 'View Details',
+          th: 'ดูรายละเอียด',
+          singlish: 'View Details',
+          ms: 'Lihat Butiran',
+          id: 'Lihat Detail'
+        }
+      },
+      {
+        key: 'pet_identity.view_details_short',
+        translations: {
+          en: 'Details',
+          th: 'รายละเอียด',
+          singlish: 'Details',
+          ms: 'Butiran',
+          id: 'Detail'
+        }
+      },
+      {
+        key: 'pet_identity.new_scan',
+        translations: {
+          en: 'New Scan',
+          th: 'สแกนใหม่',
+          singlish: 'New Scan',
+          ms: 'Imbasan Baru',
+          id: 'Pindai Baru'
+        }
+      },
+      {
+        key: 'pet_identity.new_scan_short',
+        translations: {
+          en: 'Scan',
+          th: 'สแกน',
+          singlish: 'Scan',
+          ms: 'Imbas',
+          id: 'Pindai'
+        }
+      },
+      {
+        key: 'pet_identity.open_camera',
+        translations: {
+          en: 'Open Camera',
+          th: 'เปิดกล้อง',
+          singlish: 'Open Camera',
+          ms: 'Buka Kamera',
+          id: 'Buka Kamera'
+        }
+      },
+      {
+        key: 'pet_identity.upload_photos',
+        translations: {
+          en: 'Upload Photos',
+          th: 'อัปโหลดรูปภาพ',
+          singlish: 'Upload Photos',
+          ms: 'Muat Naik Foto',
+          id: 'Unggah Foto'
+        }
+      },
+      {
+        key: 'pet_identity.camera_active',
+        translations: {
+          en: 'Camera Active',
+          th: 'กล้องทำงาน',
+          singlish: 'Camera Active',
+          ms: 'Kamera Aktif',
+          id: 'Kamera Aktif'
+        }
+      },
+      {
+        key: 'pet_identity.starting_camera',
+        translations: {
+          en: 'Starting Camera...',
+          th: 'กำลังเปิดกล้อง...',
+          singlish: 'Starting Camera...',
+          ms: 'Memulakan Kamera...',
+          id: 'Memulai Kamera...'
+        }
+      },
+      {
+        key: 'pet_identity.capture_photo',
+        translations: {
+          en: 'Capture Photo',
+          th: 'ถ่ายภาพ',
+          singlish: 'Capture Photo',
+          ms: 'Tangkap Foto',
+          id: 'Ambil Foto'
+        }
+      },
+      {
+        key: 'pet_identity.capture_photo_short',
+        translations: {
+          en: 'Photo',
+          th: 'ภาพ',
+          singlish: 'Photo',
+          ms: 'Foto',
+          id: 'Foto'
+        }
+      },
+      {
+        key: 'pet_identity.stop_camera',
+        translations: {
+          en: 'Stop Camera',
+          th: 'หยุดกล้อง',
+          singlish: 'Stop Camera',
+          ms: 'Hentikan Kamera',
+          id: 'Hentikan Kamera'
+        }
+      },
+      {
+        key: 'pet_identity.stop_camera_short',
+        translations: {
+          en: 'Stop',
+          th: 'หยุด',
+          singlish: 'Stop',
+          ms: 'Henti',
+          id: 'Henti'
+        }
+      },
+      {
+        key: 'pet_identity.camera_support',
+        translations: {
+          en: 'Camera Support',
+          th: 'รองรับกล้อง',
+          singlish: 'Camera Support',
+          ms: 'Sokongan Kamera',
+          id: 'Dukungan Kamera'
+        }
+      },
+      {
+        key: 'pet_identity.available',
+        translations: {
+          en: 'Available',
+          th: 'พร้อมใช้งาน',
+          singlish: 'Available',
+          ms: 'Tersedia',
+          id: 'Tersedia'
+        }
+      },
+      {
+        key: 'pet_identity.not_available',
+        translations: {
+          en: 'Not Available',
+          th: 'ไม่พร้อมใช้งาน',
+          singlish: 'Not Available',
+          ms: 'Tidak Tersedia',
+          id: 'Tidak Tersedia'
+        }
+      },
+      {
+        key: 'pet_identity.supported',
+        translations: {
+          en: 'Supported',
+          th: 'รองรับ',
+          singlish: 'Supported',
+          ms: 'Disokong',
+          id: 'Didukung'
+        }
+      },
+      {
+        key: 'pet_identity.not_supported',
+        translations: {
+          en: 'Not Supported',
+          th: 'ไม่รองรับ',
+          singlish: 'Not Supported',
+          ms: 'Tidak Disokong',
+          id: 'Tidak Didukung'
+        }
+      },
+      {
+        key: 'pet_identity.https_localhost',
+        translations: {
+          en: 'HTTPS/Localhost',
+          th: 'HTTPS/Localhost',
+          singlish: 'HTTPS/Localhost',
+          ms: 'HTTPS/Localhost',
+          id: 'HTTPS/Localhost'
+        }
+      },
+      {
+        key: 'pet_identity.secure',
+        translations: {
+          en: 'Secure',
+          th: 'ปลอดภัย',
+          singlish: 'Secure',
+          ms: 'Selamat',
+          id: 'Aman'
+        }
+      },
+      {
+        key: 'pet_identity.requires_https',
+        translations: {
+          en: 'Requires HTTPS',
+          th: 'ต้องใช้ HTTPS',
+          singlish: 'Requires HTTPS',
+          ms: 'Memerlukan HTTPS',
+          id: 'Memerlukan HTTPS'
+        }
+      },
       // Service Status
       {
         key: 'service.status.healthy',

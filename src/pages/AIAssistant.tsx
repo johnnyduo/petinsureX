@@ -6,7 +6,8 @@ import { PawButton } from '@/components/ui/paw-button';
 import { ServiceHealthMonitor } from '@/components/common/ServiceHealthMonitor';
 import { cn } from '@/lib/utils';
 import { seaLionAPI } from '@/lib/sea-lion';
-import { useTranslation } from '@/lib/translation';
+import { aiContextManager } from '@/lib/ai-context';
+import { useTranslation, translationService } from '@/lib/translation';
 import { 
   Brain, 
   Send, 
@@ -43,13 +44,30 @@ interface Message {
 
 const AIAssistant = () => {
   const { t } = useTranslation();
+  
+  // Get personalized welcome message
+  const getWelcomeMessage = () => {
+    const userContext = aiContextManager.getUserContext();
+    const petNames = userContext.pets.map(p => p.name).join(', ');
+    const activePolicies = userContext.policies.length;
+    const recentClaims = userContext.claims.length;
+    
+    const personalizedGreeting = petNames 
+      ? `Hello! I'm your AI pet insurance assistant, ready to help you with ${petNames} and your ${activePolicies} active ${activePolicies === 1 ? 'policy' : 'policies'}.`
+      : "Hello! I'm your AI pet insurance assistant.";
+    
+    const baseMessage = seaLionAPI.isConfigured() 
+      ? `${personalizedGreeting} I'm powered by SEA-LION AI and specialize in Southeast Asian pet care contexts.\n\n🌏 **Languages**: English, Singlish, Thai (ภาษาไทย), Bahasa Malaysia, Bahasa Indonesia\n\n🏥 **Professional Services**:\n• Claims processing & fraud detection\n• Policy analysis & recommendations  \n• Emergency veterinary guidance\n• Health insights & wellness planning\n• Regional vet network navigation\n\n📊 **Your Account**: ${activePolicies} active ${activePolicies === 1 ? 'policy' : 'policies'}, ${recentClaims} ${recentClaims === 1 ? 'claim' : 'claims'}\n\nHow can I assist you today? 🐾`
+      : `${personalizedGreeting} I'm running in demo mode with sample responses. For full AI capabilities, please configure the SEA-LION API key.\n\nHow can I assist you today? 🐾`;
+    
+    return baseMessage;
+  };
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'assistant',
-      content: seaLionAPI.isConfigured() 
-        ? t('ai.welcome_configured', "Hello! I'm your AI pet insurance assistant powered by SEA-LION AI. I specialize in Southeast Asian contexts and can communicate in multiple languages including English, Singlish, Thai (ภาษาไทย), Bahasa Malaysia, and Bahasa Indonesia. I can help you with claims processing, policy questions, pet health advice, fraud detection, and emergency support.\n\n🔧 *Note: The SEA-LION API service is currently experiencing connectivity issues, so I'll provide helpful fallback responses until it's restored.*\n\nHow can I assist you today? 🐾")
-        : t('ai.welcome_demo', "Hello! I'm your AI pet insurance assistant running in demo mode. I can help you with claims, policy questions, pet health advice, and fraud detection using sample responses. For full AI capabilities, please configure the SEA-LION API key. How can I assist you today?"),
+      content: getWelcomeMessage(),
       timestamp: new Date()
     }
   ]);
@@ -89,6 +107,21 @@ const AIAssistant = () => {
       icon: Receipt, 
       label: t('ai.actions.analyze_bill', 'Analyze Vet Bill'), 
       prompt: t('ai.prompts.analyze_bill', 'Please review this $1,250 emergency surgery invoice for accuracy and fraud detection') 
+    },
+    {
+      icon: Lightbulb,
+      label: t('ai.actions.policy_recommend', 'Policy Recommendations'),
+      prompt: 'AI_WORKFLOW:POLICY_ANALYSIS'
+    },
+    {
+      icon: Brain,
+      label: t('ai.actions.wellness_insights', 'Health Insights'),
+      prompt: 'AI_WORKFLOW:WELLNESS_ANALYSIS'
+    },
+    {
+      icon: Zap,
+      label: t('ai.actions.claim_analysis', 'Analyze My Claims'),
+      prompt: 'AI_WORKFLOW:CLAIM_ANALYSIS'
     }
   ];
 
@@ -153,8 +186,59 @@ const AIAssistant = () => {
       if (seaLionAPI.isConfigured()) {
         console.log('🤖 SEA-LION API is configured, attempting to get response...');
         try {
-          // Use SEA-LION API for real AI responses
-          responseContent = await seaLionAPI.petInsuranceAssistant(messageContent);
+          // Get user context for personalized responses with current language
+          const currentLanguage = translationService.getCurrentLanguage();
+          const userContext = aiContextManager.getUserContext(currentLanguage);
+          console.log('📊 User context loaded:', {
+            pets: userContext.pets.length,
+            policies: userContext.policies.length,
+            claims: userContext.claims.length,
+            language: currentLanguage
+          });
+          
+          // Check for AI workflow commands
+          if (messageContent.startsWith('AI_WORKFLOW:')) {
+            const workflowType = messageContent.replace('AI_WORKFLOW:', '');
+            
+            switch (workflowType) {
+              case 'POLICY_ANALYSIS':
+                console.log('🔍 Running policy analysis workflow...');
+                responseContent = await seaLionAPI.generatePolicyRecommendations(
+                  userContext.pets,
+                  userContext.policies,
+                  { location: 'Bangkok', coverage_priority: 'comprehensive' }
+                );
+                break;
+                
+              case 'WELLNESS_ANALYSIS':
+                console.log('🏥 Running wellness analysis workflow...');
+                responseContent = await seaLionAPI.generateWellnessInsights(
+                  userContext.pets,
+                  userContext.claims,
+                  userContext.policies
+                );
+                break;
+                
+              case 'CLAIM_ANALYSIS':
+                console.log('📊 Running claim analysis workflow...');
+                if (userContext.claims.length > 0) {
+                  const claimContext = aiContextManager.getClaimContext(userContext.claims[0].id);
+                  responseContent = await seaLionAPI.analyzeClaim(
+                    claimContext.claim!,
+                    claimContext
+                  );
+                } else {
+                  responseContent = `📋 **Claim Analysis Report**\n\nNo claims found for your pets. This is great news! Your pets have been healthy and haven't needed insurance coverage yet.\n\n**Recommendations:**\n• Continue preventive care to maintain good health\n• Consider wellness checkups to catch issues early\n• Keep your policy active for unexpected emergencies\n• Review your coverage annually as pets age`;
+                }
+                break;
+                
+              default:
+                responseContent = await seaLionAPI.petInsuranceAssistant(messageContent, userContext);
+            }
+          } else {
+            // Use SEA-LION API for regular chat with full context
+            responseContent = await seaLionAPI.petInsuranceAssistant(messageContent, userContext);
+          }
           isFromAPI = true;
           console.log('✅ SEA-LION API response received:', responseContent.substring(0, 100) + '...');
         } catch (apiError) {

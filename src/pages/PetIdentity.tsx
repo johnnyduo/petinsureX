@@ -6,6 +6,7 @@ import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/translation';
 import { 
   Camera, 
   Upload, 
@@ -27,6 +28,7 @@ import {
 } from 'lucide-react';
 
 const PetIdentity = () => {
+  const { t } = useTranslation();
   const [selectedPet, setSelectedPet] = useState<string | null>(null);
   const [showScanModal, setShowScanModal] = useState(false);
   const [scanType, setScanType] = useState<'photo' | 'video'>('photo');
@@ -307,11 +309,11 @@ const PetIdentity = () => {
 
     // Simulate AI scanning process
     const steps = [
-      { name: 'Image Processing', duration: 1000 },
-      { name: 'Breed Analysis', duration: 2000 },
-      { name: 'Unique Feature Detection', duration: 1500 },
-      { name: 'Database Comparison', duration: 2500 },
-      { name: 'Health Assessment', duration: 1000 }
+      { name: t('pet_identity.image_processing'), duration: 1000 },
+      { name: t('pet_identity.breed_analysis'), duration: 2000 },
+      { name: t('pet_identity.feature_detection'), duration: 1500 },
+      { name: t('pet_identity.database_comparison'), duration: 2500 },
+      { name: t('pet_identity.health_assessment'), duration: 1000 }
     ];
 
     let totalProgress = 0;
@@ -331,17 +333,17 @@ const PetIdentity = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-6 sm:mb-8">
-            <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">Pet Identity & AI Analysis</h1>
-            <p className="text-sm sm:text-base text-gray-600">Advanced AI-powered breed detection and unique identification scanning</p>
+            <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">{t('pet_identity.title')}</h1>
+            <p className="text-sm sm:text-base text-gray-600">{t('pet_identity.subtitle')}</p>
           </div>
 
           {/* Stats Cards with enhanced borders and teal aura */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {[
-              { label: 'Verified Pets', value: '2', icon: Shield, color: 'text-green-600' },
-              { label: 'Avg Confidence', value: '85%', icon: Target, color: 'text-blue-600' },
-              { label: 'Unique Markers', value: '7', icon: Star, color: 'text-yellow-600' },
-              { label: 'Last Scan', value: '5 days', icon: Scan, color: 'text-petinsure-teal-600' }
+              { label: t('pet_identity.verified_pets'), value: '2', icon: Shield, color: 'text-green-600' },
+              { label: t('pet_identity.avg_confidence'), value: '85%', icon: Target, color: 'text-blue-600' },
+              { label: t('pet_identity.unique_markers'), value: '7', icon: Star, color: 'text-yellow-600' },
+              { label: t('pet_identity.last_scan'), value: t('pet_identity.days_ago'), icon: Scan, color: 'text-petinsure-teal-600' }
             ].map((stat, index) => (
               <GlassCard key={index} className="p-6 aura-teal-subtle" borderStyle="prominent">
                 <div className="flex items-center">
@@ -385,7 +387,7 @@ const PetIdentity = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Unique Markers</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">{t('pet_identity.unique_markers', 'Unique Markers')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {pet.uniqueMarkers.map((marker, index) => (
                         <span key={index} className="px-2 py-1 bg-petinsure-teal-100 text-petinsure-teal-700 text-xs rounded-full">
@@ -396,7 +398,7 @@ const PetIdentity = () => {
                   </div>
 
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Recent Photos</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">{t('pet_identity.recent_photos', 'Recent Photos')}</h4>
                     <div className="flex gap-2">
                       {pet.photos.slice(0, 4).map((photo, index) => (
                         <div key={index} className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
@@ -417,8 +419,8 @@ const PetIdentity = () => {
                       onClick={() => setSelectedPet(pet.id)}
                     >
                       <Eye size={16} />
-                      <span className="hidden sm:inline">View Details</span>
-                      <span className="sm:hidden">Details</span>
+                      <span className="hidden sm:inline">{t('pet_identity.view_details')}</span>
+                      <span className="sm:hidden">{t('pet_identity.view_details_short')}</span>
                     </PawButton>
                     <PawButton
                       size="sm"
@@ -429,8 +431,8 @@ const PetIdentity = () => {
                       }}
                     >
                       <Scan size={16} />
-                      <span className="hidden sm:inline">New Scan</span>
-                      <span className="sm:hidden">Scan</span>
+                      <span className="hidden sm:inline">{t('pet_identity.new_scan')}</span>
+                      <span className="sm:hidden">{t('pet_identity.new_scan_short')}</span>
                     </PawButton>
                   </div>
                 </div>
@@ -440,33 +442,33 @@ const PetIdentity = () => {
 
           {/* AI Features with enhanced borders and intense teal aura */}
           <GlassCard className="p-4 sm:p-6 aura-teal-intense" borderStyle="prominent">
-            <h2 className="font-display text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">AI-Powered Features</h2>
+            <h2 className="font-display text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">{t('pet_identity.ai_features')}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                   <Brain size={20} className="text-blue-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Breed Detection</h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Advanced AI identifies breed with 95%+ accuracy using computer vision</p>
-                <div className="text-xs text-blue-600 font-medium">Latest: SEA-LION.AI</div>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">{t('pet_identity.breed_detection')}</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">{t('pet_identity.breed_detection_desc')}</p>
+                <div className="text-xs text-blue-600 font-medium">{t('pet_identity.latest_sealion')}</div>
               </div>
 
               <div className="text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                   <Target size={20} className="text-green-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Unique ID Mapping</h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Creates digital fingerprint from facial features, markings, and patterns</p>
-                <div className="text-xs text-green-600 font-medium">Features: 50+ markers</div>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">{t('pet_identity.unique_id')}</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">{t('pet_identity.unique_id_desc')}</p>
+                <div className="text-xs text-green-600 font-medium">{t('pet_identity.features_markers')}</div>
               </div>
 
               <div className="text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                   <Shield size={20} className="text-purple-600 sm:size-6" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">Fraud Prevention</h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">Prevents identity fraud by matching pets to verified database</p>
-                <div className="text-xs text-purple-600 font-medium">Accuracy: 99.8%</div>
+                <h3 className="font-semibold text-gray-900 mb-2 text-base sm:text-xl">{t('pet_identity.fraud_prevention')}</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">{t('pet_identity.fraud_prevention_desc')}</p>
+                <div className="text-xs text-purple-600 font-medium">{t('pet_identity.accuracy_rate')}</div>
               </div>
             </div>
           </GlassCard>
@@ -484,15 +486,15 @@ const PetIdentity = () => {
           stopCamera();
           resetCapture();
         }}
-        title="AI Pet Identity Scan"
+        title={t('pet_identity.scan_title')}
         size="md"
       >
         <div className="space-y-4 sm:space-y-6">
           {!scanResults && !isScanning && (
             <div className="space-y-4 sm:space-y-6">
               <div className="text-center">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Choose Scan Method</h3>
-                <p className="text-sm sm:text-base text-gray-600">Select how you'd like to capture your pet's identity</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{t('pet_identity.choose_method')}</h3>
+                <p className="text-sm sm:text-base text-gray-600">{t('pet_identity.method_description')}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -505,8 +507,8 @@ const PetIdentity = () => {
                 >
                   <div className="text-center">
                     <Camera size={24} className="mx-auto mb-2 sm:mb-3 text-petinsure-teal-600 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
-                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Photo Capture</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">Take photos from multiple angles</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">{t('pet_identity.photo_capture')}</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">{t('pet_identity.photo_capture_desc')}</p>
                   </div>
                 </button>
 
@@ -519,8 +521,8 @@ const PetIdentity = () => {
                 >
                   <div className="text-center">
                     <Video size={28} className="mx-auto mb-3 text-petinsure-teal-600 sm:size-8" />
-                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Video Scan</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">360° video for complete analysis</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm sm:text-base">{t('pet_identity.video_scan')}</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">{t('pet_identity.video_scan_desc')}</p>
                   </div>
                 </button>
               </div>
@@ -548,19 +550,19 @@ const PetIdentity = () => {
                       <div className="flex flex-col sm:flex-row gap-3">
                         <PawButton className="flex-1" onClick={startCamera}>
                           <Camera size={16} />
-                          Open Camera
+                          {t('pet_identity.open_camera')}
                         </PawButton>
                         <PawButton variant="secondary" className="flex-1" onClick={() => fileInputRef.current?.click()}>
                           <Upload size={16} />
-                          Upload Photos
+                          {t('pet_identity.upload_photos')}
                         </PawButton>
                       </div>
 
                       {/* Debug info for camera issues */}
                       <div className="text-xs text-gray-500 space-y-1">
-                        <div>Camera Support: {navigator.mediaDevices ? '✅ Available' : '❌ Not Available'}</div>
-                        <div>getUserMedia: {navigator.mediaDevices?.getUserMedia ? '✅ Supported' : '❌ Not Supported'}</div>
-                        <div>HTTPS/Localhost: {location.protocol === 'https:' || location.hostname === 'localhost' ? '✅ Secure' : '❌ Requires HTTPS'}</div>
+                        <div>{t('pet_identity.camera_support')}: {navigator.mediaDevices ? `✅ ${t('pet_identity.available')}` : `❌ ${t('pet_identity.not_available')}`}</div>
+                        <div>getUserMedia: {navigator.mediaDevices?.getUserMedia ? `✅ ${t('pet_identity.supported')}` : `❌ ${t('pet_identity.not_supported')}`}</div>
+                        <div>{t('pet_identity.https_localhost')}: {location.protocol === 'https:' || location.hostname === 'localhost' ? `✅ ${t('pet_identity.secure')}` : `❌ ${t('pet_identity.requires_https')}`}</div>
                       </div>
                     </div>
                   ) : (
@@ -578,7 +580,7 @@ const PetIdentity = () => {
                         {/* Camera guidelines overlay */}
                         <div className="absolute inset-4 border-2 border-dashed border-white/70 rounded-xl pointer-events-none">
                           <div className="absolute top-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-xs">
-                            {isCameraActive ? 'Camera Active' : 'Starting Camera...'}
+                            {isCameraActive ? t('pet_identity.camera_active') : t('pet_identity.starting_camera')}
                           </div>
                         </div>
 
@@ -596,13 +598,13 @@ const PetIdentity = () => {
                       <div className="flex flex-col sm:flex-row gap-3">
                         <PawButton onClick={capturePhoto} className="flex-1">
                           <Camera size={16} />
-                          <span className="hidden sm:inline">Capture Photo ({capturedPhotos.length})</span>
-                          <span className="sm:hidden">Photo ({capturedPhotos.length})</span>
+                          <span className="hidden sm:inline">{t('pet_identity.capture_photo')} ({capturedPhotos.length})</span>
+                          <span className="sm:hidden">{t('pet_identity.capture_photo_short')} ({capturedPhotos.length})</span>
                         </PawButton>
                         <PawButton variant="secondary" onClick={stopCamera} className="sm:flex-shrink-0">
                           <StopCircle size={16} />
-                          <span className="hidden sm:inline">Stop Camera</span>
-                          <span className="sm:hidden">Stop</span>
+                          <span className="hidden sm:inline">{t('pet_identity.stop_camera')}</span>
+                          <span className="sm:hidden">{t('pet_identity.stop_camera_short')}</span>
                         </PawButton>
                       </div>
 
@@ -705,7 +707,7 @@ const PetIdentity = () => {
                         {/* Camera guidelines overlay */}
                         <div className="absolute inset-4 border-2 border-dashed border-white/70 rounded-xl pointer-events-none">
                           <div className="absolute top-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-xs">
-                            {isCameraActive ? 'Camera Active' : 'Starting Camera...'}
+                            {isCameraActive ? t('pet_identity.camera_active') : t('pet_identity.starting_camera')}
                           </div>
                         </div>
 
@@ -735,8 +737,8 @@ const PetIdentity = () => {
                           </PawButton>
                         )}
                         <PawButton variant="ghost" onClick={stopCamera} className="sm:flex-shrink-0">
-                          <span className="hidden sm:inline">Close Camera</span>
-                          <span className="sm:hidden">Close</span>
+                          <span className="hidden sm:inline">{t('pet_identity.close_camera')}</span>
+                          <span className="sm:hidden">{t('pet_identity.close')}</span>
                         </PawButton>
                       </div>
 
@@ -811,13 +813,13 @@ const PetIdentity = () => {
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle size={40} className="text-green-600" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">Scan Complete!</h3>
-                <p className="text-gray-600">AI analysis has identified your pet with high confidence</p>
+                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">{t('pet_identity.scan_complete')}</h3>
+                <p className="text-gray-600">{t('pet_identity.scan_complete_desc')}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
-                  <h4 className="font-semibold text-gray-900 mb-3">Breed Detection</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.breed_detection_title')}</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="font-medium text-gray-900">{scanResults.breedDetection.primaryBreed}</span>
@@ -833,18 +835,18 @@ const PetIdentity = () => {
                 </GlassCard>
 
                 <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
-                  <h4 className="font-semibold text-gray-900 mb-3">Uniqueness Score</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.uniqueness_score')}</h4>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-petinsure-teal-600 mb-2">
                       {scanResults.uniquenessScore}%
                     </div>
-                    <p className="text-sm text-gray-600">Highly unique pet with distinctive features</p>
+                    <p className="text-sm text-gray-600">{t('pet_identity.highly_unique')}</p>
                   </div>
                 </GlassCard>
               </div>
 
               <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
-                <h4 className="font-semibold text-gray-900 mb-3">Unique Markers Detected</h4>
+                <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.unique_markers_detected')}</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {scanResults.breedDetection.uniqueMarkers.map((marker: string, index: number) => (
                     <div key={index} className="flex items-center gap-2 p-2 bg-petinsure-teal-50 rounded-lg border border-petinsure-teal-200/50 aura-teal-subtle">

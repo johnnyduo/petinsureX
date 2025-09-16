@@ -58,12 +58,13 @@ export class SeaLionAPI {
   private healthCacheExpiry: number = 5 * 60 * 1000; // 5 minutes
 
   // Available models (prioritized by stability and availability)
+  // Updated based on current API availability as of Sept 2025
   public static readonly MODELS = {
-    INSTRUCT: 'aisingapore/Gemma-SEA-LION-v3-9B-IT', // Primary model - often more stable
+    INSTRUCT: 'aisingapore/Gemma-SEA-LION-v4-27B-IT', // Latest model - now primary
     INSTRUCT_ALT: 'aisingapore/Llama-SEA-LION-v3-70B-IT', // Backup model
-    INSTRUCT_V4: 'aisingapore/Gemma-SEA-LION-v4-27B-IT', // Latest model (may have issues)
-    REASONING: 'aisingapore/Llama-SEA-LION-v3.5-8B-R', // Smaller reasoning model first
-    REASONING_ALT: 'aisingapore/Llama-SEA-LION-v3.5-70B-R', // Larger backup
+    INSTRUCT_V4: 'aisingapore/Gemma-SEA-LION-v4-27B-IT', // Same as primary
+    REASONING: 'aisingapore/Llama-SEA-LION-v3.5-70B-R', // Available reasoning model
+    REASONING_ALT: 'aisingapore/Llama-SEA-LION-v3-70B-IT', // Fallback to instruct
     GUARD: 'aisingapore/Llama-SEA-Guard-Prompt-v1'
   } as const;
 
@@ -354,68 +355,306 @@ export class SeaLionAPI {
   }
 
   /**
-   * Generate AI assistant response for pet insurance queries
+   * Generate AI assistant response for pet insurance queries with user context
    */
-  public async petInsuranceAssistant(query: string): Promise<string> {
-    const systemPrompt = `You are a helpful AI assistant for PetInsureX, a pet insurance platform. 
-    You specialize in:
-    - Pet insurance policies and coverage
-    - Claims processing and requirements  
-    - Pet health and wellness advice
-    - Regional pet care practices in Southeast Asia
+  public async petInsuranceAssistant(
+    query: string, 
+    userContext?: {
+      user?: any;
+      pets?: any[];
+      policies?: any[];
+      claims?: any[];
+      language?: string;
+    }
+  ): Promise<string> {
+    let contextInfo = '';
     
-    LANGUAGE SUPPORT:
-    - Respond in English by default
-    - Support Singlish (Singaporean English) 
-    - Support Thai (ภาษาไทย) when requested
-    - Support Bahasa Malaysia and Bahasa Indonesia
-    - Detect language from user input and respond accordingly
-    - Use culturally appropriate examples and references
-    
-    REGIONAL EXPERTISE:
-    - Thailand: Understand Thai pet care practices, local vet clinics, Thai animal welfare laws
-    - Singapore: Singlish expressions, HDB pet policies, local vet networks
-    - Malaysia: Pet import/export regulations, local insurance requirements
-    - Indonesia: Traditional pet care practices, local veterinary standards
-    
-    Provide accurate, helpful, and friendly responses. Use simple language and be empathetic to pet owners' concerns.
-    If you're unsure about specific policy details, recommend contacting customer support.
-    
-    For Thai queries, respond in Thai and include relevant cultural context about pet care in Thailand.`;
+    if (userContext) {
+      // Build context from user data
+      if (userContext.pets && userContext.pets.length > 0) {
+        contextInfo += '\n\nUSER\'S PETS:\n';
+        userContext.pets.forEach(pet => {
+          contextInfo += `- ${pet.name}: ${pet.breed} ${pet.species}, ${Math.floor(pet.ageMonths / 12)} years old, ${pet.vaccinated ? 'vaccinated' : 'not vaccinated'}\n`;
+        });
+      }
+      
+      if (userContext.policies && userContext.policies.length > 0) {
+        contextInfo += '\nACTIVE POLICIES:\n';
+        userContext.policies.forEach(policy => {
+          const pet = userContext.pets?.find(p => p.id === policy.petId);
+          contextInfo += `- ${pet?.name || 'Pet'}: ${policy.provider}, Coverage: $${policy.remaining.toLocaleString()}/$${policy.coverageLimit.toLocaleString()}, Premium: $${policy.premium}/year\n`;
+        });
+      }
+      
+      if (userContext.claims && userContext.claims.length > 0) {
+        contextInfo += '\nRECENT CLAIMS:\n';
+        userContext.claims.forEach(claim => {
+          const pet = userContext.pets?.find(p => p.id === claim.petId);
+          contextInfo += `- ${pet?.name || 'Pet'}: $${claim.amount} for ${claim.description} (Status: ${claim.status})\n`;
+        });
+      }
+    }
+
+    const systemPrompt = `You are a professional AI assistant for PetInsureX, a Southeast Asian pet insurance platform.
+
+EXPERTISE AREAS:
+- Pet insurance policies and coverage analysis
+- Claims processing and fraud detection
+- Pet health and wellness advice
+- Regional veterinary practices in Southeast Asia
+- Emergency response and vet network navigation
+
+LANGUAGE SUPPORT:
+- Respond in ${userContext?.language || 'English'} by default
+- Support Singlish (Singaporean English): Use "lah", "can", casual tone
+- Support Thai (ภาษาไทย): Use polite forms, cultural references
+- Support Bahasa Malaysia/Indonesia: Use appropriate formality
+- Detect language from user input and respond accordingly
+
+REGIONAL EXPERTISE:
+- Thailand: Local vet clinics, pet care practices, insurance regulations
+- Singapore: HDB pet policies, local vet networks, cultural context
+- Malaysia: Pet import/export, local insurance requirements
+- Indonesia: Traditional practices, veterinary standards
+
+USER CONTEXT:${contextInfo}
+
+RESPONSE GUIDELINES:
+- Write naturally and conversationally, like a knowledgeable friend
+- Be professional yet warm and empathetic
+- Use specific data from user context when relevant
+- Provide actionable advice with specific numbers and details
+- Avoid excessive bullet points, asterisks, or formal formatting
+- Write in flowing paragraphs with natural transitions
+- Use emojis sparingly and naturally
+- Include relevant policy information seamlessly in conversation
+- Suggest next steps naturally within the response
+
+For emergencies, prioritize immediate action steps with clear, direct language.`;
 
     return await this.chat(query, systemPrompt);
   }
 
   /**
-   * Analyze a claim for potential issues or completeness
+   * Analyze a claim comprehensively with user context
    */
-  public async analyzeClaim(claimDescription: string, amount: number, petType: string): Promise<string> {
-    const systemPrompt = `You are an AI claim analyst for PetInsureX. Analyze pet insurance claims for:
-    - Completeness of information
-    - Potential red flags or inconsistencies
-    - Required documentation suggestions
-    - Processing recommendations
+  public async analyzeClaim(
+    claim: any,
+    userContext?: {
+      pet?: any;
+      policy?: any;
+      user?: any;
+      previousClaims?: any[];
+    }
+  ): Promise<string> {
+    let contextInfo = '';
     
-    Be thorough but fair in your analysis. Focus on helping ensure claims are processed efficiently.`;
+    if (userContext) {
+      if (userContext.pet) {
+        contextInfo += `\nPET INFORMATION:
+- Name: ${userContext.pet.name}
+- Species: ${userContext.pet.species}
+- Breed: ${userContext.pet.breed}
+- Age: ${Math.floor(userContext.pet.ageMonths / 12)} years
+- Vaccination Status: ${userContext.pet.vaccinated ? 'Up to date' : 'Incomplete'}`;
+      }
+      
+      if (userContext.policy) {
+        contextInfo += `\nPOLICY INFORMATION:
+- Provider: ${userContext.policy.provider}
+- Coverage Limit: $${userContext.policy.coverageLimit.toLocaleString()}
+- Remaining: $${userContext.policy.remaining.toLocaleString()}
+- Annual Premium: $${userContext.policy.premium.toLocaleString()}
+- Status: ${userContext.policy.status}`;
+      }
+      
+      if (userContext.previousClaims && userContext.previousClaims.length > 0) {
+        contextInfo += `\nCLAIM HISTORY:`;
+        userContext.previousClaims.forEach(prevClaim => {
+          contextInfo += `\n- $${prevClaim.amount} - ${prevClaim.description} (${prevClaim.status})`;
+        });
+      }
+    }
 
-    const query = `Please analyze this pet insurance claim:
-    
-    Pet Type: ${petType}
-    Claim Amount: $${amount}
-    Description: ${claimDescription}
-    
-    Provide your analysis and recommendations.`;
+    const systemPrompt = `You are a senior AI claim analyst for PetInsureX specializing in Southeast Asian pet insurance.
 
-    return await this.reasoning(query, systemPrompt);
+ANALYSIS FRAMEWORK:
+1. Fraud Risk Assessment (Score 0-100%)
+2. Medical Necessity Evaluation
+3. Policy Coverage Verification  
+4. Documentation Completeness
+5. Processing Recommendations
+
+CONTEXT:${contextInfo}
+
+CLAIM DETAILS:
+- ID: ${claim.id}
+- Amount: $${claim.amount}
+- Description: ${claim.description}
+- Status: ${claim.status}
+- Pet Match Confidence: ${claim.petMatchConfidence ? (claim.petMatchConfidence * 100).toFixed(1) + '%' : 'N/A'}
+- Current Fraud Score: ${claim.fraudScore ? (claim.fraudScore * 100).toFixed(1) + '%' : 'N/A'}
+
+Provide a comprehensive analysis in natural, conversational language. Include risk assessment with specific scores, coverage verification against policy, documentation requirements, processing timeline, and recommended actions. Avoid excessive bullet points or formal formatting - write naturally while being thorough and professional.`;
+
+    return await this.reasoning(
+      `Analyze this pet insurance claim thoroughly and provide detailed recommendations.`,
+      systemPrompt
+    );
   }
 
   /**
-   * Generate multilingual support response
+   * Generate policy recommendations based on pet and user profile
    */
-  public async generateMultilingualResponse(message: string, language: string = 'English'): Promise<string> {
-    const systemPrompt = `You are a multilingual customer support AI for PetInsureX. 
-    Respond in ${language} when appropriate, especially for Southeast Asian languages like Singlish, Bahasa Malaysia, or Bahasa Indonesia.
-    Be culturally aware and use appropriate local context.`;
+  public async generatePolicyRecommendations(
+    pets: any[],
+    currentPolicies: any[],
+    userPreferences?: {
+      budget?: number;
+      coverage_priority?: string;
+      location?: string;
+    }
+  ): Promise<string> {
+    const petsInfo = pets.map(pet => 
+      `${pet.name} (${pet.breed} ${pet.species}, ${Math.floor(pet.ageMonths / 12)}y)`
+    ).join(', ');
+    
+    const currentCoverage = currentPolicies.map(policy =>
+      `${policy.provider}: $${policy.coverageLimit.toLocaleString()}`
+    ).join(', ');
+
+    const systemPrompt = `You are a professional pet insurance advisor for PetInsureX in Southeast Asia.
+
+CURRENT SITUATION:
+- Pets: ${petsInfo}
+- Current Policies: ${currentCoverage || 'None'}
+- Budget Range: ${userPreferences?.budget ? `$${userPreferences.budget}/year` : 'Not specified'}
+- Priority: ${userPreferences?.coverage_priority || 'Comprehensive coverage'}
+- Location: ${userPreferences?.location || 'Southeast Asia'}
+
+AVAILABLE PLANS:
+- Basic Plan: $50-80/month, $25K coverage, emergencies only
+- Standard Plan: $80-120/month, $50K coverage, accidents + illness
+- Premium Plan: $120-180/month, $100K coverage, comprehensive + wellness
+- Premium Plus: $180-250/month, $150K coverage, unlimited + specialty care
+
+Analyze the user's situation and recommend the most suitable insurance plans in a natural, conversational way. Consider pet age, breed-specific risks, health status, coverage gaps, cost-effectiveness, and regional factors. Write as if you're having a friendly conversation with the pet owner, avoiding formal bullet points while being thorough and helpful.`;
+
+    return await this.reasoning(
+      `Recommend the best pet insurance options for this user's situation.`,
+      systemPrompt
+    );
+  }
+
+  /**
+   * Provide emergency veterinary guidance
+   */
+  public async emergencyVetGuidance(
+    symptoms: string,
+    petInfo: any,
+    location?: string
+  ): Promise<string> {
+    const systemPrompt = `You are an emergency veterinary AI consultant for PetInsureX.
+
+PET INFORMATION:
+- Name: ${petInfo.name}
+- Species: ${petInfo.species}
+- Breed: ${petInfo.breed}
+- Age: ${Math.floor(petInfo.ageMonths / 12)} years
+- Vaccination Status: ${petInfo.vaccinated ? 'Current' : 'Incomplete'}
+
+SYMPTOMS REPORTED: ${symptoms}
+LOCATION: ${location || 'Southeast Asia'}
+
+CRITICAL RESPONSIBILITIES:
+1. Assess urgency level (EMERGENCY/URGENT/ROUTINE)
+2. Provide immediate first aid steps if applicable
+3. Recommend specific emergency clinics in the area
+4. Include insurance coverage information
+5. Timeline for seeking care
+
+IMPORTANT: Always err on the side of caution. For any life-threatening symptoms, immediately direct to emergency care.
+
+Regional Emergency Networks:
+- Thailand: Bangkok Animal Hospital, Thonglor Emergency Vet
+- Singapore: Mount Pleasant Vet, Animal Recovery Vet
+- Malaysia: Gasing Veterinary Hospital, PetZone Emergency
+- Indonesia: Jakarta Animal Hospital, Surabaya Pet Emergency
+
+Write in a calm, reassuring tone while being direct about urgent actions needed. Avoid excessive formatting and write naturally, as if speaking directly to a concerned pet owner.`;
+
+    return await this.reasoning(
+      `Assess these symptoms and provide emergency veterinary guidance.`,
+      systemPrompt
+    );
+  }
+
+  /**
+   * Generate health and wellness insights for pets
+   */
+  public async generateWellnessInsights(
+    pets: any[],
+    claims: any[],
+    policies: any[]
+  ): Promise<string> {
+    const petsAnalysis = pets.map(pet => {
+      const petClaims = claims.filter(claim => claim.petId === pet.id);
+      const claimTotal = petClaims.reduce((sum, claim) => sum + claim.amount, 0);
+      return {
+        ...pet,
+        claimsTotal: claimTotal,
+        claimsCount: petClaims.length,
+        commonIssues: petClaims.map(c => c.description)
+      };
+    });
+
+    const systemPrompt = `You are a veterinary wellness consultant AI for PetInsureX.
+
+ANALYZE THE FOLLOWING PETS AND THEIR HEALTH DATA:
+${petsAnalysis.map(pet => `
+${pet.name} (${pet.breed} ${pet.species}, ${Math.floor(pet.ageMonths / 12)}y):
+- Total Claims: $${pet.claimsTotal} (${pet.claimsCount} claims)
+- Issues: ${pet.commonIssues.join('; ') || 'None'}
+- Vaccination: ${pet.vaccinated ? 'Current' : 'Needs Update'}
+`).join('\n')}
+
+Provide comprehensive wellness insights in a natural, conversational style. Cover health trends, preventive care, breed-specific risks, vaccination schedules, cost-effective prevention, warning signs, and seasonal considerations for Southeast Asia. Write as if you're a caring veterinary advisor speaking directly to the pet owner, avoiding formal lists while being thorough and actionable.`;
+
+    return await this.reasoning(
+      `Analyze pet health data and provide comprehensive wellness insights and recommendations.`,
+      systemPrompt
+    );
+  }
+
+  /**
+   * Generate multilingual support response with context
+   */
+  public async generateMultilingualResponse(
+    message: string, 
+    language: string = 'English',
+    userContext?: any
+  ): Promise<string> {
+    const contextInfo = userContext ? `
+USER CONTEXT:
+- Name: ${userContext.user?.name || 'Valued customer'}
+- Pets: ${userContext.pets?.map(p => p.name).join(', ') || 'None'}
+- Active Policies: ${userContext.policies?.length || 0}
+- Recent Claims: ${userContext.claims?.length || 0}
+` : '';
+
+    const systemPrompt = `You are a multilingual customer support AI for PetInsureX in Southeast Asia.
+
+LANGUAGE: Respond in ${language}
+${contextInfo}
+
+LANGUAGE-SPECIFIC GUIDELINES:
+- English: Professional but friendly tone
+- Singlish: Use "lah", "can", "already" appropriately. Casual but helpful.
+- Thai: Use respectful "ครับ/ค่ะ", "น้อง" for pets, cultural sensitivity
+- Bahasa Malaysia: Use "boleh", appropriate formality level
+- Bahasa Indonesia: Use "bisa", "pak/bu" respectfully
+
+Be culturally aware, use local context and references. Provide specific, actionable help while maintaining the warm, caring tone appropriate for pet owners.`;
 
     return await this.chat(message, systemPrompt);
   }
