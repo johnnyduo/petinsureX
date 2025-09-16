@@ -940,8 +940,8 @@ const Claims = () => {
             <div className="relative mx-auto mb-8">
               {/* Outer pulsing ring */}
               <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-green-200 via-emerald-200 to-teal-200 opacity-30 animate-ping"></div>
-              <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 opacity-40 animate-ping animation-delay-150"></div>
-              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 opacity-50 animate-ping animation-delay-300"></div>
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 opacity-40 animate-ping" style={{ animationDelay: '150ms' }}></div>
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 opacity-50 animate-ping" style={{ animationDelay: '300ms' }}></div>
               
               {/* Main success icon with gradient and shadow */}
               <div className="relative mx-auto flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 shadow-2xl transform transition-transform duration-500 hover:scale-110">

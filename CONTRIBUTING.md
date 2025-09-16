@@ -43,7 +43,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 ### Prerequisites
 
 - Node.js 18+ or Bun
-- npm, yarn, or bun package manager
+- Yarn package manager (preferred)
 
 ### Local Development
 
@@ -53,10 +53,10 @@ git clone https://github.com/YOUR_USERNAME/pet-pal-guard.git
 cd pet-pal-guard
 
 # Install dependencies
-npm install
+yarn install
 
 # Start development server
-npm run dev
+yarn dev
 ```
 
 ### Project Structure
@@ -90,23 +90,23 @@ src/
 
 ```bash
 # Run tests
-npm run test
+yarn test
 
 # Run tests in watch mode
-npm run test:watch
+yarn test:watch
 
 # Generate coverage report
-npm run test:coverage
+yarn test:coverage
 ```
 
 ### Building
 
 ```bash
 # Production build
-npm run build
+yarn build
 
 # Preview production build
-npm run preview
+yarn preview
 ```
 
 ## Style Guide

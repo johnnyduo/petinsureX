@@ -37,10 +37,12 @@
 - **React Router 6.30.1** for navigation
 
 ### AI & Machine Learning
+- **SEA-LION AI**: Southeast Asian language model integration
 - **Computer Vision**: Pet identity recognition and breed detection
 - **Natural Language Processing**: Claim description analysis
 - **Fraud Detection**: Multi-factor risk scoring
 - **OCR Processing**: Invoice and document extraction
+- **Content Moderation**: AI-powered safety filtering
 
 ### Security & Privacy
 - **Zero-Knowledge Proofs**: Privacy-preserving verification
@@ -142,28 +144,39 @@ src/
 ### Testing (Recommended)
 ```bash
 # Install testing dependencies
-npm install -D @testing-library/react @testing-library/jest-dom jest
+yarn add -D @testing-library/react @testing-library/jest-dom jest
 
 # Run tests
-npm run test
+yarn test
 ```
 
 ### Environment Variables
-Create a `.env.local` file for local development:
+Create a `.env` file from the example:
 ```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit with your actual values
+VITE_SEA_LION_API_KEY=your_api_key_here
 VITE_API_BASE_URL=http://localhost:3000/api
 VITE_ENABLE_MOCK_DATA=true
 ```
+
+### SEA-LION AI Integration
+This project integrates with SEA-LION AI for enhanced multilingual support:
+- Get your API key from [SEA-LION Playground](https://playground.sea-lion.ai/)
+- See [SEA-LION API Documentation](./docs/SEA_LION_API.md) for detailed usage
+- Supports English, Singlish, Bahasa Malaysia, and other Southeast Asian languages
 
 ## 🚀 Deployment
 
 ### Production Build
 ```bash
 # Create optimized build
-npm run build
+yarn build
 
 # Preview production build locally
-npm run preview
+yarn preview
 ```
 
 ### Deployment Platforms
