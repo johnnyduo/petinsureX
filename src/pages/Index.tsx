@@ -15,8 +15,10 @@ import {
   Play
 } from 'lucide-react';
 import { UI_COPY } from '@/lib/constants';
+import { useTranslation } from '@/lib/translation';
 
 const Index = () => {
+  const { t } = useTranslation();
   const features = [
     {
       icon: Camera,
@@ -102,23 +104,17 @@ const Index = () => {
             <Logo size="lg" className="justify-center mb-8" />
             
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
-                AI-Powered
-              </span>
-              <br />
-              <span className="font-brand">Pet Insurance</span>
+              {t('landing.hero_title')}
             </h1>
             
             <p className="text-body-friendly text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Revolutionary pet insurance with computer vision identity verification, 
-              fraud detection, and zero-knowledge privacy proofs. 
-              Powered by SEA-LION AI for lightning-fast, accurate claims processing.
+              {t('landing.hero_subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Link to="/onboarding">
                 <PawButton size="lg" className="group">
-                  {UI_COPY.CTA}
+                  {t('landing.get_coverage')}
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </PawButton>
               </Link>
@@ -126,7 +122,7 @@ const Index = () => {
               <Link to="/dashboard">
                 <PawButton variant="ghost" size="lg" className="group">
                   <Play size={20} className="group-hover:scale-110 transition-transform" />
-                  Try Demo
+                  {t('landing.try_demo')}
                 </PawButton>
               </Link>
             </div>

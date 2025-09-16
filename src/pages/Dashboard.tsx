@@ -6,6 +6,7 @@ import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
 import { FileUploader } from '@/components/ui/file-uploader';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/translation';
 import { 
   Plus, 
   FileText, 
@@ -29,6 +30,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const [showClaimModal, setShowClaimModal] = useState(false);
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   
@@ -52,10 +54,10 @@ const Dashboard = () => {
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
 
   const stats = [
-    { label: 'Active Policies', value: '3', icon: Shield, color: 'text-blue-600', change: '+1 this month' },
-    { label: 'Pending Claims', value: '2', icon: Clock, color: 'text-yellow-600', change: '1 under review' },
-    { label: 'Total Covered', value: '$12,500', icon: TrendingUp, color: 'text-green-600', change: '+$2,300 added' },
-    { label: 'Coverage Used', value: '24%', icon: Heart, color: 'text-petinsure-teal-600', change: '6% this year' }
+    { label: t('dashboard.stats.active_policies'), value: '3', icon: Shield, color: 'text-blue-600', change: '+1 this month' },
+    { label: t('dashboard.stats.claims_processed'), value: '2', icon: Clock, color: 'text-yellow-600', change: '1 under review' },
+    { label: t('dashboard.stats.total_saved'), value: '$12,500', icon: TrendingUp, color: 'text-green-600', change: '+$2,300 added' },
+    { label: t('dashboard.stats.health_score'), value: '24%', icon: Heart, color: 'text-petinsure-teal-600', change: '6% this year' }
   ];
 
   const recentActivity = [
@@ -209,10 +211,10 @@ const Dashboard = () => {
           {/* Header */}
           <div className="mb-6 sm:mb-8">
             <h1 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-              Welcome back, Jun! 👋
+              {t('dashboard.welcome_title')} 👋
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
-              Your pets are protected and healthy. Here's what's happening today.
+              {t('dashboard.welcome_subtitle')}
             </p>
           </div>
 
@@ -243,7 +245,7 @@ const Dashboard = () => {
             <div className="lg:col-span-2 space-y-6">
               {/* Quick Actions with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">{t('dashboard.quick_actions')}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <PawButton 
                     onClick={() => setShowClaimModal(true)}
@@ -251,8 +253,8 @@ const Dashboard = () => {
                   >
                     <Plus size={20} />
                     <div className="text-left">
-                      <div className="font-medium">Submit Claim</div>
-                      <div className="text-sm opacity-90">Quick claim processing</div>
+                      <div className="font-medium">{t('dashboard.submit_claim')}</div>
+                      <div className="text-sm opacity-90">{t('dashboard.submit_claim_desc')}</div>
                     </div>
                   </PawButton>
                   
@@ -263,8 +265,8 @@ const Dashboard = () => {
                   >
                     <Camera size={20} />
                     <div className="text-left">
-                      <div className="font-medium">Update Photos</div>
-                      <div className="text-sm opacity-90">Pet identity verification</div>
+                      <div className="font-medium">{t('dashboard.update_photos')}</div>
+                      <div className="text-sm opacity-90">{t('dashboard.update_photos_desc')}</div>
                     </div>
                   </PawButton>
                 </div>
@@ -272,7 +274,7 @@ const Dashboard = () => {
 
               {/* Recent Activity with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">{t('dashboard.recent_activity')}</h2>
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
                     <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl bg-white/30 border border-petinsure-teal-200/40 aura-teal-subtle">
@@ -310,7 +312,7 @@ const Dashboard = () => {
             <div className="space-y-6">
               {/* Pet Cards with enhanced borders and teal aura */}
               <GlassCard className="p-6 aura-teal-prominent" borderStyle="prominent">
-                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">Your Pets</h2>
+                <h2 className="font-display text-xl font-semibold text-gray-900 mb-4">{t('dashboard.my_pets')}</h2>
                 <div className="space-y-4">
                   {pets.map((pet) => (
                     <div key={pet.id} className="p-4 rounded-xl bg-white/50 border border-petinsure-teal-200/50 aura-teal-subtle">
@@ -326,7 +328,9 @@ const Dashboard = () => {
                           pet.status.includes('New') ? 'bg-blue-100 text-blue-700' :
                           'bg-yellow-100 text-yellow-700'
                         )}>
-                          {pet.status}
+                          {pet.status === 'Healthy' ? t('dashboard.healthy') : 
+                           pet.status === 'New Policy' ? t('dashboard.new_pet') : 
+                           pet.status}
                         </div>
                       </div>
                       
@@ -336,11 +340,11 @@ const Dashboard = () => {
                           <span className="font-semibold text-gray-900">{pet.policyType}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="font-medium text-gray-700">Coverage</span>
+                          <span className="font-medium text-gray-700">{t('dashboard.coverage')}</span>
                           <span className="font-semibold text-gray-900">{pet.coverage}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="font-medium text-gray-700">Remaining</span>
+                          <span className="font-medium text-gray-700">{t('dashboard.remaining')}</span>
                           <span className="font-semibold text-green-600">{pet.remaining}</span>
                         </div>
                         <div className="pt-2 mt-2 border-t border-gray-200/50">
@@ -349,7 +353,7 @@ const Dashboard = () => {
                             <span className="font-medium text-gray-700">{pet.lastCheckup}</span>
                           </div>
                           <div className="flex justify-between text-xs mt-1">
-                            <span className="text-gray-600">Next Due</span>
+                            <span className="text-gray-600">{t('dashboard.next_due')}</span>
                             <span className="font-medium text-gray-700">{pet.nextCheckup}</span>
                           </div>
                         </div>
@@ -363,7 +367,7 @@ const Dashboard = () => {
               <GlassCard className="p-6 aura-teal-glow" borderStyle="prominent">
                 <div className="flex items-center gap-2 mb-4">
                   <Zap size={20} className="text-petinsure-teal-600" />
-                  <h2 className="font-display text-xl font-semibold text-gray-900">AI Insights</h2>
+                  <h2 className="font-display text-xl font-semibold text-gray-900">{t('dashboard.ai_insights')}</h2>
                 </div>
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-petinsure-teal-50 border-2 border-petinsure-teal-300/60 aura-teal-subtle">
@@ -406,7 +410,7 @@ const Dashboard = () => {
       <Modal
         isOpen={showClaimModal}
         onClose={resetClaimModal}
-        title={`Submit New Claim - Step ${claimStep + 1} of 5`}
+        title={`${t('modal.claim.title')} - Step ${claimStep + 1} of 5`}
         size="lg"
       >
         <div className="space-y-6">
@@ -430,14 +434,14 @@ const Dashboard = () => {
               ))}
             </div>
             <span className="text-sm text-gray-600">
-              {['Pet Selection', 'Claim Details', 'Treatment Info', 'Upload Documents', 'Review & Submit'][claimStep]}
+              {[t('modal.claim.step_pet_selection'), t('modal.claim.step_claim_details'), t('modal.claim.step_treatment_info'), t('modal.claim.step_upload_documents'), t('modal.claim.step_review_submit')][claimStep]}
             </span>
           </div>
 
           {/* Step Content */}
           {claimStep === 0 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Pet for Claim</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('modal.claim.select_pet_title')}</h3>
               <div className="grid grid-cols-1 gap-3">
                 {pets.map((pet) => (
                   <button
@@ -458,7 +462,7 @@ const Dashboard = () => {
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{pet.name}</p>
                         <p className="text-sm text-gray-600">{pet.breed} • {pet.age}</p>
-                        <p className="text-sm text-gray-500">Remaining coverage: {pet.remaining}</p>
+                        <p className="text-sm text-gray-500">{t('modal.claim.remaining_coverage')}: {pet.remaining}</p>
                       </div>
                       {selectedPet === pet.id.toString() && (
                         <CheckCircle size={20} className="text-petinsure-teal-600" />
@@ -671,8 +675,8 @@ const Dashboard = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle size={18} className="text-green-600 flex-shrink-0 mt-0.5" />
                     <div className="text-sm text-green-800">
-                      <p className="font-medium mb-1">Ready to Submit</p>
-                      <p>Your claim will be processed by our AI system and you'll receive an update within 2-3 minutes.</p>
+                      <p className="font-medium mb-1">{t('modal.claim.ready_to_submit')}</p>
+                      <p>{t('modal.claim.processing_note')}</p>
                     </div>
                   </div>
                 </div>
@@ -690,7 +694,7 @@ const Dashboard = () => {
                   className="flex items-center gap-2"
                 >
                   <ChevronLeft size={16} />
-                  Previous
+                  {t('common.previous')}
                 </PawButton>
               )}
               <PawButton
@@ -698,7 +702,7 @@ const Dashboard = () => {
                 onClick={resetClaimModal}
                 className="text-gray-600"
               >
-                Cancel
+                {t('common.cancel')}
               </PawButton>
             </div>
 
@@ -716,7 +720,7 @@ const Dashboard = () => {
               }
               className="flex items-center gap-2"
             >
-              {claimStep === 4 ? 'Submit Claim' : 'Next'}
+              {claimStep === 4 ? t('claims.submit_new') : t('common.next')}
               {claimStep < 4 && <ChevronRight size={16} />}
             </PawButton>
           </div>
@@ -727,7 +731,7 @@ const Dashboard = () => {
       <Modal
         isOpen={showPhotoModal}
         onClose={resetPhotoModal}
-        title={`Update Pet Photos - Step ${photoStep + 1} of 3`}
+        title={`${t('modal.photos.title')} - Step ${photoStep + 1} of 3`}
         size="lg"
       >
         <div className="space-y-6">
@@ -751,7 +755,7 @@ const Dashboard = () => {
               ))}
             </div>
             <span className="text-sm text-gray-600">
-              {['Select Pet', 'Upload Photos', 'Review & Submit'][photoStep]}
+              {[t('modal.photos.step_select_pet'), t('modal.photos.step_upload_photos'), t('modal.photos.step_review')][photoStep]}
             </span>
           </div>
 

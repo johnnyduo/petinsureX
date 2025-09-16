@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNavigation = true }) => {
                   className="text-button-sm bg-petinsure-teal-600 hover:bg-petinsure-teal-700 text-white border-0 shadow-lg hover:shadow-xl"
                 >
                   <Plus size={14} />
-                  Add New Pet & Get Coverage
+                  {t('landing.add_new_pet')}
                 </PawButton>
               </div>
 

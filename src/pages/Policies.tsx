@@ -5,6 +5,7 @@ import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/translation';
 import { 
   Shield, 
   Plus, 
@@ -39,6 +40,7 @@ interface CoveragePlan {
 }
 
 const Policies = () => {
+  const { t } = useTranslation();
   const [showPolicyDetails, setShowPolicyDetails] = useState<string | null>(null);
   const [showNewPolicyModal, setShowNewPolicyModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>('standard'); // Default to Standard plan
@@ -249,12 +251,12 @@ const Policies = () => {
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Insurance Policies</h1>
-                <p className="text-gray-600">Manage your pet insurance coverage and benefits</p>
+                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">{t('policies.title')}</h1>
+                <p className="text-gray-600">{t('policies.subtitle')}</p>
               </div>
               <PawButton onClick={() => setShowNewPolicyModal(true)}>
                 <Plus size={20} />
-                Get New Policy
+                {t('policies.get_coverage')}
               </PawButton>
             </div>
           </div>

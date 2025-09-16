@@ -7,6 +7,7 @@ import { Modal } from '@/components/ui/modal';
 import { FileUploader } from '@/components/ui/file-uploader';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/lib/translation';
 import { 
   Plus, 
   FileText, 
@@ -27,6 +28,7 @@ import {
 import { Claim, Pet } from '@/types';
 
 const Claims = () => {
+  const { t } = useTranslation();
   const [showNewClaimModal, setShowNewClaimModal] = useState(false);
   const [showClaimDetails, setShowClaimDetails] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -245,12 +247,12 @@ const Claims = () => {
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">Claims</h1>
-                <p className="text-gray-600">Manage your insurance claims with AI-powered processing</p>
+                <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">{t('claims.title')}</h1>
+                <p className="text-gray-600">{t('claims.subtitle')}</p>
               </div>
               <PawButton type="button" onClick={() => setShowNewClaimModal(true)}>
                 <Plus size={20} />
-                New Claim
+                {t('claims.submit_new')}
               </PawButton>
             </div>
           </div>
