@@ -3,7 +3,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
+import { ServiceHealthMonitor } from '@/components/common/ServiceHealthMonitor';
 import { cn } from '@/lib/utils';
+import { seaLionAPI } from '@/lib/sea-lion';
+import { useTranslation } from '@/lib/translation';
 import { 
   Brain, 
   Send, 
@@ -39,11 +42,14 @@ interface Message {
 }
 
 const AIAssistant = () => {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'assistant',
-      content: "Hello! I'm your AI pet insurance assistant. I can help you with claims, policy questions, pet health advice, and fraud detection. How can I assist you today?",
+      content: seaLionAPI.isConfigured() 
+        ? t('ai.welcome_configured', "Hello! I'm your AI pet insurance assistant powered by SEA-LION AI. I specialize in Southeast Asian contexts and can communicate in multiple languages including English, Singlish, Thai (ภาษาไทย), Bahasa Malaysia, and Bahasa Indonesia. I can help you with claims processing, policy questions, pet health advice, fraud detection, and emergency support.\n\n🔧 *Note: The SEA-LION API service is currently experiencing connectivity issues, so I'll provide helpful fallback responses until it's restored.*\n\nHow can I assist you today? 🐾")
+        : t('ai.welcome_demo', "Hello! I'm your AI pet insurance assistant running in demo mode. I can help you with claims, policy questions, pet health advice, and fraud detection using sample responses. For full AI capabilities, please configure the SEA-LION API key. How can I assist you today?"),
       timestamp: new Date()
     }
   ]);
@@ -54,12 +60,36 @@ const AIAssistant = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const quickActions = [
-    { icon: Shield, label: 'Check Policy Coverage', prompt: 'What does my Premium Plus policy cover for Mali\'s emergency surgery?' },
-    { icon: FileText, label: 'Claim Status Update', prompt: 'What is the status of my gastric torsion claim CLM-2024-08-19-001?' },
-    { icon: Heart, label: 'Pet Health Emergency', prompt: 'My Golden Retriever is showing signs of bloating and distress - what should I do immediately?' },
-    { icon: Stethoscope, label: 'Find Emergency Vet', prompt: 'Help me find 24/7 emergency veterinarians in Bangkok that accept my insurance' },
-    { icon: Calendar, label: 'Wellness Checkup', prompt: 'Schedule annual wellness checkup for Taro - he\'s due for vaccinations' },
-    { icon: Receipt, label: 'Analyze Vet Bill', prompt: 'Please review this $1,250 emergency surgery invoice for accuracy and fraud detection' }
+    { 
+      icon: Shield, 
+      label: t('ai.actions.check_coverage', 'Check Policy Coverage'), 
+      prompt: t('ai.prompts.coverage', 'What does my Premium Plus policy cover for Mali\'s emergency surgery?') 
+    },
+    { 
+      icon: FileText, 
+      label: t('ai.actions.claim_status', 'Claim Status Update'), 
+      prompt: t('ai.prompts.claim_status', 'What is the status of my gastric torsion claim CLM-2024-08-19-001?') 
+    },
+    { 
+      icon: Heart, 
+      label: t('ai.actions.emergency', 'Pet Health Emergency'), 
+      prompt: t('ai.prompts.emergency', 'My Golden Retriever is showing signs of bloating and distress - what should I do immediately?') 
+    },
+    { 
+      icon: Stethoscope, 
+      label: t('ai.actions.find_vet', 'Find Emergency Vet'), 
+      prompt: t('ai.prompts.find_vet', 'Help me find 24/7 emergency veterinarians in Bangkok that accept my insurance') 
+    },
+    { 
+      icon: Calendar, 
+      label: t('ai.actions.wellness', 'Wellness Checkup'), 
+      prompt: t('ai.prompts.wellness', 'Schedule annual wellness checkup for Taro - he\'s due for vaccinations') 
+    },
+    { 
+      icon: Receipt, 
+      label: t('ai.actions.analyze_bill', 'Analyze Vet Bill'), 
+      prompt: t('ai.prompts.analyze_bill', 'Please review this $1,250 emergency surgery invoice for accuracy and fraud detection') 
+    }
   ];
 
   const mockResponses = [
@@ -115,52 +145,143 @@ const AIAssistant = () => {
     setInputMessage('');
     setIsTyping(true);
 
-    // Simulate AI response with streaming effect
     try {
-      setTimeout(() => {
-        const responseContent = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          type: 'assistant',
-          content: '',
-          timestamp: new Date(),
-          isTyping: true
-        };
+      let responseContent = '';
+      let isFromAPI = false;
+      
+      // Try SEA-LION API first, fallback to mock responses
+      if (seaLionAPI.isConfigured()) {
+        console.log('🤖 SEA-LION API is configured, attempting to get response...');
+        try {
+          // Use SEA-LION API for real AI responses
+          responseContent = await seaLionAPI.petInsuranceAssistant(messageContent);
+          isFromAPI = true;
+          console.log('✅ SEA-LION API response received:', responseContent.substring(0, 100) + '...');
+        } catch (apiError) {
+          console.error('❌ SEA-LION API failed, using fallback:', apiError);
+          
+          // Enhanced fallback with multilingual support
+          const errorMessage = apiError instanceof Error ? apiError.message : 'Unknown error';
+          const isServerError = errorMessage.includes('500') || errorMessage.includes('Connection error');
+          const isThaiQuery = /[\u0E00-\u0E7F]/.test(messageContent);
+          
+          if (isServerError) {
+            // Server is down - provide helpful status message
+            if (isThaiQuery) {
+              responseContent = `🔧 **บริการ AI ชั่วคราวไม่พร้อมใช้งาน**
 
-        setMessages(prev => [...prev, assistantMessage]);
-        setIsTyping(false);
+ขออภัยค่ะ บริการ SEA-LION AI กำลังมีปัญหาการเชื่อมต่อชั่วคราว
 
-        // Simulate streaming text with better performance
-        let currentText = '';
-        let index = 0;
-        const streamInterval = setInterval(() => {
-          if (index < responseContent.length) {
-            currentText += responseContent[index];
-            // Batch updates for better performance
-            setMessages(prev => 
-              prev.map(msg => 
-                msg.id === assistantMessage.id 
-                  ? { ...msg, content: currentText }
-                  : msg
-              )
-            );
-            index++;
+**สิ่งที่เราสามารถช่วยเหลือได้:**
+• ✅ ความคุ้มครองกรมธรรม์ - ครอบคลุมอุบัติเหตุ เจ็บป่วย และการรักษาฉุกเฉิน
+• ✅ การเคลม - ส่งใบเสร็จคลินิกภายใน 30 วัน
+• ✅ เบี้ยประกัน - ขึ้นอยู่กับอายุ สายพันธุ์ และระดับความคุ้มครอง
+• ✅ ระยะเวลารอ - 14 วันสำหรับการเจ็บป่วย, 48 ชั่วโมงสำหรับอุบัติเหตุ
+
+**สำหรับความช่วยเหลือทันที**: support@petinsurex.com
+
+*หมายเหตุ: ผู้ช่วย AI แบบเต็มรูปแบบจะกลับมาเมื่อบริการฟื้นฟู ขณะนี้แสดงตัวอย่างการตอบคำถาม*
+
+---
+
+${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
+            } else {
+              responseContent = `🔧 **AI Service Temporarily Unavailable**
+
+I apologize, but the SEA-LION AI service is currently experiencing temporary connectivity issues.
+
+**What I can help you with:**
+• ✅ **Policy Coverage** - Accidents, illnesses, and emergency care
+• ✅ **Claims Processing** - Submit vet receipts within 30 days
+• ✅ **Premium Information** - Based on pet age, breed, and coverage level
+• ✅ **Waiting Periods** - 14 days for illness, 48 hours for accidents
+
+**For immediate assistance**: support@petinsurex.com
+
+*Note: Full AI capabilities will return once the service is restored. Showing sample response below:*
+
+---
+
+${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
+            }
           } else {
-            clearInterval(streamInterval);
-            // Final update to remove typing indicator
-            setMessages(prev => 
-              prev.map(msg => 
-                msg.id === assistantMessage.id 
-                  ? { ...msg, isTyping: false }
-                  : msg
-              )
-            );
+            // Other API errors
+            responseContent = `⚠️ **Service Error**
+
+I encountered an issue processing your request. Please try again in a moment, or contact our support team at support@petinsurex.com for immediate assistance.
+
+Here's a sample response for your question:
+
+${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
           }
-        }, 30); // Slightly faster for smoother effect
-      }, 800); // Slightly reduced delay
+          
+          isFromAPI = false;
+        }
+      } else {
+        console.log('⚠️ SEA-LION API not configured, using mock responses');
+        // Use mock responses if API not configured
+        responseContent = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+        isFromAPI = false;
+      }
+
+      // Add source indicator for debugging
+      responseContent = `${responseContent}\n\n---\n💡 ${isFromAPI ? 'Response powered by SEA-LION AI' : 'Demo response - Configure SEA-LION API for full capabilities'}`;
+
+      // Create assistant message
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'assistant',
+        content: '',
+        timestamp: new Date(),
+        isTyping: true
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+      setIsTyping(false);
+
+      // Stream the response text for better UX
+      let currentText = '';
+      let index = 0;
+      const streamInterval = setInterval(() => {
+        if (index < responseContent.length) {
+          // Add multiple characters at once for faster streaming
+          const charsToAdd = Math.min(3, responseContent.length - index);
+          currentText += responseContent.slice(index, index + charsToAdd);
+          index += charsToAdd;
+          
+          // Batch updates for better performance
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === assistantMessage.id 
+                ? { ...msg, content: currentText }
+                : msg
+            )
+          );
+        } else {
+          clearInterval(streamInterval);
+          // Final update to remove typing indicator
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === assistantMessage.id 
+                ? { ...msg, isTyping: false }
+                : msg
+            )
+          );
+        }
+      }, 20); // Faster streaming for better UX
+
     } catch (error) {
       console.error('Error sending message:', error);
       setIsTyping(false);
+      
+      // Add error message
+      const errorMessage: Message = {
+        id: (Date.now() + 2).toString(),
+        type: 'assistant',
+        content: "I apologize, but I'm experiencing some technical difficulties. Please try again in a moment, or contact our support team if the issue persists.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
     }
   }, [inputMessage, isTyping, mockResponses]);
 
@@ -195,31 +316,74 @@ const AIAssistant = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                <Brain size={24} className="text-white" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                  <Brain size={24} className="text-white" />
+                </div>
+                <div>
+                  <h1 className="font-display text-2xl font-bold text-gray-900">{t('nav.ai_assistant')}</h1>
+                  <p className="text-gray-600">{t('ai.powered_by', 'Powered by advanced AI for intelligent pet insurance support')}</p>
+                </div>
               </div>
-              <div>
-                <h1 className="font-display text-2xl font-bold text-gray-900">AI Assistant</h1>
-                <p className="text-gray-600">Powered by advanced AI for intelligent pet insurance support</p>
-              </div>
+              
+              {/* Service Health Monitor */}
+              <ServiceHealthMonitor variant="compact" />
             </div>
 
             {/* AI Stats with enhanced borders and teal aura */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {[
                 { label: 'Response Time', value: '<2s', icon: Zap },
                 { label: 'Accuracy Rate', value: '99.2%', icon: Shield },
                 { label: 'Languages', value: '12+', icon: Brain },
-                { label: 'Queries Today', value: '1,247', icon: Heart }
+                { label: 'Queries Today', value: '1,247', icon: Heart },
+                { 
+                  label: 'AI Model', 
+                  value: seaLionAPI.isConfigured() ? 'SEA-LION' : 'Demo Mode', 
+                  icon: seaLionAPI.isConfigured() ? Brain : RefreshCw,
+                  status: seaLionAPI.isConfigured() ? 'active' : 'demo'
+                }
               ].map((stat, index) => (
-                <div key={index} className="flex items-center gap-3 p-4 rounded-xl bg-white/50 border-2 border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70 transition-colors aura-teal-subtle">
-                  <div className="w-10 h-10 bg-petinsure-teal-100 rounded-lg flex items-center justify-center">
-                    <stat.icon size={20} className="text-petinsure-teal-600" />
+                <div key={index} className={cn(
+                  "flex items-center gap-3 p-4 rounded-xl bg-white/50 border-2 transition-colors aura-teal-subtle",
+                  stat.status === 'active' 
+                    ? "border-green-200/50 hover:border-green-300/70" 
+                    : stat.status === 'demo'
+                    ? "border-orange-200/50 hover:border-orange-300/70"
+                    : "border-petinsure-teal-200/50 hover:border-petinsure-teal-300/70"
+                )}>
+                  <div className={cn(
+                    "w-10 h-10 rounded-lg flex items-center justify-center",
+                    stat.status === 'active' 
+                      ? "bg-green-100" 
+                      : stat.status === 'demo'
+                      ? "bg-orange-100"
+                      : "bg-petinsure-teal-100"
+                  )}>
+                    <stat.icon size={20} className={cn(
+                      stat.status === 'active' 
+                        ? "text-green-600" 
+                        : stat.status === 'demo'
+                        ? "text-orange-600"
+                        : "text-petinsure-teal-600"
+                    )} />
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">{stat.label}</p>
                     <p className="font-semibold text-gray-900">{stat.value}</p>
+                    {stat.status === 'active' && (
+                      <div className="flex items-center gap-1 mt-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs text-green-600">Live</span>
+                      </div>
+                    )}
+                    {stat.status === 'demo' && (
+                      <div className="flex items-center gap-1 mt-1">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <span className="text-xs text-orange-600">Mock</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

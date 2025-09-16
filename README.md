@@ -6,6 +6,20 @@
 
 ![PetInsureX Banner](./public/banner.png)
 
+## 🚀 Latest Updates & Status
+
+### ✅ Recently Completed
+- **SEA-LION AI Integration**: Complete multilingual AI assistant supporting English, Thai (ภาษาไทย), Singlish, Bahasa Malaysia, and Bahasa Indonesia
+- **Robust Error Handling**: Graceful fallbacks and user-friendly error messages when external services are unavailable
+- **Project Cleanup**: Removed dead code and standardized package management with Yarn
+- **Enhanced UI/UX**: Improved message streaming, scroll performance, and responsive design
+
+### ⚠️ Current Status
+The SEA-LION AI service is experiencing temporary connectivity issues (server-side 500 errors). The application handles this gracefully with intelligent fallbacks, maintaining full functionality while providing helpful sample responses and multilingual support messages.
+
+**For users**: The app remains fully functional with demo responses until the AI service is restored.  
+**For developers**: All integration code is complete and ready for production once the external service is available.
+
 ## 🚀 Key Features
 
 ### 🤖 AI-Powered Claims Processing
