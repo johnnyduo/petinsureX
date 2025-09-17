@@ -57,11 +57,11 @@ export const Layout: React.FC<LayoutProps> = ({
         {children}
       </main>
 
-      {/* Floating action button for quick claim (mobile) - Hidden when modal is open */}
+      {/* Floating action button for quick claim - Hidden on mobile responsive */}
       {showNavigation && (
         <div 
           className={cn(
-            "fixed bottom-6 right-6 md:hidden quick-claim-floating",
+            "fixed bottom-6 right-6 hidden md:block quick-claim-floating",
             isModalOpen && "hidden"
           )}
         >
