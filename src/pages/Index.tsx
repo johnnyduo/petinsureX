@@ -45,7 +45,7 @@ const Index = () => {
   const stats = [
     { value: '94%', label: 'Pet Identity Match' },
     { value: '2.3s', label: 'Average Processing' },
-    { value: '15k+', label: 'Protected Pets' },
+    { value: '50k+', label: 'Protected Pets' },
     { value: '24/7', label: 'AI Assistant' }
   ];
 

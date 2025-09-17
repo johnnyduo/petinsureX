@@ -308,9 +308,6 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
         isFromAPI = false;
       }
 
-      // Add source indicator for debugging
-      responseContent = `${responseContent}\n\n---\n💡 ${isFromAPI ? 'Response powered by SEA-LION AI' : 'Demo response - Configure SEA-LION API for full capabilities'}`;
-
       // Create assistant message
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -403,11 +400,21 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                  <Brain size={24} className="text-white" />
+                  <img 
+                    src="/sealionllm.png" 
+                    alt="SEA-LION LLM" 
+                    className="w-8 h-8 object-contain"
+                    onError={(e) => {
+                      // Fallback to Brain icon if logo fails to load
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <Brain size={24} className="text-white hidden" />
                 </div>
                 <div>
                   <h1 className="font-display text-2xl font-bold text-gray-900">{t('nav.ai_assistant')}</h1>
-                  <p className="text-gray-600">{t('ai.powered_by', 'Powered by advanced AI for intelligent pet insurance support')}</p>
+                  <p className="text-gray-600">Powered by SEA-LION LLM for intelligent pet insurance support</p>
                 </div>
               </div>
               
@@ -499,14 +506,23 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
                       
                       <div
                         className={cn(
-                          "max-w-[80%] rounded-2xl px-4 py-3 break-words",
+                          "max-w-[80%] rounded-2xl px-4 py-3 break-words relative",
                           message.type === 'user'
                             ? 'bg-gradient-primary text-white shadow-paw'
                             : 'bg-white/50 text-gray-900 border border-white/20 backdrop-blur-sm'
                         )}
                         style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
                       >
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                        {message.type === 'assistant' && (
+                          <img 
+                            src="/sealionllm.png" 
+                            alt="SEA-LION LLM" 
+                            className="absolute top-2 object-contain opacity-60 hover:opacity-100 transition-opacity z-10"
+                            style={{ width: '100px', height: 'auto', right: '-140px' }}
+                            title="Powered by SEA-LION LLM"
+                          />
+                        )}
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap pr-8">
                           {message.content}
                           {message.isTyping && (
                             <span className="chat-typing-indicator inline-block w-2 h-4 bg-current opacity-50 ml-1" />
