@@ -140,13 +140,38 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Hero Image Placeholder */}
+          {/* Hero Video Demo */}
           <div className="relative max-w-4xl mx-auto">
             <GlassCard className="p-4 sm:p-8 bg-gradient-to-br from-white/80 to-white/40 aura-teal-prominent" borderStyle="prominent">
-              <div className="aspect-video bg-gradient-to-br from-petinsure-teal-100 to-blue-100 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🐕🐱</div>
-                  <p className="text-gray-600">Interactive Demo Coming Soon</p>
+              <div className="aspect-video bg-gradient-to-br from-petinsure-teal-100 to-blue-100 rounded-xl overflow-hidden relative">
+                <video
+                  className="w-full h-full object-cover rounded-xl"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  disablePictureInPicture
+                  controlsList="nodownload nofullscreen noremoteplayback"
+                  onError={(e) => {
+                    console.error('Video failed to load:', e);
+                    // Fallback to show placeholder
+                    const target = e.target as HTMLVideoElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                >
+                  <source src="/petinsurex.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Fallback content - hidden by default, shown if video fails */}
+                <div className="absolute inset-0 bg-gradient-to-br from-petinsure-teal-100 to-blue-100 rounded-xl flex items-center justify-center" style={{ display: 'none' }}>
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🐕🐱</div>
+                    <p className="text-gray-600">Loading Demo Video...</p>
+                  </div>
                 </div>
               </div>
             </GlassCard>
