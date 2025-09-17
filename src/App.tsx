@@ -11,6 +11,7 @@ import Claims from "./pages/Claims";
 import Policies from "./pages/Policies";
 import PetIdentity from "./pages/PetIdentity";
 import AIAssistant from "./pages/AIAssistant";
+import APITest from "./pages/APITest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/policies" element={<Policies />} />
           <Route path="/pet-identity" element={<PetIdentity />} />
           <Route path="/ai-chat" element={<AIAssistant />} />
+          <Route path="/api-test" element={<APITest />} />
           {/* VetPortal removed - functionality consolidated into AI Assistant */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
