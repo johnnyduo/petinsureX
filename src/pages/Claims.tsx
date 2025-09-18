@@ -26,12 +26,14 @@ import {
   Bell
 } from 'lucide-react';
 import { Claim, Pet } from '@/types';
+import { AIClaimAssistant } from '@/components/AIClaimAssistant';
 
 const Claims = () => {
   const { t } = useTranslation();
   const [showNewClaimModal, setShowNewClaimModal] = useState(false);
   const [showClaimDetails, setShowClaimDetails] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showAIClaimAssistant, setShowAIClaimAssistant] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [uploadedFiles, setUploadedFiles] = useState<any[]>([]);
   
@@ -250,10 +252,19 @@ const Claims = () => {
                 <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">{t('claims.title')}</h1>
                 <p className="text-gray-600">{t('claims.subtitle')}</p>
               </div>
-              <PawButton type="button" onClick={() => setShowNewClaimModal(true)}>
-                <Plus size={20} />
-                {t('claims.submit_new')}
-              </PawButton>
+              <div className="flex items-center gap-3">
+                <PawButton 
+                  variant="secondary"
+                  onClick={() => setShowAIClaimAssistant(true)}
+                >
+                  <Brain size={20} />
+                  AI Claim Analysis
+                </PawButton>
+                <PawButton type="button" onClick={() => setShowNewClaimModal(true)}>
+                  <Plus size={20} />
+                  {t('claims.submit_new')}
+                </PawButton>
+              </div>
             </div>
           </div>
 
@@ -1146,6 +1157,12 @@ const Claims = () => {
         </div>
       </div>
       </Modal>
+
+      {/* AI Claim Assistant Modal */}
+      <AIClaimAssistant 
+        isOpen={showAIClaimAssistant} 
+        onClose={() => setShowAIClaimAssistant(false)} 
+      />
     </Layout>
   );
 };
