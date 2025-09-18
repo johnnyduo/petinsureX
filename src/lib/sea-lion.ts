@@ -658,6 +658,231 @@ Be culturally aware, use local context and references. Provide specific, actiona
 
     return await this.chat(message, systemPrompt);
   }
+
+  /**
+   * Analyze and summarize policy documents using SEA-LION AI
+   */
+  public async analyzePolicyDocument(
+    documentText: string,
+    language: string = 'English'
+  ): Promise<{
+    summary: string;
+    keyTerms: string;
+    coverageHighlights: string;
+    exclusions: string;
+    recommendations: string;
+  }> {
+    const systemPrompt = `You are a professional insurance document analyst for PetInsureX specializing in Southeast Asian pet insurance policies.
+
+DOCUMENT LANGUAGE: ${language}
+RESPONSE LANGUAGE: ${language}
+
+ANALYSIS FRAMEWORK:
+Your task is to analyze this pet insurance policy document and provide:
+
+1. EXECUTIVE SUMMARY: 2-3 paragraph overview of the policy
+2. KEY TERMS: Important definitions, conditions, and clauses
+3. COVERAGE HIGHLIGHTS: What's covered, limits, deductibles
+4. EXCLUSIONS: What's NOT covered, limitations, waiting periods
+5. RECOMMENDATIONS: Actionable insights for the policyholder
+
+Write naturally and conversationally, as if explaining to a friend. Use clear, simple language and avoid insurance jargon. For Southeast Asian context, reference local practices and regulations where relevant.
+
+DOCUMENT TEXT:
+${documentText.substring(0, 8000)} ${documentText.length > 8000 ? '...(document truncated)' : ''}`;
+
+    const analysisPrompt = `Please analyze this pet insurance policy document and provide a comprehensive breakdown covering all five areas: executive summary, key terms, coverage highlights, exclusions, and recommendations.`;
+
+    const fullAnalysis = await this.reasoning(analysisPrompt, systemPrompt);
+
+    // Parse the response into sections (basic implementation)
+    const sections = {
+      summary: fullAnalysis,
+      keyTerms: fullAnalysis,
+      coverageHighlights: fullAnalysis,
+      exclusions: fullAnalysis,
+      recommendations: fullAnalysis
+    };
+
+    // Try to extract specific sections if the AI formatted them clearly
+    try {
+      const summaryMatch = fullAnalysis.match(/(?:EXECUTIVE SUMMARY|SUMMARY)[:\n](.*?)(?=(?:KEY TERMS|COVERAGE|EXCLUSIONS|\n\n[A-Z]))/is);
+      if (summaryMatch) sections.summary = summaryMatch[1].trim();
+
+      const keyTermsMatch = fullAnalysis.match(/KEY TERMS[:\n](.*?)(?=(?:COVERAGE|EXCLUSIONS|RECOMMENDATIONS|\n\n[A-Z]))/is);
+      if (keyTermsMatch) sections.keyTerms = keyTermsMatch[1].trim();
+
+      const coverageMatch = fullAnalysis.match(/(?:COVERAGE HIGHLIGHTS|COVERAGE)[:\n](.*?)(?=(?:EXCLUSIONS|RECOMMENDATIONS|\n\n[A-Z]))/is);
+      if (coverageMatch) sections.coverageHighlights = coverageMatch[1].trim();
+
+      const exclusionsMatch = fullAnalysis.match(/EXCLUSIONS[:\n](.*?)(?=(?:RECOMMENDATIONS|\n\n[A-Z]))/is);
+      if (exclusionsMatch) sections.exclusions = exclusionsMatch[1].trim();
+
+      const recommendationsMatch = fullAnalysis.match(/RECOMMENDATIONS[:\n](.*?)$/is);
+      if (recommendationsMatch) sections.recommendations = recommendationsMatch[1].trim();
+    } catch (parseError) {
+      console.warn('Could not parse analysis sections, using full response');
+    }
+
+    return sections;
+  }
+
+  /**
+   * Translate policy summary to specified language
+   */
+  public async translatePolicyContent(
+    content: string,
+    targetLanguage: string,
+    contentType: 'summary' | 'terms' | 'coverage' | 'exclusions' | 'recommendations' = 'summary'
+  ): Promise<string> {
+    const languageInstructions = {
+      'English': 'Professional, clear English suitable for insurance documents',
+      'Thai': 'Thai language with appropriate formality (ครับ/ค่ะ), insurance terminology in Thai',
+      'Singlish': 'Singaporean English with natural Singlish expressions (lah, can, etc.)',
+      'Bahasa Malaysia': 'Malaysian Bahasa with proper formality and insurance terms',
+      'Bahasa Indonesia': 'Indonesian Bahasa with respectful tone and local context'
+    };
+
+    const systemPrompt = `You are a professional translator specializing in insurance documents for Southeast Asian markets.
+
+SOURCE CONTENT TYPE: ${contentType}
+TARGET LANGUAGE: ${targetLanguage}
+LANGUAGE STYLE: ${languageInstructions[targetLanguage] || 'Clear, professional tone'}
+
+TRANSLATION GUIDELINES:
+- Maintain the original meaning and technical accuracy
+- Use appropriate insurance terminology in the target language
+- Keep the natural, conversational tone of the original
+- Adapt cultural references for the target market
+- Preserve important numbers, dates, and specific terms
+- Make it easy to understand for pet owners
+
+CONTENT TO TRANSLATE:
+${content}`;
+
+    return await this.chat(
+      `Please translate the above ${contentType} content to ${targetLanguage}, maintaining accuracy and natural flow.`,
+      systemPrompt
+    );
+  }
+
+  /**
+   * Generate policy comparison analysis
+   */
+  public async comparePolicies(
+    policies: any[],
+    userContext?: { pets?: any[]; budget?: number; preferences?: any }
+  ): Promise<string> {
+    const policiesInfo = policies.map(policy => `
+Policy: ${policy.provider || 'Policy'}
+- Coverage: $${policy.coverageLimit?.toLocaleString() || 'N/A'}
+- Premium: $${policy.premium?.toLocaleString() || 'N/A'}/year
+- Deductible: $${policy.deductible || 'N/A'}
+- Features: ${policy.features?.join(', ') || 'Standard coverage'}
+- Exclusions: ${policy.exclusions?.join(', ') || 'Standard exclusions'}
+`).join('\n');
+
+    const contextInfo = userContext ? `
+USER CONTEXT:
+- Pets: ${userContext.pets?.map(p => `${p.name} (${p.breed} ${p.species}, ${Math.floor(p.ageMonths / 12)}y)`).join(', ') || 'None'}
+- Budget: $${userContext.budget?.toLocaleString() || 'Not specified'}/year
+- Priorities: ${userContext.preferences?.coverage_priority || 'Comprehensive coverage'}
+` : '';
+
+    const systemPrompt = `You are a pet insurance advisor helping customers compare policy options.
+
+POLICIES TO COMPARE:
+${policiesInfo}
+${contextInfo}
+
+Provide a comprehensive comparison analysis in natural, conversational language. Cover:
+- Value proposition of each policy
+- Best fit for user's specific pets and situation  
+- Cost-benefit analysis
+- Coverage gaps and overlaps
+- Specific recommendations with reasoning
+
+Write as if you're sitting with the customer, explaining the pros and cons of each option in a friendly, helpful way. Avoid formal bullet points and technical jargon - focus on what matters most to pet owners.`;
+
+    return await this.reasoning(
+      `Compare these pet insurance policies and recommend the best option for this user's situation.`,
+      systemPrompt
+    );
+  }
+
+  /**
+   * Extract text from uploaded policy documents (mock implementation)
+   * In production, this would integrate with OCR services
+   */
+  public async extractTextFromDocument(file: File): Promise<string> {
+    // Mock implementation - in production, you'd use OCR services like:
+    // - Google Cloud Vision API
+    // - AWS Textract
+    // - Azure Computer Vision
+    // - Tesseract.js for client-side OCR
+    
+    console.log(`📄 Extracting text from ${file.name} (${file.size} bytes)`);
+    
+    // Simulate processing time
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Return mock policy text for demonstration
+    return `
+PETINSUREX PREMIUM PLUS POLICY TERMS & CONDITIONS
+
+Policy Number: PX-2024-001234
+Effective Date: January 1, 2024
+Renewal Date: January 1, 2025
+
+COVERAGE SUMMARY:
+Annual Coverage Limit: $4,500
+Deductible: $250 per incident
+Reimbursement Rate: 80% after deductible
+
+COVERED CONDITIONS:
+- Accidents and injuries
+- Illness and disease treatment
+- Emergency surgery and hospitalization
+- Diagnostic tests (X-rays, blood work, etc.)
+- Prescription medications
+- Hereditary and genetic conditions (after 12-month waiting period)
+- Alternative therapies (acupuncture, physiotherapy)
+- Behavioral therapy and training
+- Dental care (accidents and disease)
+- Cancer treatment and chemotherapy
+
+WAITING PERIODS:
+- Accidents: No waiting period
+- Illness: 14 days from policy start
+- Hereditary conditions: 12 months
+- Dental issues: 6 months
+
+EXCLUSIONS:
+- Pre-existing conditions
+- Cosmetic procedures
+- Breeding and pregnancy costs
+- Routine wellness care
+- Experimental treatments
+- War, nuclear hazards
+- Intentional harm
+
+DEDUCTIBLE: $250 per incident
+ANNUAL LIMIT: $4,500 maximum payout per policy year
+LIFETIME LIMIT: No lifetime limit
+
+CLAIM PROCESS:
+1. Pay veterinary bill in full
+2. Submit claim form within 90 days
+3. Include itemized receipt and medical records
+4. Claim processing time: 5-10 business days
+5. Payment via direct deposit or check
+
+PREMIUM: $456 annually, paid monthly at $38
+RENEWAL: Automatic renewal unless cancelled 30 days prior
+
+This policy is governed by Singapore insurance regulations and Southeast Asian veterinary standards.
+    `.trim();
+  }
 }
 
 // Export a singleton instance

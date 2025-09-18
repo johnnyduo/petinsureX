@@ -4,6 +4,7 @@ import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
 import { Modal } from '@/components/ui/modal';
+import { AIPolicyAssistant } from '@/components/AIPolicyAssistant';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/translation';
 import { 
@@ -20,7 +21,9 @@ import {
   FileText,
   Clock,
   X,
-  Check
+  Check,
+  Brain,
+  Sparkles
 } from 'lucide-react';
 import { Policy, Pet } from '@/types';
 
@@ -43,6 +46,7 @@ const Policies = () => {
   const { t } = useTranslation();
   const [showPolicyDetails, setShowPolicyDetails] = useState<string | null>(null);
   const [showNewPolicyModal, setShowNewPolicyModal] = useState(false);
+  const [showAIPolicyAssistant, setShowAIPolicyAssistant] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>('standard'); // Default to Standard plan
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
 
@@ -254,10 +258,19 @@ const Policies = () => {
                 <h1 className="font-display text-2xl font-bold text-gray-900 mb-2">{t('policies.title')}</h1>
                 <p className="text-gray-600">{t('policies.subtitle')}</p>
               </div>
-              <PawButton onClick={() => setShowNewPolicyModal(true)}>
-                <Plus size={20} />
-                {t('policies.get_coverage')}
-              </PawButton>
+              <div className="flex items-center gap-3">
+                <PawButton 
+                  variant="secondary"
+                  onClick={() => setShowAIPolicyAssistant(true)}
+                >
+                  <Brain size={20} />
+                  AI Summarize
+                </PawButton>
+                <PawButton onClick={() => setShowNewPolicyModal(true)}>
+                  <Plus size={20} />
+                  {t('policies.get_coverage')}
+                </PawButton>
+              </div>
             </div>
           </div>
 
@@ -818,6 +831,12 @@ const Policies = () => {
           })()}
         </Modal>
       )}
+
+      {/* AI Policy Assistant Modal */}
+      <AIPolicyAssistant 
+        isOpen={showAIPolicyAssistant} 
+        onClose={() => setShowAIPolicyAssistant(false)} 
+      />
     </Layout>
   );
 };
