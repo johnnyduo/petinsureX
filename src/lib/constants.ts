@@ -95,7 +95,7 @@ export const API_ENDPOINTS = {
   OCR: '/api/ocr/extract',
   FRAUD: '/api/fraud/evaluate',
   VET: '/api/vet',
-  ZKP: '/api/zkp',
+  ANALYSIS: '/api/analysis',
   ADMIN: '/api/admin',
   SCAM: '/api/scam/analyze',
   RIGHTS: '/api/rights/ask',

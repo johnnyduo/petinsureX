@@ -114,10 +114,10 @@ const claimAnalysis = await seaLionAPI.analyzeClaimDocument(file, {
 - **⚡ Real-time Processing**: Instant analysis with loading states and progress tracking
 
 ### 🏥 **Veterinarian Portal**
-- **📝 Digital Attestation**: Cryptographic signature system for invoice verification
-- **📊 Analytics Dashboard**: Revenue tracking and patient management
+- **📝 AI Document Processing**: Smart invoice verification and analysis system
+- **📊 Analytics Dashboard**: Revenue tracking and patient management with AI insights
 - **🔗 Clinic Integration**: Seamless workflow with existing practice management
-- **💳 Instant Payments**: Automated claim settlements with blockchain verification
+- **💳 Instant Payments**: Automated claim settlements with AI verification
 
 ### 🎨 **Modern UI/UX**
 - **✨ Glassmorphism Design**: Beautiful frosted glass effects throughout
@@ -338,10 +338,10 @@ const languages = [
 <details>
 <summary>🏥 <strong>Veterinarian Portal</strong></summary>
 
-- **✍️ Digital Attestation**: Cryptographic invoice signatures
-- **📊 Practice Analytics**: Revenue insights and patient trends
+- **✍️ AI Document Validation**: Smart invoice processing and verification
+- **📊 Practice Analytics**: Revenue insights and patient trends with AI analysis
 - **🔗 Seamless Integration**: API connectivity with practice management systems
-- **💳 Instant Settlements**: Automated claim payments with blockchain verification
+- **💳 Instant Settlements**: Automated claim payments with AI verification
 
 </details>
 
@@ -744,7 +744,7 @@ git push origin feature/amazing-new-feature
 | Segment | Market Size | Our Solution |
 |---------|-------------|--------------|
 | **🐕 Pet Owners** | 120M+ SEA households | AI-powered, multilingual insurance |
-| **🏥 Veterinarians** | 15,000+ clinics | Streamlined payments & attestation |
+| **🏥 Veterinarians** | 15,000+ clinics | Streamlined payments & AI processing |
 | **🏢 Insurance Cos** | $2.8B market | Fraud prevention & automation |
 | **🏬 Pet Retailers** | 50,000+ stores | Partnership integration opportunities |
 
@@ -783,7 +783,7 @@ const revenueStreams = {
 - **🤖 AI-First Approach**: SEA-LION powered multilingual support
 - **⚡ Speed**: 99.5% faster claim processing than competitors  
 - **🌏 SEA Focus**: First insurance platform built for Southeast Asia
-- **🔒 Privacy**: Zero-knowledge proofs protect sensitive data
+- **🔒 Privacy**: Advanced AI encryption protects sensitive data
 - **📱 UX**: Award-worthy design with mobile-first approach
 
 ## 🔮 Roadmap & Future Vision
@@ -799,12 +799,12 @@ const revenueStreams = {
 - ✅ **Computer Vision** - Pet identity verification (94% accuracy)
 - ✅ **Fraud Detection** - ML-powered risk assessment  
 - ✅ **Claims Automation** - <2 minute processing pipeline
-- ✅ **Vet Portal** - Digital attestation system
+- ✅ **Vet Portal** - AI-powered invoice processing
 - ✅ **Responsive Design** - Mobile-first user experience
 
 ### 🚀 **Phase 2: Advanced Intelligence** *(Q1-Q2 2025)*
 - 🔄 **React Native App** - Native mobile experience
-- 🔄 **Blockchain Integration** - Immutable claim records
+- 🔄 **Advanced AI Models** - Enhanced claim accuracy and insights
 - 🔄 **Advanced Analytics** - Predictive health insights
 - 🔄 **Voice Interface** - "Hey PetInsureX, submit my claim"
 - 🔄 **Real-time Notifications** - Smart alerts & reminders

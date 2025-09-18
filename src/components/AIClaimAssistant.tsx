@@ -497,7 +497,7 @@ export const AIClaimAssistant: React.FC<AIClaimAssistantProps> = ({
       Provide clear coverage assessment and any red flags: ${text.substring(0, 3000)}`;
       
       const completenessPrompt = `Evaluate the completeness of this pet insurance claim documentation. Check for:
-      - Required forms and signatures
+      - Required forms and AI validation
       - Medical records and veterinary reports
       - Receipts and payment documentation
       - Pet identification and policy details

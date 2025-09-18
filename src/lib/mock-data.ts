@@ -136,11 +136,11 @@ export const mockClaims: Claim[] = [
     ],
     fraudScore: 0.15,
     petMatchConfidence: 0.94,
-    vetAttestation: {
-      id: 'att-1',
+    aiAnalysis: {
+      analysisId: 'ai-1',
       vetId: 'vet-1',
-      invoiceHash: 'hash-abc123',
-      signature: 'sig-def456',
+      fraudScore: 0.15,
+      validationScore: 0.94,
       timestamp: '2024-08-10T14:20:00Z',
       clinicName: 'Bangkok Animal Hospital',
       licenseNumber: 'VET-TH-2024-001'
@@ -222,7 +222,7 @@ export const mockApiResponses = {
   fraudEvaluate: {
     fraud_score: 0.15,
     flags: ['high_amount'],
-    explanation_localized: 'This claim shows a high treatment amount (฿15,000) which is above average for this condition, but other indicators suggest legitimate medical necessity. The timing and veterinary attestation support the claim validity.',
+    explanation_localized: 'This claim shows a high treatment amount (฿15,000) which is above average for this condition, but other indicators suggest legitimate medical necessity. The timing and AI analysis support the claim validity.',
     risk_level: 'low' as const
   },
   

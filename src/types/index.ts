@@ -53,26 +53,26 @@ export type Claim = {
   proofs: ProofRef[];
   fraudScore?: number;
   petMatchConfidence?: number;
-  vetAttestation?: VetAttestation;
+  aiAnalysis?: AIAnalysisResult;
   adminNotes?: string;
 };
 
 export type ProofRef = {
   id: string;
-  type: 'zkp' | 'vet_attestation' | 'identity_verification' | 'forensic_analysis';
+  type: 'ai_analysis' | 'identity_verification' | 'forensic_analysis' | 'policy_verification';
   status: 'pending' | 'valid' | 'invalid';
   payload?: any;
   createdAt: string;
 };
 
-export type VetAttestation = {
-  id: string;
+export type AIAnalysisResult = {
+  analysisId: string;
   vetId: string;
-  invoiceHash: string;
-  signature: string;
-  timestamp: string;
   clinicName: string;
-  licenseNumber: string;
+  fraudScore: number;
+  validationScore: number;
+  timestamp: string;
+  licenseNumber?: string;
 };
 
 export type FraudAnalysis = {
@@ -124,15 +124,15 @@ export type ScamAnalysis = {
   createdAt: string;
 };
 
-export type ZKProof = {
+export type AIValidation = {
   id: string;
-  claimId: string;
-  proofType: string;
-  status: 'generating' | 'generated' | 'verified' | 'failed';
-  proofData?: string;
-  anchorHash?: string;
+  type: 'fraud_detection' | 'policy_verification' | 'amount_validation' | 'completeness_check';
+  score: number;
+  confidence: number;
+  reasoning: string[];
+  status: 'pending' | 'verified' | 'failed';
   createdAt: string;
-  verifiedAt?: string;
+  completedAt?: string;
 };
 
 // API Response Types

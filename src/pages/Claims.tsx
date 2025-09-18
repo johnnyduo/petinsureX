@@ -57,21 +57,21 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM001.pdf',
       injuryPhotos: ['/mock-mali-xray1.jpg', '/mock-mali-surgery1.jpg'],
       proofs: [
-        { id: 'proof-1', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-19T11:00:00Z' },
+        { id: 'proof-1', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-19T11:00:00Z' },
         { id: 'proof-2', type: 'identity_verification', status: 'valid', createdAt: '2024-08-19T11:30:00Z' },
         { id: 'proof-3', type: 'forensic_analysis', status: 'valid', createdAt: '2024-08-19T12:00:00Z' }
       ],
       fraudScore: 0.15,
       petMatchConfidence: 0.94,
-      adminNotes: 'Emergency surgery claim - veterinary attestation confirms life-threatening condition',
-      vetAttestation: {
-        id: 'att-001',
+      adminNotes: 'Emergency surgery claim - AI analysis confirms life-threatening condition with 98% confidence',
+      aiAnalysis: {
+        analysisId: 'ai-001',
         vetId: 'vet-bangkok-001',
         clinicName: 'Bangkok Animal Emergency Hospital',
         licenseNumber: 'VET-TH-2024-001',
-        signature: 'sig-bangkok-001',
+        fraudScore: 0.15,
         timestamp: '2024-08-19T14:00:00Z',
-        invoiceHash: 'hash-mali-emergency-001'
+        validationScore: 0.94
       }
     },
     {
@@ -86,20 +86,20 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM002.pdf',
       injuryPhotos: [],
       proofs: [
-        { id: 'proof-4', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-18T10:00:00Z' },
+        { id: 'proof-4', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-18T10:00:00Z' },
         { id: 'proof-5', type: 'identity_verification', status: 'valid', createdAt: '2024-08-18T10:15:00Z' }
       ],
       fraudScore: 0.05,
       petMatchConfidence: 0.98,
-      adminNotes: 'Routine preventive care - standard processing',
-      vetAttestation: {
-        id: 'att-002',
+      adminNotes: 'Routine preventive care - AI validated with 98% accuracy',
+      aiAnalysis: {
+        analysisId: 'ai-002',
         vetId: 'vet-phuket-002',
         clinicName: 'Phuket Veterinary Clinic',
         licenseNumber: 'VET-TH-2023-087',
-        signature: 'sig-phuket-002',
+        fraudScore: 0.05,
         timestamp: '2024-08-18T16:30:00Z',
-        invoiceHash: 'hash-taro-wellness-001'
+        validationScore: 0.98
       }
     },
     {
@@ -114,20 +114,20 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM003.pdf',
       injuryPhotos: ['/mock-luna-dental1.jpg'],
       proofs: [
-        { id: 'proof-6', type: 'vet_attestation', status: 'valid', createdAt: '2024-08-10T15:00:00Z' },
+        { id: 'proof-6', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-10T15:00:00Z' },
         { id: 'proof-7', type: 'identity_verification', status: 'valid', createdAt: '2024-08-10T15:15:00Z' }
       ],
       fraudScore: 0.08,
       petMatchConfidence: 0.96,
-      adminNotes: 'Approved for payment - dental work documented with photos',
-      vetAttestation: {
-        id: 'att-003',
+      adminNotes: 'Approved for payment - dental work validated by AI with photo analysis',
+      aiAnalysis: {
+        analysisId: 'ai-003',
         vetId: 'vet-chiang-003',
         clinicName: 'Chiang Mai Pet Dental Center',
         licenseNumber: 'VET-TH-2024-045',
-        signature: 'sig-chiang-003',
+        fraudScore: 0.08,
         timestamp: '2024-08-15T09:45:00Z',
-        invoiceHash: 'hash-luna-dental-001'
+        validationScore: 0.96
       }
     }
   ];
@@ -747,7 +747,7 @@ const Claims = () => {
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Shield size={14} className="text-blue-600" />
-                      <span className="text-blue-700">Vet attestation verified</span>
+                      <span className="text-blue-700">AI analysis verified</span>
                     </div>
                   </div>
                 </div>

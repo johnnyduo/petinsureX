@@ -476,7 +476,7 @@ const Onboarding = () => {
                 <div className="space-y-3 text-sm text-gray-700">
                   <p>• Pet photos will be used for identity verification only</p>
                   <p>• Medical data is encrypted and stored securely</p>
-                  <p>• Zero-knowledge proofs protect sensitive information</p>
+                  <p>• Advanced AI encryption protects sensitive information</p>
                   <p>• You can request data deletion at any time</p>
                 </div>
               </GlassCard>
@@ -487,7 +487,7 @@ const Onboarding = () => {
                   <p>• Computer vision analysis for fraud detection</p>
                   <p>• SEA-LION AI for claim processing and explanations</p>
                   <p>• Automated risk assessment algorithms</p>
-                  <p>• Veterinary attestation verification</p>
+                  <p>• AI-powered claim verification</p>
                 </div>
               </GlassCard>
 

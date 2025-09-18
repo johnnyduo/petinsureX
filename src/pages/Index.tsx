@@ -32,8 +32,8 @@ const Index = () => {
     },
     {
       icon: Shield,
-      title: 'ZKP Privacy Proofs',
-      description: 'Zero-knowledge proofs protect sensitive veterinary data while ensuring claim validity.'
+      title: 'AI Document Analysis',
+      description: 'Advanced policy and claim analysis with fraud detection and completeness validation.'
     },
     {
       icon: Zap,
@@ -61,7 +61,7 @@ const Index = () => {
     {
       name: 'Dr. Siriporn Tanaka',
       role: 'Bangkok Animal Emergency Hospital',
-      content: 'The veterinary attestation system with KMS signatures has revolutionized our claims process. Direct billing works seamlessly, and fraud detection is incredibly accurate.',
+      content: 'The AI-powered analysis system with SEA-LION technology has revolutionized our claims process. Direct billing works seamlessly, and fraud detection is incredibly accurate.',
       rating: 5,
       avatar: '�‍⚕️',
       location: 'Bangkok'
@@ -69,7 +69,7 @@ const Index = () => {
     {
       name: 'Emma Rodriguez',
       role: 'Taro & Luna\'s Owner (British Shorthair & Ragdoll)',
-      content: 'Zero-knowledge proofs protect my cats\' medical privacy while ensuring instant coverage. Annual wellness visits are 100% covered - amazing value!',
+      content: 'AI document analysis provides instant policy insights and claim validation while protecting my cats\' privacy. Annual wellness visits are 100% covered - amazing value!',
       rating: 5,
       avatar: '🐱',
       location: 'Phuket'
@@ -238,7 +238,7 @@ const Index = () => {
               {
                 step: '03',
                 title: 'Get Paid Fast',
-                description: 'AI verification, vet attestation, and ZKP privacy proofs ensure instant, secure payouts.',
+                description: 'AI verification, SEA-LION analysis, and comprehensive fraud detection ensure instant, secure payouts.',
                 icon: '💰'
               }
             ].map((item, index) => (
@@ -348,8 +348,8 @@ const Index = () => {
             <div className="col-span-2">
               <Logo size="md" className="mb-4" />
               <p className="text-gray-400 mb-6 max-w-md">
-                Revolutionary pet insurance powered by AI, computer vision, 
-                and zero-knowledge proofs for ultimate privacy and security.
+                Revolutionary pet insurance powered by SEA-LION AI, computer vision, 
+                and advanced document analysis for ultimate accuracy and security.
               </p>
               <div className="flex gap-4">
                 <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-petinsure-teal-600 transition-colors cursor-pointer">
@@ -386,7 +386,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 PetInsureX. All rights reserved. Built with AI, secured with ZKP.</p>
+            <p>&copy; 2024 PetInsureX. All rights reserved. Built with SEA-LION AI, powered by innovation.</p>
           </div>
         </div>
       </footer>

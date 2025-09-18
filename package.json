@@ -1,7 +1,7 @@
 {
   "name": "petinsurex",
   "version": "1.0.0",
-  "description": "AI-Powered Pet Insurance Platform with Computer Vision, Fraud Detection, and Zero-Knowledge Privacy Proofs",
+  "description": "AI-Powered Pet Insurance Platform with Computer Vision, Fraud Detection, and Advanced Document Analysis",
   "private": true,
   "type": "module",
   "scripts": {
@@ -91,7 +91,7 @@
     "ai",
     "computer-vision",
     "fraud-detection",
-    "zero-knowledge-proofs",
+    "document-analysis",
     "react",
     "typescript",
     "vite",

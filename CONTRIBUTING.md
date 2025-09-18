@@ -190,10 +190,10 @@ docs(readme): update installation instructions
 
 ### Privacy & Security
 
-- Follow zero-knowledge proof principles
+- Follow AI privacy and security principles
 - Encrypt sensitive data
 - Validate all inputs
-- Use secure cryptographic libraries
+- Use secure AI model integration libraries
 
 ## Questions?
 
