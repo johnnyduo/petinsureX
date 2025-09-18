@@ -197,8 +197,8 @@ yarn preview        # Production preview
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/johnnyduo/pet-pal-guard.git
-cd pet-pal-guard
+git clone https://github.com/johnnyduo/petinsureX.git
+cd petinsureX
 
 # 2️⃣ Install dependencies (uses yarn for speed)
 yarn install
@@ -574,9 +574,9 @@ yarn preview                  # Test production build locally
 
 <div align="center">
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/johnnyduo/pet-pal-guard&env=VITE_SEA_LION_API_KEY,VITE_SEA_LION_API_BASE_URL&envDescription=SEA-LION%20API%20Configuration&envLink=https://playground.sea-lion.ai/)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/johnnyduo/petinsureX&env=VITE_SEA_LION_API_KEY,VITE_SEA_LION_API_BASE_URL&envDescription=SEA-LION%20API%20Configuration&envLink=https://playground.sea-lion.ai/)
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/johnnyduo/pet-pal-guard)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/johnnyduo/petinsureX)
 
 </div>
 
@@ -670,9 +670,9 @@ VITE_ENABLE_ANALYTICS=true
 
 **We ❤️ contributions! Join our growing community of pet-tech enthusiasts.**
 
-[![Contributors](https://img.shields.io/github/contributors/johnnyduo/pet-pal-guard?style=for-the-badge)](https://github.com/johnnyduo/pet-pal-guard/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/johnnyduo/pet-pal-guard?style=for-the-badge)](https://github.com/johnnyduo/pet-pal-guard/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/johnnyduo/pet-pal-guard?style=for-the-badge)](https://github.com/johnnyduo/pet-pal-guard/pulls)
+[![Contributors](https://img.shields.io/github/contributors/johnnyduo/petinsureX?style=for-the-badge)](https://github.com/johnnyduo/petinsureX/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/johnnyduo/petinsureX?style=for-the-badge)](https://github.com/johnnyduo/petinsureX/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/johnnyduo/petinsureX?style=for-the-badge)](https://github.com/johnnyduo/petinsureX/pulls)
 
 </div>
 
@@ -680,8 +680,8 @@ VITE_ENABLE_ANALYTICS=true
 
 ```bash
 # 1️⃣ Fork & Clone
-git clone https://github.com/your-username/pet-pal-guard.git
-cd pet-pal-guard
+git clone https://github.com/your-username/petinsureX.git
+cd petinsureX
 
 # 2️⃣ Create feature branch
 git checkout -b feature/amazing-new-feature
@@ -882,17 +882,16 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ### 🌐 **Get Help & Connect**
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/petinsurex)
-[![GitHub Issues](https://img.shields.io/badge/Issues-Report%20Bugs-red?style=for-the-badge&logo=github)](https://github.com/johnnyduo/pet-pal-guard/issues)
-[![Discussions](https://img.shields.io/badge/Discussions-Share%20Ideas-green?style=for-the-badge&logo=github)](https://github.com/johnnyduo/pet-pal-guard/discussions)
+[![GitHub Issues](https://img.shields.io/badge/Issues-Report%20Bugs-red?style=for-the-badge&logo=github)](https://github.com/johnnyduo/petinsureX/issues)
+[![Discussions](https://img.shields.io/badge/Discussions-Share%20Ideas-green?style=for-the-badge&logo=github)](https://github.com/johnnyduo/petinsureX/discussions)
 
 </div>
 
 | Support Type | Channel | Response Time |
 |--------------|---------|---------------|
-| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/johnnyduo/pet-pal-guard/issues) | 24-48 hours |
-| 💡 **Feature Requests** | [GitHub Discussions](https://github.com/johnnyduo/pet-pal-guard/discussions) | 1-3 days |
+| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/johnnyduo/petinsureX/issues) | 24-48 hours |
+| 💡 **Feature Requests** | [GitHub Discussions](https://github.com/johnnyduo/petinsureX/discussions) | 1-3 days |
 | 💬 **Community Chat** | [Discord Server](https://discord.gg/petinsurex) | Real-time |
-| 📧 **Business Inquiries** | petinsurex@example.com | 1-2 business days |
 
 ---
 
@@ -910,7 +909,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### ⭐ **Star History**
 
-[![Star History Chart](https://api.star-history.com/svg?repos=johnnyduo/pet-pal-guard&type=Date)](https://star-history.com/#johnnyduo/pet-pal-guard&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=johnnyduo/petinsureX&type=Date)](https://star-history.com/#johnnyduo/petinsureX&Date)
 
 **If you find this project helpful, please consider giving it a ⭐!**
 
