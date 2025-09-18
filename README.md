@@ -2,17 +2,7 @@
 
 <div align="center">
 
-![PetInsureX L### 🎯 **Smart Claims Processing & Analysis**
-- **📸 Photo Upload**: Drag-and-drop with instant AI analysis
-- **🐕 Pet Matching**: Computer vision identifies your pet with 94% accuracy  
-- **📋 Auto-fill Forms**: OCR extracts invoice data automatically
-- **🚨 Fraud Detection**: AI-powered risk scoring with visual indicators (15-85% risk levels)
-- **🛡️ Policy Verification**: Automated coverage alignment and deductible validation
-- **✅ Completeness Check**: Document validation with percentage completion (70-100%)
-- **💰 Amount Validation**: Market comparison with Thai Baht formatting and cost breakdown
-- **📊 AI Recommendations**: Priority-based action items with approval/review/investigation
-- **⚡ Real-time Updates**: Live status tracking with progress indicators
-- **🌐 Multi-language Analysis**: Full analysis available in Thai, English, Singlish, Bahasa Malaysia & Indonesia/public/sealionllm.png)
+![PetInsureX Logo](./public/sealionllm.png)
 
 **Revolutionary Pet Insurance with SEA-LION AI Intelligence**
 
@@ -57,6 +47,18 @@
 - **Cultural context awareness** for local pet care practices
 - **Regional vet network integration** with 500+ clinics
 - **Currency support**: THB, SGD, MYR, IDR, USD
+
+### 🎯 **Smart Claims Processing & Analysis**
+- **📸 Photo Upload**: Drag-and-drop with instant AI analysis
+- **🐕 Pet Matching**: Computer vision identifies your pet with 94% accuracy  
+- **📋 Auto-fill Forms**: OCR extracts invoice data automatically
+- **🚨 Fraud Detection**: AI-powered risk scoring with visual indicators (15-85% risk levels)
+- **🛡️ Policy Verification**: Automated coverage alignment and deductible validation
+- **✅ Completeness Check**: Document validation with percentage completion (70-100%)
+- **💰 Amount Validation**: Market comparison with Thai Baht formatting and cost breakdown
+- **📊 AI Recommendations**: Priority-based action items with approval/review/investigation
+- **⚡ Real-time Updates**: Live status tracking with progress indicators
+- **🌐 Multi-language Analysis**: Full analysis available in Thai, English, Singlish, Bahasa Malaysia & Indonesia
 
 ### 🎨 **Award-Worthy Design**
 - **Glassmorphism UI** with modern glass-effect aesthetics
