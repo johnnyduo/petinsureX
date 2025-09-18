@@ -1,4 +1,4 @@
-![mermaid-diagram-2025-09-18-224808](https://github.com/user-attachments/assets/097668e5-7568-484a-872b-8dcc75fac564)# 🐾 PetInsureX - AI-Powered Pet Insurance Platform
+🐾 PetInsureX - AI-Powered Pet Insurance Platform
 
 <div align="center">
 
