@@ -14,7 +14,7 @@
 
 *Protecting Paws, Preserving Privacy, Powered by AI*
 
-[🎥 **Watch Demo**](http://localhost:8081) • [📚 **Documentation**](./docs/) • [🚀 **Live Demo**](https://petinsurex.vercel.app)
+[🎥 **Watch Demo**](http://localhost:8081) • [📚 **Documentation**](./docs/) • [🚀 **Live Demo**](http### 🎯 **Phase 4: Innovation Lab** *(2027+)*://petinsurex.vercel.app)
 
 </div>
 
@@ -796,7 +796,7 @@ const revenueStreams = {
 
 </div>
 
-### 🎯 **Phase 1: AI Foundation** *(Current - Q4 2024)*
+### 🎯 **Phase 1: AI Foundation** *(Q3-Q4 2025)*
 - ✅ **SEA-LION AI Integration** - Multilingual chat assistant
 - ✅ **Computer Vision** - Pet identity verification (94% accuracy)
 - ✅ **Fraud Detection** - ML-powered risk assessment  
@@ -804,7 +804,7 @@ const revenueStreams = {
 - ✅ **Vet Portal** - AI-powered invoice processing
 - ✅ **Responsive Design** - Mobile-first user experience
 
-### 🚀 **Phase 2: Advanced Intelligence** *(Q1-Q2 2025)*
+### 🚀 **Phase 2: Advanced Intelligence** *(Q1-Q2 2026)*
 - 🔄 **React Native App** - Native mobile experience
 - 🔄 **Advanced AI Models** - Enhanced claim accuracy and insights
 - 🔄 **Advanced Analytics** - Predictive health insights
@@ -812,7 +812,7 @@ const revenueStreams = {
 - 🔄 **Real-time Notifications** - Smart alerts & reminders
 - 🔄 **API Marketplace** - Third-party integrations
 
-### 🌟 **Phase 3: Ecosystem Expansion** *(Q3-Q4 2025)*
+### 🌟 **Phase 3: Ecosystem Expansion** *(Q3-Q4 2026)*
 - 📋 **Telemedicine Platform** - Video vet consultations
 - 📋 **IoT Integration** - Pet wearables & health monitoring
 - 📋 **Insurance Marketplace** - Multiple provider options
@@ -834,10 +834,10 @@ const revenueStreams = {
 
 | Year | Users | Claims Processed | Revenue | Markets |
 |------|-------|------------------|---------|---------|
-| **2024** | 1K beta users | 500 claims | $50K | Thailand |
-| **2025** | 50K users | 25K claims | $2.5M | Thailand + Singapore |
-| **2026** | 250K users | 150K claims | $15M | 5 SEA countries |
-| **2027** | 1M+ users | 500K+ claims | $50M+ | Regional leader |
+| **2025** | 1K beta users | 500 claims | $50K | Thailand |
+| **2026** | 50K users | 25K claims | $2.5M | Thailand + Singapore |
+| **2027** | 250K users | 150K claims | $15M | 5 SEA countries |
+| **2028** | 1M+ users | 500K+ claims | $50M+ | Regional leader |
 
 </div>
 
@@ -916,6 +916,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-*© 2024 PetInsureX Team. Made with ❤️ in Southeast Asia.*
+*© 2025 PetInsureX Team. Made with ❤️ in Southeast Asia.*
 
 </div>
