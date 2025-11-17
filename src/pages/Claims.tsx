@@ -57,9 +57,9 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM001.pdf',
       injuryPhotos: ['/mock-mali-xray1.jpg', '/mock-mali-surgery1.jpg'],
       proofs: [
-        { id: 'proof-1', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-19T11:00:00Z' },
-        { id: 'proof-2', type: 'identity_verification', status: 'valid', createdAt: '2024-08-19T11:30:00Z' },
-        { id: 'proof-3', type: 'forensic_analysis', status: 'valid', createdAt: '2024-08-19T12:00:00Z' }
+        { id: 'proof-1', type: 'ai_analysis', status: 'valid', createdAt: '2025-11-15T11:00:00Z' },
+        { id: 'proof-2', type: 'identity_verification', status: 'valid', createdAt: '2025-11-15T11:30:00Z' },
+        { id: 'proof-3', type: 'forensic_analysis', status: 'valid', createdAt: '2025-11-15T12:00:00Z' }
       ],
       fraudScore: 0.15,
       petMatchConfidence: 0.94,
@@ -86,8 +86,8 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM002.pdf',
       injuryPhotos: [],
       proofs: [
-        { id: 'proof-4', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-18T10:00:00Z' },
-        { id: 'proof-5', type: 'identity_verification', status: 'valid', createdAt: '2024-08-18T10:15:00Z' }
+        { id: 'proof-4', type: 'ai_analysis', status: 'valid', createdAt: '2025-11-14T10:00:00Z' },
+        { id: 'proof-5', type: 'identity_verification', status: 'valid', createdAt: '2025-11-14T10:15:00Z' }
       ],
       fraudScore: 0.05,
       petMatchConfidence: 0.98,
@@ -114,8 +114,8 @@ const Claims = () => {
       invoiceUrl: '/mock-invoice-CLM003.pdf',
       injuryPhotos: ['/mock-luna-dental1.jpg'],
       proofs: [
-        { id: 'proof-6', type: 'ai_analysis', status: 'valid', createdAt: '2024-08-10T15:00:00Z' },
-        { id: 'proof-7', type: 'identity_verification', status: 'valid', createdAt: '2024-08-10T15:15:00Z' }
+        { id: 'proof-6', type: 'ai_analysis', status: 'valid', createdAt: '2025-11-08T15:00:00Z' },
+        { id: 'proof-7', type: 'identity_verification', status: 'valid', createdAt: '2025-11-08T15:15:00Z' }
       ],
       fraudScore: 0.08,
       petMatchConfidence: 0.96,
@@ -142,8 +142,8 @@ const Claims = () => {
       ageMonths: 38,
       vaccinated: true,
       photos: ['/mock-mali1.jpg', '/mock-mali2.jpg'],
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-08-19T00:00:00Z'
+      createdAt: '2025-01-01T00:00:00Z',
+      updatedAt: '2025-11-15T00:00:00Z'
     },
     {
       id: 'pet-taro',
@@ -154,8 +154,8 @@ const Claims = () => {
       ageMonths: 32,
       vaccinated: true,
       photos: ['/mock-taro1.jpg', '/mock-taro2.jpg'],
-      createdAt: '2024-01-15T00:00:00Z',
-      updatedAt: '2024-08-18T00:00:00Z'
+      createdAt: '2025-01-15T00:00:00Z',
+      updatedAt: '2025-11-14T00:00:00Z'
     },
     {
       id: 'pet-luna',
@@ -166,8 +166,8 @@ const Claims = () => {
       ageMonths: 18,
       vaccinated: true,
       photos: ['/mock-luna1.jpg', '/mock-luna2.jpg'],
-      createdAt: '2024-08-05T00:00:00Z',
-      updatedAt: '2024-08-15T00:00:00Z'
+      createdAt: '2025-10-05T00:00:00Z',
+      updatedAt: '2025-11-13T00:00:00Z'
     }
   ];
 

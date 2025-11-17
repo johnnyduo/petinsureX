@@ -10,7 +10,7 @@ export const mockUsers: User[] = [
     name: DEMO_USERS.OWNER.name,
     role: DEMO_USERS.OWNER.role,
     locale: 'en',
-    createdAt: '2024-01-15T08:00:00Z',
+    createdAt: '2025-01-15T08:00:00Z',
     avatar: '👨‍💼'
   },
   {
@@ -19,7 +19,7 @@ export const mockUsers: User[] = [
     name: DEMO_USERS.VET.name,
     role: DEMO_USERS.VET.role,
     locale: 'en',
-    createdAt: '2024-01-10T08:00:00Z',
+    createdAt: '2025-01-10T08:00:00Z',
     avatar: '👩‍⚕️'
   },
   {
@@ -28,7 +28,7 @@ export const mockUsers: User[] = [
     name: DEMO_USERS.ADMIN.name,
     role: DEMO_USERS.ADMIN.role,
     locale: 'en',
-    createdAt: '2024-01-05T08:00:00Z',
+    createdAt: '2025-01-05T08:00:00Z',
     avatar: '👨‍💻'
   }
 ];
@@ -50,8 +50,8 @@ export const mockPets: Pet[] = [
       '/api/pets/mali/right.jpg',
       '/api/pets/mali/full.jpg'
     ],
-    createdAt: '2024-01-16T08:00:00Z',
-    updatedAt: '2024-01-16T08:00:00Z'
+    createdAt: '2025-01-16T08:00:00Z',
+    updatedAt: '2025-01-16T08:00:00Z'
   },
   {
     id: 'pet-2',
@@ -68,8 +68,8 @@ export const mockPets: Pet[] = [
       '/api/pets/taro/right.jpg',
       '/api/pets/taro/full.jpg'
     ],
-    createdAt: '2024-01-20T08:00:00Z',
-    updatedAt: '2024-01-20T08:00:00Z'
+    createdAt: '2025-01-20T08:00:00Z',
+    updatedAt: '2025-01-20T08:00:00Z'
   }
 ];
 
@@ -79,26 +79,26 @@ export const mockPolicies: Policy[] = [
     id: 'policy-1',
     petId: 'pet-1',
     provider: 'PetInsureX Premium',
-    coverageLimit: 100000,
-    remaining: 82000,
-    premium: 12000,
-    start: '2024-01-01T00:00:00Z',
-    end: '2024-12-31T23:59:59Z',
+    coverageLimit: 2850,
+    remaining: 2340,
+    premium: 340,
+    start: '2025-01-01T00:00:00Z',
+    end: '2025-12-31T23:59:59Z',
     termsUrl: '/api/policies/policy-1/terms.pdf',
     status: 'active',
-    createdAt: '2024-01-01T08:00:00Z'
+    createdAt: '2025-01-01T08:00:00Z'
   },
   {
     id: 'policy-2',
     petId: 'pet-2',
     provider: 'PetInsureX Basic',
-    coverageLimit: 50000,
-    remaining: 47500,
-    premium: 8000,
-    start: '2024-01-15T00:00:00Z',
-    end: '2024-12-31T23:59:59Z',
+    coverageLimit: 1430,
+    remaining: 1360,
+    premium: 230,
+    start: '2025-01-15T00:00:00Z',
+    end: '2025-12-31T23:59:59Z',
     status: 'active',
-    createdAt: '2024-01-15T08:00:00Z'
+    createdAt: '2025-01-15T08:00:00Z'
   }
 ];
 
@@ -108,10 +108,10 @@ export const mockClaims: Claim[] = [
     id: 'claim-1',
     petId: 'pet-1',
     policyId: 'policy-1',
-    createdAt: '2024-08-10T10:30:00Z',
-    updatedAt: '2024-08-10T14:22:00Z',
+    createdAt: '2025-08-10T10:30:00Z',
+    updatedAt: '2025-08-10T14:22:00Z',
     status: 'review',
-    amount: 15000,
+    amount: 420,
     description: 'Emergency surgery for gastric torsion. Mali showed symptoms of bloating and distress.',
     invoiceUrl: '/api/claims/claim-1/invoice.pdf',
     injuryPhotos: [
@@ -124,14 +124,14 @@ export const mockClaims: Claim[] = [
         type: 'identity_verification',
         status: 'valid',
         payload: { confidence: 0.94, method: 'cv_embedding' },
-        createdAt: '2024-08-10T10:35:00Z'
+        createdAt: '2025-08-10T10:35:00Z'
       },
       {
         id: 'proof-2',
         type: 'forensic_analysis',
         status: 'valid',
         payload: { forensic_score: 0.82, duplicates: [] },
-        createdAt: '2024-08-10T10:36:00Z'
+        createdAt: '2025-08-10T10:36:00Z'
       }
     ],
     fraudScore: 0.15,
@@ -141,19 +141,19 @@ export const mockClaims: Claim[] = [
       vetId: 'vet-1',
       fraudScore: 0.15,
       validationScore: 0.94,
-      timestamp: '2024-08-10T14:20:00Z',
+      timestamp: '2025-08-10T14:20:00Z',
       clinicName: 'Bangkok Animal Hospital',
-      licenseNumber: 'VET-TH-2024-001'
+      licenseNumber: 'VET-TH-2025-001'
     }
   },
   {
     id: 'claim-2',
     petId: 'pet-2',
     policyId: 'policy-2',
-    createdAt: '2024-08-05T09:15:00Z',
-    updatedAt: '2024-08-05T16:45:00Z',
+    createdAt: '2025-08-05T09:15:00Z',
+    updatedAt: '2025-08-05T16:45:00Z',
     status: 'paid',
-    amount: 2500,
+    amount: 72,
     description: 'Routine vaccination and health check. Taro received his annual shots.',
     invoiceUrl: '/api/claims/claim-2/invoice.pdf',
     injuryPhotos: [],
@@ -163,7 +163,7 @@ export const mockClaims: Claim[] = [
         type: 'identity_verification',
         status: 'valid',
         payload: { confidence: 0.96, method: 'cv_embedding' },
-        createdAt: '2024-08-05T09:20:00Z'
+        createdAt: '2025-08-05T09:20:00Z'
       }
     ],
     fraudScore: 0.05,
@@ -175,10 +175,10 @@ export const mockClaims: Claim[] = [
 export const mockApiResponses = {
   summarize: {
     summary: [
-      "Coverage includes accidents, illnesses, and emergency care up to ฿100,000 annually",
+      "Coverage includes accidents, illnesses, and emergency care up to $2,850 annually",
       "30-day waiting period for illness claims, no waiting for accidents",
       "Pre-existing conditions are excluded from coverage",
-      "Annual premium: ฿12,000 with ฿500 deductible per claim",
+      "Annual premium: $340 with $15 deductible per claim",
       "Claims processed within 5-7 business days with complete documentation",
       "Vet network includes 500+ certified clinics across Thailand"
     ],
@@ -197,8 +197,8 @@ export const mockApiResponses = {
   
   ocrExtract: {
     text: `Bangkok Animal Hospital
-    Invoice #: BAH-2024-08-001
-    Date: August 10, 2024
+    Invoice #: BAH-2025-08-001
+    Date: August 10, 2025
     Patient: Mali (Golden Retriever)
     Owner: Jun Nakamura
     
@@ -210,10 +210,10 @@ export const mockApiResponses = {
     
     Total: ฿15,000`,
     items: [
-      { description: 'Emergency consultation', amount: 1500, category: 'consultation' },
-      { description: 'Gastric torsion surgery', amount: 12000, category: 'surgery' },
-      { description: 'Anesthesia', amount: 1000, category: 'medication' },
-      { description: 'Post-op medications', amount: 500, category: 'medication' }
+      { description: 'Emergency consultation', amount: 42, category: 'consultation' },
+      { description: 'Gastric torsion surgery', amount: 340, category: 'surgery' },
+      { description: 'Anesthesia', amount: 28, category: 'medication' },
+      { description: 'Post-op medications', amount: 14, category: 'medication' }
     ],
     vendor: 'Bangkok Animal Hospital',
     confidence: 0.97
@@ -222,7 +222,7 @@ export const mockApiResponses = {
   fraudEvaluate: {
     fraud_score: 0.15,
     flags: ['high_amount'],
-    explanation_localized: 'This claim shows a high treatment amount (฿15,000) which is above average for this condition, but other indicators suggest legitimate medical necessity. The timing and AI analysis support the claim validity.',
+    explanation_localized: 'This claim shows a reasonable treatment amount ($420) which is within normal range for this condition, and all other indicators suggest legitimate medical necessity. The timing and AI analysis support the claim validity.',
     risk_level: 'low' as const
   },
   
@@ -250,7 +250,7 @@ export const mockApiResponses = {
     answer: 'In Thailand, you have the right to dispute claim decisions through our internal appeals process. You can: 1) Submit a written appeal within 30 days, 2) Request an independent medical review, 3) Contact the Office of Insurance Commission (OIC) if needed. We must respond to appeals within 15 business days.',
     sources: [
       'Insurance Act B.E. 2535, Section 23',
-      'Pet Insurance Regulations 2023, Article 15',
+      'Pet Insurance Regulations 2025, Article 15',
       'Consumer Protection Guidelines for Insurance'
     ]
   }

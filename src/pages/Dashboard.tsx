@@ -122,7 +122,7 @@ const Dashboard = () => {
       status: 'Healthy',
       coverage: '$4,500',
       remaining: '$3,250',
-      lastCheckup: '2024-07-15',
+      lastCheckup: '2025-07-15',
       nextCheckup: '2025-01-15',
       policyType: 'Premium Plus'
     },
@@ -136,7 +136,7 @@ const Dashboard = () => {
       status: 'Recently Vaccinated',
       coverage: '$3,000',
       remaining: '$2,820',
-      lastCheckup: '2024-08-18',
+      lastCheckup: '2025-10-18',
       nextCheckup: '2025-02-18',
       policyType: 'Standard'
     },
@@ -150,7 +150,7 @@ const Dashboard = () => {
       status: 'New Policy',
       coverage: '$2,500',
       remaining: '$2,500',
-      lastCheckup: '2024-08-10',
+      lastCheckup: '2025-09-10',
       nextCheckup: '2025-08-10',
       policyType: 'Basic'
     }

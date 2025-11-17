@@ -86,7 +86,7 @@ const AIAssistant = () => {
     { 
       icon: FileText, 
       label: t('ai.actions.claim_status', 'Claim Status Update'), 
-      prompt: t('ai.prompts.claim_status', 'What is the status of my gastric torsion claim CLM-2024-08-19-001?') 
+      prompt: t('ai.prompts.claim_status', 'What is the status of my gastric torsion claim CLM-2025-11-15-001?') 
     },
     { 
       icon: Heart, 
@@ -126,26 +126,26 @@ const AIAssistant = () => {
   ];
 
   const mockResponses = [
-    "Your Premium Plus policy provides excellent coverage for Mali's emergency surgery:\n\n✅ **Emergency Surgery Coverage**: Up to $4,500 annually\n✅ **Gastric Torsion**: Specifically covered as life-threatening condition\n✅ **Deductible**: $25 per incident\n✅ **Reimbursement**: 90% after deductible\n\n**Your Current Status:**\n🐕 Mali (Golden Retriever) - Identity Verified (94%)\n💰 Remaining Coverage: $3,250 of $4,500\n⚡ Claim Processing: Expedited for emergencies\n\nExpected payout for $1,250 claim: $1,102.50 (after $25 deductible + 10% copay)",
+    "Your Premium Plus policy provides excellent coverage for Mali's emergency surgery:\n\n✅ **Emergency Surgery Coverage**: Up to $2,850 annually\n✅ **Gastric Torsion**: Specifically covered as life-threatening condition\n✅ **Deductible**: $15 per incident\n✅ **Reimbursement**: 90% after deductible\n\n**Your Current Status:**\n🐕 Mali (Golden Retriever) - Identity Verified (94%)\n💰 Remaining Coverage: $2,050 of $2,850\n⚡ Claim Processing: Expedited for emergencies\n\nExpected payout for $420 claim: $364.50 (after $15 deductible + 10% copay)",
 
-    "**Claim Status: CLM-2024-08-19-001** 🔍\n\n**Current Stage**: Under Review (Day 1 of 3-5)\n**Pet**: Mali (Golden Retriever)\n**Condition**: Gastric Torsion Emergency\n**Amount**: $1,250.00\n\n**AI Analysis Results:**\n✅ Pet Identity Match: 94% (Excellent)\n✅ Fraud Risk Score: 15% (Very Low)\n✅ SEA-LION AI Verification: Approved ✓\n✅ Medical Necessity: Confirmed ✓\n✅ Network Provider: Bangkok Animal Emergency Hospital ✓\n\n**Next Steps:**\n📋 Final AI review (24-48 hrs)\n💰 Payment processing (2-3 business days)\n📧 You'll receive email updates at each stage\n\n**Estimated Completion**: August 22, 2024",
+    "**Claim Status: CLM-2025-11-15-001** 🔍\n\n**Current Stage**: Under Review (Day 1 of 3-5)\n**Pet**: Mali (Golden Retriever)\n**Condition**: Gastric Torsion Emergency\n**Amount**: $420.00\n\n**AI Analysis Results:**\n✅ Pet Identity Match: 94% (Excellent)\n✅ Fraud Risk Score: 15% (Very Low)\n✅ SEA-LION AI Verification: Approved ✓\n✅ Medical Necessity: Confirmed ✓\n✅ Network Provider: Bangkok Animal Emergency Hospital ✓\n\n**Next Steps:**\n📋 Final AI review (24-48 hrs)\n💰 Payment processing (2-3 business days)\n📧 You'll receive email updates at each stage\n\n**Estimated Completion**: November 18, 2025",
 
     "🚨 **EMERGENCY RESPONSE - Gastric Torsion (Bloat)**\n\n**IMMEDIATE ACTION REQUIRED:**\n1. 🏥 **Go to emergency vet NOW** - This is life-threatening\n2. 📞 **Call ahead**: Bangkok Animal Emergency Hospital: (02) 555-0123\n3. 🚗 **Transport carefully**: Keep Mali calm, minimal movement\n4. ❌ **DO NOT** induce vomiting or give water\n\n**Emergency Vets Within 10km:**\n🏥 Bangkok Animal Emergency Hospital (2.1km) - OPEN 24/7\n🏥 Thonglor Veterinary Emergency (3.8km) - OPEN 24/7\n🏥 Sukhumvit Emergency Clinic (5.2km) - OPEN 24/7\n\n**Your Insurance Coverage:**\n✅ Emergency surgery: Covered 90%\n✅ Pre-approval: Not required for emergencies\n✅ Direct billing: Available at all listed hospitals\n\n**Time is critical - GO NOW!** 🚨",
 
     "🏥 **24/7 Emergency Veterinarians in Bangkok**\n\n**Top Recommended (Your Insurance Accepted):**\n\n� **Bangkok Animal Emergency Hospital**\n📍 123 Sukhumvit Rd, Klongtoei (2.1km)\n⭐ 4.9/5 stars (2,847 reviews)\n💰 Direct billing available\n🕐 24/7 Emergency & Surgery\n📞 Emergency: (02) 555-0123\n\n� **Thonglor Veterinary Emergency Center**\n📍 456 Thonglor Rd, Watthana (3.8km)\n⭐ 4.8/5 stars (1,923 reviews)\n💰 Direct billing available\n🕐 24/7 Emergency, Advanced Surgery\n📞 Emergency: (02) 555-0199\n\n� **Sukhumvit Emergency Animal Clinic**\n📍 789 Sukhumvit Rd, Khlong Tan (5.2km)\n⭐ 4.7/5 stars (1,567 reviews)\n💰 Direct billing available\n🕐 24/7 Emergency & Critical Care\n📞 Emergency: (02) 555-0156\n\n**Need directions or want me to call ahead?**",
 
-    "📅 **Scheduling Taro's Annual Wellness Checkup**\n\n**Recommended Services for British Shorthair (2y 8m):**\n✅ Complete physical examination\n✅ FVRCP booster vaccination\n✅ Rabies vaccination renewal\n✅ Dental health assessment\n✅ Weight and body condition evaluation\n✅ Parasite screening\n\n**Your Coverage (Standard Plan):**\n💰 Wellness exam: $85 (100% covered)\n💰 Vaccinations: $95 (100% covered)\n💰 Dental check: $45 (100% covered)\n**Total estimated: $225 (Fully covered!)**\n\n**Available Appointments:**\n📅 **This Week**: Aug 22 (Thu) 2:00 PM\n📅 **Next Week**: Aug 26 (Mon) 10:30 AM, Aug 28 (Wed) 3:15 PM\n\n**Preferred Clinic**: Phuket Veterinary Clinic\n📞 Would you like me to book the Thursday 2:00 PM slot?",
+    "📅 **Scheduling Taro's Annual Wellness Checkup**\n\n**Recommended Services for British Shorthair (2y 8m):**\n✅ Complete physical examination\n✅ FVRCP booster vaccination\n✅ Rabies vaccination renewal\n✅ Dental health assessment\n✅ Weight and body condition evaluation\n✅ Parasite screening\n\n**Your Coverage (Standard Plan):**\n💰 Wellness exam: $48 (100% covered)\n💰 Vaccinations: $54 (100% covered)\n💰 Dental check: $26 (100% covered)\n**Total estimated: $128 (Fully covered!)**\n\n**Available Appointments:**\n📅 **This Week**: Nov 21 (Thu) 2:00 PM\n📅 **Next Week**: Nov 25 (Mon) 10:30 AM, Nov 27 (Wed) 3:15 PM\n\n**Preferred Clinic**: Phuket Veterinary Clinic\n📞 Would you like me to book the Thursday 2:00 PM slot?",
 
-    "🔍 **Invoice Analysis: Bangkok Animal Emergency Hospital**\n\n**Invoice Details:**\n📋 Invoice #: BAH-2024-08-19-001\n🗓️ Date: August 19, 2024\n🐕 Patient: Mali (Golden Retriever)\n💰 Total: $1,250.00\n\n**AI Fraud Detection Analysis:**\n✅ **Clinic Verification**: Network provider ✓\n✅ **Price Analysis**: Within normal range for gastric torsion surgery\n✅ **Service Codes**: All legitimate and necessary\n✅ **Duplicate Check**: No duplicate charges found\n✅ **Timeline**: Consistent with emergency nature\n\n**Line Item Review:**\n• Emergency consultation: $125 ✓ (Standard: $100-$150)\n• Pre-surgical bloodwork: $185 ✓ (Standard: $150-$200)\n• Anesthesia & monitoring: $220 ✓ (Standard: $200-$250)\n• Gastric torsion surgery: $620 ✓ (Standard: $550-$700)\n• Post-op medications: $85 ✓ (Standard: $70-$100)\n• Recovery monitoring: $15 ✓ (Standard: $10-$25)\n\n**Final Assessment:**\n🟢 **Fraud Risk**: Very Low (8%)\n🟢 **Pricing**: Fair and appropriate\n🟢 **Recommendation**: Approve for full processing\n\n**Expected payout**: $1,102.50 (after $25 deductible)"
+    "🔍 **Invoice Analysis: Bangkok Animal Emergency Hospital**\n\n**Invoice Details:**\n📋 Invoice #: BAH-2025-11-15-001\n🗓️ Date: November 15, 2025\n🐕 Patient: Mali (Golden Retriever)\n💰 Total: $420.00\n\n**AI Fraud Detection Analysis:**\n✅ **Clinic Verification**: Network provider ✓\n✅ **Price Analysis**: Within normal range for gastric torsion surgery\n✅ **Service Codes**: All legitimate and necessary\n✅ **Duplicate Check**: No duplicate charges found\n✅ **Timeline**: Consistent with emergency nature\n\n**Line Item Review:**\n• Emergency consultation: $42 ✓ (Standard: $35-$50)\n• Pre-surgical bloodwork: $52 ✓ (Standard: $45-$60)\n• Anesthesia & monitoring: $62 ✓ (Standard: $55-$70)\n• Gastric torsion surgery: $245 ✓ (Standard: $200-$280)\n• Post-op medications: $16 ✓ (Standard: $12-$18)\n• Recovery monitoring: $3 ✓ (Standard: $2-$5)\n\n**Final Assessment:**\n🟢 **Fraud Risk**: Very Low (8%)\n🟢 **Pricing**: Fair and appropriate\n🟢 **Recommendation**: Approve for full processing\n\n**Expected payout**: $364.50 (after $15 deductible)"
   ];
 
   // Auto-scroll to bottom with improved performance
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = useCallback((smooth: boolean = true) => {
     if (messagesEndRef.current) {
       // Use requestAnimationFrame for smoother scrolling
       requestAnimationFrame(() => {
         messagesEndRef.current?.scrollIntoView({ 
-          behavior: 'smooth',
+          behavior: smooth ? 'smooth' : 'auto',
           block: 'end'
         });
       });
@@ -338,6 +338,9 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
                 : msg
             )
           );
+          
+          // Continuously scroll to bottom during streaming (instant scroll)
+          scrollToBottom(false);
         } else {
           clearInterval(streamInterval);
           // Final update to remove typing indicator
@@ -348,6 +351,8 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
                 : msg
             )
           );
+          // Final scroll to ensure we're at the bottom
+          setTimeout(scrollToBottom, 100);
         }
       }, 20); // Faster streaming for better UX
 
@@ -656,7 +661,11 @@ ${mockResponses[Math.floor(Math.random() * mockResponses.length)]}`;
                   {quickActions.map((action, index) => (
                     <button
                       key={index}
-                      onClick={() => sendMessage(action.prompt)}
+                      onClick={() => {
+                        sendMessage(action.prompt);
+                        // Scroll to bottom when quick action is clicked
+                        setTimeout(() => scrollToBottom(), 100);
+                      }}
                       className="w-full p-3 text-left rounded-xl bg-white/30 hover:bg-white/50 transition-all border border-white/20 hover:border-petinsure-teal-200 aura-teal-subtle"
                     >
                       <div className="flex items-center gap-3">

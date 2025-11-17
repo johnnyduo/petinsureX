@@ -181,8 +181,8 @@ const Policies = () => {
       ageMonths: 38,
       vaccinated: true,
       photos: ['/mock-mali1.jpg', '/mock-mali2.jpg'],
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-08-19T00:00:00Z'
+      createdAt: '2025-01-01T00:00:00Z',
+      updatedAt: '2025-11-15T00:00:00Z'
     },
     {
       id: 'pet-taro',
@@ -193,8 +193,8 @@ const Policies = () => {
       ageMonths: 32,
       vaccinated: true,
       photos: ['/mock-taro1.jpg', '/mock-taro2.jpg'],
-      createdAt: '2024-01-15T00:00:00Z',
-      updatedAt: '2024-08-18T00:00:00Z'
+      createdAt: '2025-01-15T00:00:00Z',
+      updatedAt: '2025-11-14T00:00:00Z'
     },
     {
       id: 'pet-luna',
@@ -205,8 +205,8 @@ const Policies = () => {
       ageMonths: 18,
       vaccinated: true,
       photos: ['/mock-luna1.jpg', '/mock-luna2.jpg'],
-      createdAt: '2024-08-05T00:00:00Z',
-      updatedAt: '2024-08-15T00:00:00Z'
+      createdAt: '2025-10-05T00:00:00Z',
+      updatedAt: '2025-11-13T00:00:00Z'
     }
   ];  const getStatusColor = (status: string) => {
     switch (status) {

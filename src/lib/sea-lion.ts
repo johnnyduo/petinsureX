@@ -830,8 +830,9 @@ Write as if you're sitting with the customer, explaining the pros and cons of ea
     return `
 PETINSUREX PREMIUM PLUS POLICY TERMS & CONDITIONS
 
-Policy Number: PX-2024-001234
-Effective Date: January 1, 2024
+Pet: Max (Golden Retriever, 3 years old)
+Policy Number: PX-2025-001234
+Effective Date: January 1, 2025
 Renewal Date: January 1, 2025
 
 COVERAGE SUMMARY:

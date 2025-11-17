@@ -1193,11 +1193,11 @@ class TranslationService {
       {
         key: 'ai.prompts.claim_status',
         translations: {
-          en: 'What is the status of my gastric torsion claim CLM-2024-08-19-001?',
-          th: 'สถานะของการเคลม gastric torsion CLM-2024-08-19-001 ของฉันเป็นอย่างไร?',
-          singlish: 'What\'s the status of my gastric torsion claim CLM-2024-08-19-001?',
-          ms: 'Apakah status tuntutan gastric torsion saya CLM-2024-08-19-001?',
-          id: 'Bagaimana status klaim gastric torsion saya CLM-2024-08-19-001?'
+          en: 'What is the status of my gastric torsion claim CLM-2025-11-15-001?',
+          th: 'สถานะของการเคลม gastric torsion CLM-2025-11-15-001 ของฉันเป็นอย่างไร?',
+          singlish: 'What\'s the status of my gastric torsion claim CLM-2025-11-15-001?',
+          ms: 'Apakah status tuntutan gastric torsion saya CLM-2025-11-15-001?',
+          id: 'Bagaimana status klaim gastric torsion saya CLM-2025-11-15-001?'
         }
       },
       {
