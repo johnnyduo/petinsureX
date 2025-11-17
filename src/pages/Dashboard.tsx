@@ -820,7 +820,8 @@ const Dashboard = () => {
         isOpen={showPhotoModal}
         onClose={resetPhotoModal}
         title={`${t('modal.photos.title')} - Step ${photoStep + 1} of 3`}
-        size="lg"
+        size="md"
+        className="max-h-[85vh]"
       >
         <div className="space-y-6">
           {/* Progress Indicator */}
@@ -850,40 +851,39 @@ const Dashboard = () => {
           {/* Step Content */}
           {photoStep === 0 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Pet for Photo Update</h3>
-              <div className="grid grid-cols-1 gap-3">
+              <h3 className="text-lg font-semibold text-gray-900">Select Pet for Photo Update</h3>
+              <div className="grid grid-cols-1 gap-2">
                 {pets.map((pet) => (
                   <button
                     key={pet.id}
                     onClick={() => setSelectedPhotoPet(pet.id.toString())}
                     className={cn(
-                      "p-4 rounded-xl border text-left transition-all",
+                      "p-3 rounded-lg border text-left transition-all",
                       selectedPhotoPet === pet.id.toString()
                         ? "border-petinsure-teal-300 bg-petinsure-teal-50"
                         : "border-gray-200 hover:border-gray-300"
                     )}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{pet.avatar}</span>
-                      <div className="flex-1">
-                        <p className="font-medium text-gray-900">{pet.name}</p>
-                        <p className="text-sm text-gray-600">{pet.breed} • {pet.age}</p>
-                        <p className="text-sm text-gray-500">Last photo update: 3 months ago</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">{pet.avatar}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900 text-sm">{pet.name}</p>
+                        <p className="text-xs text-gray-600 truncate">{pet.breed} • {pet.age}</p>
                       </div>
                       {selectedPhotoPet === pet.id.toString() && (
-                        <CheckCircle size={20} className="text-petinsure-teal-600" />
+                        <CheckCircle size={18} className="text-petinsure-teal-600 flex-shrink-0" />
                       )}
                     </div>
                   </button>
                 ))}
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <Camera size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div className="text-sm text-blue-800">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="flex items-start gap-2">
+                  <Camera size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="text-xs text-blue-800">
                     <p className="font-medium mb-1">Why Update Photos?</p>
-                    <p>Regular photo updates help our AI system accurately identify your pet and prevent claim fraud. We recommend updating photos every 6 months or after significant appearance changes.</p>
+                    <p>Regular updates help our AI identify your pet accurately. Update every 6 months or after appearance changes.</p>
                   </div>
                 </div>
               </div>
@@ -891,21 +891,19 @@ const Dashboard = () => {
           )}
 
           {photoStep === 1 && (
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload New Photos</h3>
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900">Upload New Photos</h3>
               
               <div className="space-y-4">
-                <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-                  <div className="flex items-start gap-3">
-                    <AlertCircle size={18} className="text-yellow-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-yellow-800">
-                      <p className="font-medium mb-2">Photo Guidelines for Best Results:</p>
-                      <ul className="space-y-1 ml-4">
-                        <li>• Take 4 photos: front view, left side, right side, and full body</li>
-                        <li>• Ensure good lighting (natural light preferred)</li>
-                        <li>• Keep your pet still and looking at the camera</li>
-                        <li>• Clear, unobstructed view of your pet</li>
-                        <li>• No filters, decorations, or other pets in the photo</li>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle size={16} className="text-yellow-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-yellow-800">
+                      <p className="font-medium mb-1">Photo Guidelines:</p>
+                      <ul className="space-y-0.5 ml-3">
+                        <li>• 4 photos: front, left, right, full body</li>
+                        <li>• Good lighting, clear view</li>
+                        <li>• No filters or other pets</li>
                       </ul>
                     </div>
                   </div>
@@ -943,13 +941,13 @@ const Dashboard = () => {
           )}
 
           {photoStep === 2 && (
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Review & Submit</h3>
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900">Review & Submit</h3>
               
-              <div className="space-y-4">
-                <GlassCard variant="solid" className="p-4">
-                  <h4 className="font-medium text-gray-900 mb-3">Photo Update Summary</h4>
-                  <div className="space-y-2 text-sm">
+              <div className="space-y-3">
+                <GlassCard variant="solid" className="p-3">
+                  <h4 className="font-medium text-gray-900 mb-2 text-sm">Photo Update Summary</h4>
+                  <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Pet:</span>
                       <span className="font-medium text-gray-900">
@@ -967,12 +965,12 @@ const Dashboard = () => {
                   </div>
                 </GlassCard>
 
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-green-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-green-800">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle size={16} className="text-green-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-green-800">
                       <p className="font-medium mb-1">Ready to Process</p>
-                      <p>Your photos will be analyzed by our AI system to update your pet's identity profile. This helps ensure accurate claim processing and fraud prevention.</p>
+                      <p>Photos will be analyzed by our AI to update your pet's identity profile for accurate claim processing.</p>
                     </div>
                   </div>
                 </div>

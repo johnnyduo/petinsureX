@@ -488,6 +488,7 @@ const PetIdentity = () => {
         }}
         title={t('pet_identity.scan_title')}
         size="md"
+        className="max-h-[90vh]"
       >
         <div className="space-y-4 sm:space-y-6">
           {!scanResults && !isScanning && (
@@ -808,80 +809,80 @@ const PetIdentity = () => {
           )}
 
           {scanResults && (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div className="text-center">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle size={40} className="text-green-600" />
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <CheckCircle size={32} className="text-green-600" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-gray-900 mb-2">{t('pet_identity.scan_complete')}</h3>
-                <p className="text-gray-600">{t('pet_identity.scan_complete_desc')}</p>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-1">{t('pet_identity.scan_complete')}</h3>
+                <p className="text-sm text-gray-600">{t('pet_identity.scan_complete_desc')}</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
-                  <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.breed_detection_title')}</h4>
-                  <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <GlassCard className="p-3 aura-teal-glow" borderStyle="subtle">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">{t('pet_identity.breed_detection_title')}</h4>
+                  <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-900">{scanResults.breedDetection.primaryBreed}</span>
-                      <span className="text-sm font-medium text-green-600">{scanResults.breedDetection.confidence}%</span>
+                      <span className="font-medium text-gray-900 text-xs">{scanResults.breedDetection.primaryBreed}</span>
+                      <span className="text-xs font-medium text-green-600">{scanResults.breedDetection.confidence}%</span>
                     </div>
-                    {scanResults.breedDetection.secondaryBreeds.map((breed: any, index: number) => (
-                      <div key={index} className="flex items-center justify-between text-sm">
-                        <span className="text-gray-600">{breed.breed}</span>
-                        <span className="text-gray-500">{breed.confidence}%</span>
+                    {scanResults.breedDetection.secondaryBreeds.slice(0, 3).map((breed: any, index: number) => (
+                      <div key={index} className="flex items-center justify-between text-xs">
+                        <span className="text-gray-600 truncate pr-2">{breed.breed}</span>
+                        <span className="text-gray-500 flex-shrink-0">{breed.confidence}%</span>
                       </div>
                     ))}
                   </div>
                 </GlassCard>
 
-                <GlassCard className="p-4 aura-teal-glow" borderStyle="subtle">
-                  <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.uniqueness_score')}</h4>
+                <GlassCard className="p-3 aura-teal-glow" borderStyle="subtle">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">{t('pet_identity.uniqueness_score')}</h4>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-petinsure-teal-600 mb-2">
+                    <div className="text-2xl font-bold text-petinsure-teal-600 mb-1">
                       {scanResults.uniquenessScore}%
                     </div>
-                    <p className="text-sm text-gray-600">{t('pet_identity.highly_unique')}</p>
+                    <p className="text-xs text-gray-600">{t('pet_identity.highly_unique')}</p>
                   </div>
                 </GlassCard>
               </div>
 
-              <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
-                <h4 className="font-semibold text-gray-900 mb-3">{t('pet_identity.unique_markers_detected')}</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <GlassCard className="p-3 aura-teal-prominent" borderStyle="subtle">
+                <h4 className="font-semibold text-gray-900 mb-2 text-sm">{t('pet_identity.unique_markers_detected')}</h4>
+                <div className="grid grid-cols-2 gap-1.5">
                   {scanResults.breedDetection.uniqueMarkers.map((marker: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2 p-2 bg-petinsure-teal-50 rounded-lg border border-petinsure-teal-200/50 aura-teal-subtle">
-                      <Star size={16} className="text-petinsure-teal-600" />
-                      <span className="text-sm text-petinsure-teal-800">{marker}</span>
+                    <div key={index} className="flex items-center gap-1.5 p-1.5 bg-petinsure-teal-50 rounded-lg border border-petinsure-teal-200/50 aura-teal-subtle">
+                      <Star size={12} className="text-petinsure-teal-600 flex-shrink-0" />
+                      <span className="text-xs text-petinsure-teal-800 truncate">{marker}</span>
                     </div>
                   ))}
                 </div>
               </GlassCard>
 
-              <GlassCard className="p-4 aura-teal-prominent" borderStyle="subtle">
-                <h4 className="font-semibold text-gray-900 mb-3">Health Assessment</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 text-sm">
-                  <div className="flex justify-between sm:flex-col">
-                    <span className="text-gray-600">Eye Clarity:</span>
-                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.eyeClarity}</span>
+              <GlassCard className="p-3 aura-teal-prominent" borderStyle="subtle">
+                <h4 className="font-semibold text-gray-900 mb-2 text-sm">Health Assessment</h4>
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  <div className="text-center">
+                    <div className="text-gray-600 mb-0.5">Eye Clarity</div>
+                    <div className="font-medium text-green-600">{scanResults.healthIndicators.eyeClarity}</div>
                   </div>
-                  <div className="flex justify-between sm:flex-col">
-                    <span className="text-gray-600">Coat Condition:</span>
-                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.coatCondition}</span>
+                  <div className="text-center">
+                    <div className="text-gray-600 mb-0.5">Coat</div>
+                    <div className="font-medium text-green-600">{scanResults.healthIndicators.coatCondition}</div>
                   </div>
-                  <div className="flex justify-between sm:flex-col">
-                    <span className="text-gray-600">Posture:</span>
-                    <span className="ml-2 sm:ml-0 font-medium text-green-600">{scanResults.healthIndicators.posture}</span>
+                  <div className="text-center">
+                    <div className="text-gray-600 mb-0.5">Posture</div>
+                    <div className="font-medium text-green-600">{scanResults.healthIndicators.posture}</div>
                   </div>
                 </div>
               </GlassCard>
 
-              <div className="p-4 bg-green-50 rounded-xl border border-green-200">
-                <p className="text-sm text-green-800">
-                  <strong>Analysis Complete:</strong> {scanResults.breedDetection.analysis}
+              <div className="p-2.5 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-xs text-green-800">
+                  <strong>Analysis:</strong> {scanResults.breedDetection.analysis}
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <div className="flex gap-2 pt-2">
                 <PawButton variant="ghost" className="flex-1" onClick={() => {
                   setShowScanModal(false);
                   setScanResults(null);
@@ -895,9 +896,8 @@ const PetIdentity = () => {
                   setScanResults(null);
                   resetCapture();
                 }}>
-                  <CheckCircle size={16} />
-                  <span className="hidden sm:inline">Save to Profile</span>
-                  <span className="sm:hidden">Save</span>
+                  <CheckCircle size={14} />
+                  <span>Save to Profile</span>
                 </PawButton>
               </div>
             </div>
