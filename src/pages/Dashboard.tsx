@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/glass-card';
 import { PawButton } from '@/components/ui/paw-button';
@@ -18,14 +18,14 @@ import {
   TrendingUp,
   Heart,
   Zap,
+  Check,
+  X,
   Upload,
   DollarSign,
   Calendar,
   User,
   ChevronRight,
   ChevronLeft,
-  Check,
-  X,
   AlertCircle
 } from 'lucide-react';
 
@@ -33,6 +33,8 @@ const Dashboard = () => {
   const { t } = useTranslation();
   const [showClaimModal, setShowClaimModal] = useState(false);
   const [showPhotoModal, setShowPhotoModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [showWelcomeAlert, setShowWelcomeAlert] = useState(false);
   
   // Quick Claim Modal States
   const [claimStep, setClaimStep] = useState(0);
@@ -52,6 +54,29 @@ const Dashboard = () => {
   const [photoStep, setPhotoStep] = useState(0);
   const [selectedPhotoPet, setSelectedPhotoPet] = useState('');
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
+
+  // Check for newly added pet and show welcome message
+  useEffect(() => {
+    const lastAddedPet = localStorage.getItem('lastAddedPet');
+    if (lastAddedPet) {
+      setShowWelcomeAlert(true);
+      // Clear the flag after showing
+      setTimeout(() => {
+        localStorage.removeItem('lastAddedPet');
+        setShowWelcomeAlert(false);
+      }, 5000);
+    }
+  }, []);
+
+  // Listen for storage changes to refresh pets list
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setRefreshKey(prev => prev + 1);
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const stats = [
     { label: t('dashboard.stats.active_policies'), value: '3', icon: Shield, color: 'text-blue-600', change: '+1 this month' },
@@ -111,50 +136,86 @@ const Dashboard = () => {
       amount: '$234',
       details: 'Policy #POL-LUNA-2025'
     }
-  ];  const pets = [
-    {
-      id: 1,
-      name: 'Mali',
-      species: 'Dog',
-      breed: 'Golden Retriever',
-      age: '3 years 2 months',
-      avatar: '🐕',
-      status: 'Healthy',
-      coverage: '$4,500',
-      remaining: '$3,250',
-      lastCheckup: '2025-07-15',
-      nextCheckup: '2025-01-15',
-      policyType: 'Premium Plus'
-    },
-    {
-      id: 2,
-      name: 'Taro',
-      species: 'Cat',
-      breed: 'British Shorthair',
-      age: '2 years 8 months',
-      avatar: '🐱',
-      status: 'Recently Vaccinated',
-      coverage: '$3,000',
-      remaining: '$2,820',
-      lastCheckup: '2025-10-18',
-      nextCheckup: '2025-02-18',
-      policyType: 'Standard'
-    },
-    {
-      id: 3,
-      name: 'Luna',
-      species: 'Cat',
-      breed: 'Ragdoll',
-      age: '1 year 6 months',
-      avatar: '🐈',
-      status: 'New Policy',
-      coverage: '$2,500',
-      remaining: '$2,500',
-      lastCheckup: '2025-09-10',
-      nextCheckup: '2025-08-10',
-      policyType: 'Basic'
-    }
   ];
+
+  // Load pets from localStorage and merge with mock data
+  const loadPets = () => {
+    const mockPets = [
+      {
+        id: 1,
+        name: 'Mali',
+        species: 'Dog',
+        breed: 'Golden Retriever',
+        age: '3 years 2 months',
+        avatar: '🐕',
+        status: 'Healthy',
+        coverage: '$4,500',
+        remaining: '$3,250',
+        lastCheckup: '2025-07-15',
+        nextCheckup: '2025-01-15',
+        policyType: 'Premium Plus'
+      },
+      {
+        id: 2,
+        name: 'Taro',
+        species: 'Cat',
+        breed: 'British Shorthair',
+        age: '2 years 8 months',
+        avatar: '🐱',
+        status: 'Recently Vaccinated',
+        coverage: '$3,000',
+        remaining: '$2,820',
+        lastCheckup: '2025-10-18',
+        nextCheckup: '2025-02-18',
+        policyType: 'Standard'
+      },
+      {
+        id: 3,
+        name: 'Luna',
+        species: 'Cat',
+        breed: 'Ragdoll',
+        age: '1 year 6 months',
+        avatar: '🐈',
+        status: 'New Policy',
+        coverage: '$2,500',
+        remaining: '$2,500',
+        lastCheckup: '2025-09-10',
+        nextCheckup: '2025-08-10',
+        policyType: 'Basic'
+      }
+    ];
+
+    // Get newly added pets from localStorage
+    const userPets = JSON.parse(localStorage.getItem('userPets') || '[]');
+    const userPolicies = JSON.parse(localStorage.getItem('userPolicies') || '[]');
+
+    // Transform user pets to dashboard format
+    const transformedUserPets = userPets.map((pet: any) => {
+      const policy = userPolicies.find((p: any) => p.petId === pet.id);
+      const ageYears = Math.floor(pet.ageMonths / 12);
+      const ageMonths = pet.ageMonths % 12;
+      const ageString = ageMonths > 0 ? `${ageYears} years ${ageMonths} months` : `${ageYears} years`;
+      
+      return {
+        id: pet.id,
+        name: pet.name,
+        species: pet.species.charAt(0).toUpperCase() + pet.species.slice(1),
+        breed: pet.breed,
+        age: ageString,
+        avatar: pet.species === 'dog' ? '🐕' : '🐱',
+        status: pet.vaccinated ? 'Vaccinated' : 'Pending Vaccination',
+        coverage: policy ? `$${policy.coverageLimit}` : '$0',
+        remaining: policy ? `$${policy.remaining}` : '$0',
+        lastCheckup: new Date(pet.createdAt).toISOString().split('T')[0],
+        nextCheckup: new Date(new Date(pet.createdAt).setFullYear(new Date(pet.createdAt).getFullYear() + 1)).toISOString().split('T')[0],
+        policyType: policy ? policy.provider.replace('PetInsureX ', '') : 'No Policy'
+      };
+    });
+
+    return [...mockPets, ...transformedUserPets];
+  };
+
+  const pets = loadPets();
 
   // Handler functions
   const resetClaimModal = () => {
@@ -217,6 +278,33 @@ const Dashboard = () => {
               {t('dashboard.welcome_subtitle')}
             </p>
           </div>
+
+          {/* Welcome Alert for New Pet */}
+          {showWelcomeAlert && (() => {
+            const lastAddedPet = JSON.parse(localStorage.getItem('lastAddedPet') || '{}');
+            return (
+              <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-start gap-3 animate-slide-in">
+                <div className="p-2 bg-green-100 rounded-full">
+                  <Check size={20} className="text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-green-900 text-lg">
+                    Welcome {lastAddedPet.name}! 🎉
+                  </h3>
+                  <p className="text-green-700 text-sm mt-1">
+                    Your {lastAddedPet.species} has been successfully registered and your policy is now active. 
+                    You can start submitting claims right away!
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setShowWelcomeAlert(false)}
+                  className="p-1 hover:bg-green-100 rounded-lg transition-colors"
+                >
+                  <X size={18} className="text-green-600" />
+                </button>
+              </div>
+            );
+          })()}
 
           {/* Stats Grid with enhanced borders and teal aura */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">

@@ -36,6 +36,71 @@ const Onboarding = () => {
     paymentFrequency: 'monthly'
   });
 
+  // Save pet data to localStorage when completing onboarding
+  const savePetData = () => {
+    const newPet = {
+      id: `pet-${Date.now()}`,
+      ownerId: 'user-1',
+      name: formData.petName,
+      species: formData.species,
+      breed: formData.breed || 'Mixed',
+      ageMonths: parseInt(formData.age) * 12 || 24,
+      vaccinated: formData.vaccinated,
+      embeddingsId: `emb-${formData.petName.toLowerCase()}-001`,
+      photos: petPhotos.length > 0 ? petPhotos : [
+        `/mock-${formData.petName.toLowerCase()}1.jpg`,
+        `/mock-${formData.petName.toLowerCase()}2.jpg`,
+        `/mock-${formData.petName.toLowerCase()}3.jpg`,
+        `/mock-${formData.petName.toLowerCase()}4.jpg`
+      ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    // Get existing pets from localStorage or use empty array
+    const existingPets = JSON.parse(localStorage.getItem('userPets') || '[]');
+    
+    // Add new pet
+    const updatedPets = [...existingPets, newPet];
+    
+    // Save to localStorage
+    localStorage.setItem('userPets', JSON.stringify(updatedPets));
+    localStorage.setItem('lastAddedPet', JSON.stringify(newPet));
+
+    // Create policy for the new pet
+    const coverageLimits: Record<string, number> = {
+      basic: 1430,
+      standard: 2140,
+      premium: 2850
+    };
+
+    const premiums: Record<string, number> = {
+      basic: 230,
+      standard: 285,
+      premium: 340
+    };
+
+    const newPolicy = {
+      id: `policy-${Date.now()}`,
+      petId: newPet.id,
+      provider: `PetInsureX ${formData.selectedPlan.charAt(0).toUpperCase() + formData.selectedPlan.slice(1)}`,
+      coverageLimit: coverageLimits[formData.selectedPlan] || 2140,
+      remaining: coverageLimits[formData.selectedPlan] || 2140,
+      premium: premiums[formData.selectedPlan] || 285,
+      start: new Date().toISOString(),
+      end: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
+      status: 'active',
+      createdAt: new Date().toISOString()
+    };
+
+    // Save policy
+    const existingPolicies = JSON.parse(localStorage.getItem('userPolicies') || '[]');
+    const updatedPolicies = [...existingPolicies, newPolicy];
+    localStorage.setItem('userPolicies', JSON.stringify(updatedPolicies));
+
+    console.log('✅ Pet and policy saved successfully:', { newPet, newPolicy });
+  };
+
   const steps = [
     {
       id: 'profile',
@@ -81,6 +146,11 @@ const Onboarding = () => {
         alert('Please select a coverage plan');
         return;
       }
+    }
+    
+    // Save pet data when completing consent step (step 3, going to step 4)
+    if (currentStep === 3) {
+      savePetData();
     }
     
     if (currentStep < steps.length - 1) {
