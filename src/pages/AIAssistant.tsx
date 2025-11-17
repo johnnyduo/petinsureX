@@ -63,14 +63,31 @@ const AIAssistant = () => {
     return baseMessage;
   };
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      type: 'assistant',
-      content: getWelcomeMessage(),
-      timestamp: new Date()
+  // Load messages from localStorage or initialize with welcome message
+  const loadMessages = () => {
+    const stored = localStorage.getItem('aiChatMessages');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        return parsed.map((msg: any) => ({
+          ...msg,
+          timestamp: new Date(msg.timestamp)
+        }));
+      } catch (e) {
+        console.error('Failed to parse stored messages:', e);
+      }
     }
-  ]);
+    return [
+      {
+        id: '1',
+        type: 'assistant',
+        content: getWelcomeMessage(),
+        timestamp: new Date()
+      }
+    ];
+  };
+
+  const [messages, setMessages] = useState<Message[]>(loadMessages());
   const [inputMessage, setInputMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -161,6 +178,13 @@ const AIAssistant = () => {
 
     return () => clearTimeout(timeoutId);
   }, [messages, scrollToBottom]);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('aiChatMessages', JSON.stringify(messages));
+    }
+  }, [messages]);
 
   const sendMessage = useCallback(async (content?: string) => {
     const messageContent = content || inputMessage.trim();
